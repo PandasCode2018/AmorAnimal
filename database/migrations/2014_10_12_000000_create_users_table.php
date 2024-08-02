@@ -13,14 +13,25 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->uuid('uuid')->nullable(false)->unique();
+            $table->foreignId('company_id')->nullable()->constrained('companies')->onDelete('set null');
+            $table->string('name')->nullable(false);
+            $table->string('email')->unique()->nullable(false);
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('document_number')->nullable(false)->unique();
+            $table->string('password')->nullable(false);
+            $table->string('phone', 15)->nullable(false);
+            $table->string('address', 100)->nullable(false);
+            $table->string('qualification', 100)->nullable();
+            $table->string('specialty', 100)->nullable();
+            $table->string('license_number', 100)->nullable();
+            $table->string('years_experience', 100)->nullable();
+            $table->string('photo', 245)->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

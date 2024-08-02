@@ -1,3 +1,8 @@
+/* Importa tus archivos CSS adicionales primero */
+@import 'all.css';
+@import 'styles.css';
+
+/* Luego incluye las directivas de Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
