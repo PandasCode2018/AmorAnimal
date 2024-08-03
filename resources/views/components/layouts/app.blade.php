@@ -25,7 +25,7 @@
     <x-banner />
 
     <div class="mx-auto bg-grey-400">
-        {{--      @livewire('navigation-menu') --}}
+        {{--  @livewire('navigation-menu') --}}
         <div class="min-h-screen flex flex-col">
 
             <!--Header -->
@@ -80,49 +80,62 @@
                     <ul class="list-reset flex flex-col">
 
                         <li class="w-full h-full py-3 px-2 border-b border-light-border">
-                            <a href="index.html"
+                            <a href="{{route('dashboard')}}"
                                 class="flex items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
-                                <i class="fas fa-user mr-2"></i>
-                                Usuario
+                                <i class="fa-solid fa-house mr-2"></i>
+                                Inicio
                             </a>
                         </li>
                         <li class="w-full h-full py-3 px-2 border-b border-light-border">
-                            <a href="index.html"
+                            <a href="{{route('users.index')}}"
+                                class="flex items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                                <i class="fas fa-user mr-2"></i>
+                                Usuarios
+                            </a>
+                        </li>
+                        <li class="w-full h-full py-3 px-2 border-b border-light-border">
+                            <a href="#"
                                 class="flex items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
                                 <i class="fas fa-user-tag mr-2"></i>
                                 Roles
                             </a>
                         </li>
                         <li class="w-full h-full py-3 px-2 border-b border-light-border">
-                            <a href="index.html"
+                            <a href="#"
                                 class="flex items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
                                 <i class="fas fa-users mr-2"></i>
-                                Responsable
+                                Responsables
                             </a>
                         </li>
                         <li class="w-full h-full py-3 px-2 border-b border-light-border">
-                            <a href="index.html"
+                            <a href="#"
                                 class="flex items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
                                 <i class="fas fa-paw mr-2"></i>
                                 Animales
                             </a>
                         </li>
                         <li class="w-full h-full py-3 px-2 border-b border-light-border">
-                            <a href="index.html"
+                            <a href="#"
                                 class="flex items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
-                                <i class="fas fa-search mr-2"></i>
-                                Consulta
+                                <i class="fas fa-stethoscope mr-2"></i>
+                                Consultas
                             </a>
                         </li>
                         <li class="w-full h-full py-3 px-2 border-b border-light-border">
-                            <a href="index.html"
+                            <a href="{{route('audits.index')}}"
+                                class="flex items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                                <i class="fas fa-clipboard-check mr-2"></i> Auditoría
+                            </a>
+                        </li>
+                        <li class="w-full h-full py-3 px-2 border-b border-light-border">
+                            <a href="#"
                                 class="flex items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
                                 <i class="fas fa-file-alt mr-2"></i>
                                 Reportes
                             </a>
                         </li>
                         <li class="w-full h-full py-3 px-2 border-b border-light-border">
-                            <a href="index.html"
+                            <a href="#"
                                 class="flex items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
                                 <i class="fas fa-book mr-2"></i>
                                 Manuales
