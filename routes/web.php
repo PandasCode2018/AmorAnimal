@@ -22,7 +22,9 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/dashboard', function () { return view('dashboard');})->name('dashboard');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
     Route::name('users.')->group(function () {
         Route::get('/users', \App\Livewire\User\Index::class)->name('index');

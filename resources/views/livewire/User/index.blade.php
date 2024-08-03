@@ -1,5 +1,5 @@
 @section('subhead')
-    <title>Auditoría - {{ config('app.name') }}</title>
+    <title>Usuarios - {{ config('app.name') }}</title>
 @endsection
 <div class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
 
@@ -9,11 +9,11 @@
         </div>
         <div class="p-3">
             <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
-                <x-button title="Crear un nuevo usuario"
-                    class="mr-2  tooltip inline-block text-[.925rem] font-medium leading-normal text-center align-middle cursor-pointer rounded-2xl transition-colors duration-150 ease-in-out text-light-inverse bg-light-dark border-light shadow-none border-0 py-2 px-5 hover:bg-secondary active:bg-light focus:bg-light"
+                <x-custom.button title="Crear un nuevo usuario"
+                    class="mr-2 bg-blue-700 hover:bg-blue-800 active:bg-blue-900 focus:bg-blue-700 tooltip inline-block text-[.925rem] font-medium leading-normal text-center align-middle cursor-pointer rounded-2xl transition-colors duration-150 ease-in-out text-light-inverse bg-light-dark border-light shadow-none border-0 py-2 px-5 hover:bg-secondary active:bg-light focus:bg-light"
                     variant="primary" wire:click="$dispatch('openUserModal')">
                     Nuevo Usuario
-                </x-button>
+                </x-custom.button>
 
                 <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto flex gap-x-2">
                     <div class="relative w-56 text-slate-500">
@@ -62,8 +62,6 @@
 
                                                         </span>
                                                     </td>
-
-
                                                     <td class="p-3">
                                                         <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
                                                             title="Ver información completa">
@@ -91,4 +89,15 @@
             </div>
         </div>
     </div>
+    <div>
+        {{ $this->users->links() }}
+    </div>
+    
 </div>
+@push('modals')
+    <x-custom.modal id="manage-user-modal" size="xl" staticBackdrop wire:ignore>
+        <x-custom.modal.panel>
+            <livewire:user.management />
+        </x-custom.modal.panel>
+        </x-cutom.modal>
+    @endpush

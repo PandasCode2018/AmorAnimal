@@ -5,8 +5,8 @@
         <li class="w-full h-full py-3 px-2 border-b border-light-border">
             <a href="{{ route('dashboard') }}"
                 class="flex items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
-                <i class="fa-solid fa-house mr-2"></i>
-                Inicio
+                <i class="fa-solid fa-chart-line mr-2"></i>
+                Dashboard
             </a>
         </li>
         <li class="w-full h-full py-3 px-2 border-b border-light-border">
@@ -40,7 +40,7 @@
         <li class="w-full h-full py-3 px-2 border-b border-light-border">
             <a href="#"
                 class="flex items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
-                <i class="fas fa-search mr-2"></i>
+                <i class="fa-solid fa-stethoscope mr-2"></i>
                 Consulta
             </a>
         </li>
