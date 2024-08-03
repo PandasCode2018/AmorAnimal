@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,16 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::redirect('/', '/login');
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/dashboard', function () { return view('dashboard');})->name('dashboard');
+
+    Route::name('users.')->group(function () {
+        Route::get('/users', \App\Livewire\User\Index::class)->name('index');
+    });
+    Route::name('audits.')->group(function () {
+        Route::get('/audits', \App\Livewire\Audit\Index::class)->name('index');
+    });
 });

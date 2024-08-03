@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Bogota',
 
     /*
     |--------------------------------------------------------------------------
@@ -172,6 +172,7 @@ return [
         App\Providers\JetstreamServiceProvider::class,
         Laraveles\Spanish\SpanishServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        OwenIt\Auditing\AuditingServiceProvider::class,
     ])->toArray(),
 
     /*
