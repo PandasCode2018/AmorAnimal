@@ -1206,6 +1206,9 @@ th {
 .bg-nav {
   background-color: #3F495E;
 }
+.bg-nav-blue{
+  background-color: #1e3a8a;
+}
 
 .bg-side-nav {
   background-color: #ECF0F1;

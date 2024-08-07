@@ -18,7 +18,7 @@ class Audit extends ModelsAudit
 
     public function company()
     {
-        return $this->belongsTo(Company::class)->withTrashed();
+        return $this->belongsTo(Company::class);
     }
 
     public static function filter($search = '')
