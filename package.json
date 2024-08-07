@@ -16,7 +16,7 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
-        "@left4code/tw-starter": "^4.0.1",
+        "alpinejs": "^3.14.1",
         "jquery": "^3.7.1"
     }
 }

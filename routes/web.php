@@ -22,14 +22,31 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
 
+   /*  Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard'); */
+
+    Route::name('dashboard.')->group(function () {
+        Route::get('/dashboard', \App\Livewire\Dashboard\Index::class)->name('index');
+    });
     Route::name('users.')->group(function () {
         Route::get('/users', \App\Livewire\User\Index::class)->name('index');
     });
     Route::name('audits.')->group(function () {
         Route::get('/audits', \App\Livewire\Audit\Index::class)->name('index');
+    });
+
+    Route::name('responsible.')->group(function () {
+        Route::get('/responsible', \App\Livewire\Responsible\Index::class)->name('index');
+    });
+    Route::name('animal.')->group(function () {
+        Route::get('/animal', \App\Livewire\Animal\Index::class)->name('index');
+    });
+    Route::name('consultation.')->group(function () {
+        Route::get('/consultation', \App\Livewire\Consultation\Index::class)->name('index');
+    });
+    Route::name('profiles.')->group(function () {
+        Route::get('/profile', \App\Livewire\Profile\index::class)->name('index');
     });
 });

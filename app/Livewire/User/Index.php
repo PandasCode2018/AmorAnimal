@@ -10,10 +10,10 @@ class Index extends Component
 {
 
     use WithPagination;
-
+    public $showModalUsers = false;
     public ?string $search = '';
 
-    public $perPage = 6;
+    public $perPage = 8;
 
     protected $queryString = ['search'];
 

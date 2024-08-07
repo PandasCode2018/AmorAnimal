@@ -1,5 +1,4 @@
 <div>
-    <h1>funciona</h1>
     <form wire:submit="store" wire:key="{{ uniqid() }}">
         <div class="p-5">
             <div class="mb-5 mt-5 text-3xl text-center">

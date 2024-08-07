@@ -20,32 +20,32 @@
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased overflow-hidden">
+<body class="font-sans antialiased overflow-auto">
     <x-banner />
-    <div class="mx-auto bg-grey-400">
-        {{--  @livewire('navigation-menu') --}}
+    <div class="mx-auto bg-grey-400" x-data="{
+        openSidebar: true,
+    }">
+
         <div class="min-h-screen flex flex-col">
-            <!--Header -->
             <x-custom.header />
             <div class="flex flex-1">
-                <!--Sidebar-->
                 <x-custom.sidebar />
-                <main class="bg-white-300 flex-1 p-3 overflow-hidden">
+                <main class="bg-white-300 flex-1 p-3">
                     <div class="flex flex-col">
                         {{ $slot }}
                     </div>
                 </main>
             </div>
-            <footer class="bg-grey-darkest text-white p-2 ">
-                <div class="flex flex-1 mx-auto">&copy; 2024</div>
-                <div class="flex flex-1 mx-auto">Desarrollado por : <a href="https://themewagon.com/" target=" _blank">
-                        jhon dow</a></div>
+            <footer class="bg-nav-blue text-white p-2 border-t border-light-border text-center">
+                <p class="font-bold">&copy; 2024</p>
+                <div class="mx-auto font-bold pr-2">Desarrollado por <a href="#" target=" _blank">PandasCode</a>
+                </div>
             </footer>
         </div>
     </div>
-
     @stack('modals')
     @livewireScripts
 
 </body>
+
 </html>
