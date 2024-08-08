@@ -16,6 +16,7 @@
         "mcamara/laravel-localization": "^2.0",
         "owen-it/laravel-auditing": "^13.6",
         "ramsey/uuid": "^4.7",
+        "redot/laravel-toastify": "^1.0",
         "spatie/laravel-permission": "^6.9"
     },
     "require-dev": {

@@ -84,7 +84,7 @@
                         </div>
                         <div>
                             <x-custom.input wire:model="user.password" id="user.password" label="Contraseña"
-                                type="password" required />
+                                type="password" />
                             @error('user.years_experience')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
@@ -107,7 +107,7 @@
                         Cancelar
                     </x-custom.button>
                     <x-custom.button class="bg-slate-400 hover:bg-green-500 " type="submit">
-                        {{ $user ? 'Guardar' : 'Actualizar' }}
+                        {{ !$user ? 'Guardar' : 'Actualizar' }}
                     </x-custom.button>
                 </div>
             </x-custom.modal.footer>

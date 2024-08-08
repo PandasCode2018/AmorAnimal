@@ -3,6 +3,7 @@
 namespace App\Livewire\User;
 
 use Livewire\Component;
+use App\Http\Traits\WithMessages;
 use App\Models\User;
 use Livewire\WithPagination;
 use App\Http\Traits\WithTableActions;
@@ -10,7 +11,7 @@ use App\Http\Traits\WithTableActions;
 class Index extends Component
 {
 
-    use WithPagination, WithTableActions;
+    use WithPagination, WithTableActions, WithMessages;
 
     public  $user;
 
