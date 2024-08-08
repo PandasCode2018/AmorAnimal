@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class Index extends Component
 {
 
-    public  User $user;
-
-    public $showModalUsers = false;
+    public User $user;
     public Company $company;
 
     public function mount()
@@ -33,9 +31,14 @@ class Index extends Component
         ];
     }
 
+
+    public function updateUserProfile()
+    {
+        $this->validate($this->rules());
+        
+    }
     public function render()
     {
-
         return view('livewire.profile.index');
     }
 }

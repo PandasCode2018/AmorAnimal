@@ -10,4 +10,15 @@ class Index extends Component
     {
         return view('livewire.animal.index');
     }
+
+
+    public $showModalAnimal = false;
+    public $user;
+
+    protected $listeners = ['openModal' => 'loadUser'];
+
+    public function closeModal()
+    {
+        $this->showModalAnimal = false;
+    }
 }

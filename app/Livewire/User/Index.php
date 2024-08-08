@@ -5,12 +5,15 @@ namespace App\Livewire\User;
 use Livewire\Component;
 use App\Models\User;
 use Livewire\WithPagination;
+use App\Http\Traits\WithTableActions;
 
 class Index extends Component
 {
 
-    use WithPagination;
-    public $showModalUsers = false;
+    use WithPagination, WithTableActions;
+
+    public  $user;
+
     public ?string $search = '';
 
     public $perPage = 8;

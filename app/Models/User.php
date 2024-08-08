@@ -4,12 +4,11 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Http\Traits\WithUuid;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use OwenIt\Auditing\Contracts\Auditable;
 
@@ -17,7 +16,6 @@ class User extends Authenticatable implements Auditable
 {
     use HasApiTokens;
     use HasFactory;
-    use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
     use \OwenIt\Auditing\Auditable;
@@ -82,6 +80,13 @@ class User extends Authenticatable implements Auditable
     }
 
 
+    public function getProfilePhotoUrlAttribute()
+    {
+        // Suponiendo que la foto de perfil está almacenada en el campo 'profile_photo_path'
+        return $this->profile_photo_path;
+           
+    }
+
     public static function filter($search)
     {
         $query = static::query();
@@ -94,10 +99,9 @@ class User extends Authenticatable implements Auditable
                     ->orWhere('phone', 'like', "%{$search}%")
                     ->orWhereHas('company', function ($q) use ($search) {
                         $q->where('name', 'like', "%{$search}%");
-                    })
-                    /* ->orWhereHas('roles', function ($q) use ($search) {
+                    })->orWhereHas('roles', function ($q) use ($search) {
                         $q->where('name', 'like', "%{$search}%");
-                    }) */
+                    })
                     ->orWhereRaw("IF(status = 1, 'activo', 'inactivo') like '%$search%'");
             });
         }
