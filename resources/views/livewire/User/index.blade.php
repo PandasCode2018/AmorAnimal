@@ -3,7 +3,6 @@
 @endsection
 <div class=" mx-2">
     <div class="mb-2 w-full">
-
         <div class="intro-y mt-8 flex items-center">
             <h2 class="mr-auto text-lg font-medium">Listado de usuarios</h2>
         </div>
@@ -20,9 +19,8 @@
                     </div>
 
                     <div>
-                        <x-custom.button title="Crear un nuevo usuario" :icon="'fas fa-plus'"
-                            class="mr-2 bg-blue-700 hover:bg-blue-800 active:bg-blue-900 focus:bg-blue-700 tooltip inline-block text-[.925rem] font-medium leading-normal text-center align-middle cursor-pointer rounded-2xl transition-colors duration-150 ease-in-out text-light-inverse bg-light-dark border-light shadow-none border-0 py-2 px-5 hover:bg-secondary active:bg-light focus:bg-light"
-                            variant="primary">
+                        <x-custom.button wire:click="$dispatch('openUserModal')" title="Crear un nuevo usuario"
+                            :icon="'fas fa-plus'" class="bg-slate-400 hover:bg-blue-500">
                             Nuevo Usuario
                         </x-custom.button>
                     </div>
@@ -50,7 +48,8 @@
                                             <td class="p-3">{{ $user->document_number }} </td>
                                             <td class="p-3">{{ $user->phone }} </td>
                                             <td class="p-3">
-                                                <i class="fa-solid fa-power-off {{ $user->status == 1 ? 'text-green-500' : 'text-red-500' }}"
+                                                <i wire:click="changeStatus('users', '{{ $user->uuid }}')"
+                                                    class="fa-solid fa-power-off {{ $user->status == 1 ? 'text-green-500' : 'text-red-500' }}"
                                                     title="  {{ $user->status == 1 ? 'Activo' : 'Inactivo' }}"></i>
                                                 <span
                                                     class="{{ $user->status == 1 ? 'text-green-500' : 'text-red-500' }}">
@@ -62,12 +61,17 @@
                                                     title="Ver información completa">
                                                     <i class="fas fa-eye"></i></a>
                                                 <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
-                                                    title="Editar usuario">
-                                                    <i class="fas fa-edit"></i></a>
-                                                <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
-                                                    title="Eliminar usuario">
-                                                    <i class="fas solid fa-trash-can"></i>
-                                                </a>
+                                                    title="Editar usuario"
+                                                    wire:click="$dispatch('openUserModal', {userUuid: '{{ $user->uuid }}'})">
+                                                    <i
+                                                        class="fas
+                                                    fa-edit"></i></a>
+                                                @if (auth()->id() !== $user->id)
+                                                    <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
+                                                        title="Eliminar usuario">
+                                                        <i class="fas solid fa-trash-can"></i>
+                                                    </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @empty
@@ -86,10 +90,8 @@
     <div>
         {{ $this->users->links() }}
     </div>
-    <div x-show="showModalUsers" x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-90">
+
+    @push('modals')
         <livewire:user.management />
-    </div>
+    @endpush
 </div>

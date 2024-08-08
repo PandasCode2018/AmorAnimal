@@ -16,6 +16,11 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    {{-- Toastify --}}
+    @vite('resources/js/vendors/toastify.js')
+    @vite('resources/js/pages/notification.js')
+    @vite('resources/css/vendors/toastify.css')
+
     <!-- Styles -->
     @livewireStyles
 </head>

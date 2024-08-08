@@ -1,66 +1,116 @@
 <div>
-    <form wire:submit="store" wire:key="{{ uniqid() }}">
-        <div class="p-5">
-            <div class="mb-5 mt-5 text-3xl text-center">
-                Editar usuario </div>
-            <hr class="mb-5">
-            <div class="grid grid-cols-2 gap-3">
-                {{-- <div>
-                    <x-custom.input wire:model="user.name" id="user.name" label="nombre" type="text" required />
+    <x-modal wire:model='userModal' maxWidth="3xl" id="manage-user-modal">
+        <form wire:submit="store" wire:key="{{ uniqid() }}">
+            <div class="p-5">
+                <div class="mb-3 mt-2 text-nowrap text-2xl text-center">
+                    {{ !$user ? 'Crear usuario' : 'Actualizar usuario' }}
                 </div>
+                {{ $user->license_number }}
+                <hr class="mb-5">
                 <div>
-                    <x-custom.input wire:model="user.phone" id="user.phone" label="Telefono" type="number"
-                        maxlength="12" />
-                </div>
-                <div>
-                    <x-custom.input wire:model="user.email" id="user.email" label="Correo" type="email" required />
-                </div>
-                <div>
-                    <x-custom.input wire:model="user.currentPassword" required="{{ $this->user?->id ? 0 : 1 }}"
-                        id="user.currentPassword" label="Contraseña" autocomplete="false" type="password" />
-                </div> --}}
-                <div>
-                    {{--  <x-base.form-label for="user.company_id">Empresa *</x-base.form-label>
-                    <x-base.tom-select class="w-full" id="user.company_id" wire:model="user.company_id" required>
-                        <option value="" selected>Seleccione una empresa</option>
-                        @foreach ($this->companies as $company)
-                            <option value="{{ $company->id }}">{{ $company->name }}</option>
-                        @endforeach
-                    </x-base.tom-select> --}}
-                </div>
-                <div>
-                    {{-- <x-base.form-label for="userRolesName">Roles *</x-base.form-label>
-                    <x-base.tom-select class="w-full" id="userRolesName" wire:model="userRolesName" required multiple>
-                        <option value="" selected>Seleccione un rol</option>
-                        @foreach ($this->roles as $rol)
-                            <option value="{{ $rol->name }}">{{ $rol->name }} </option>
-                        @endforeach
-                    </x-base.tom-select> --}}
+                    <div class="grid grid-cols-2 gap-3 p-2">
+                        <div>
+                            <x-custom.input wire:model='user.name' id="user.name" label="Nombre" type="text"
+                                required />
+                            @error('user.name')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div>
+                            <x-custom.input wire:model='user.document_number' id="user.document_number"
+                                label="Documento" type="number" required />
+                            @error('user.document_number')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-3 p-2">
+                        <div>
+                            <x-custom.input wire:model="user.phone" id="user.phone" label="Telefono" type="number"
+                                maxlength="12" />
+                            @error('user.phone')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div>
+                            <x-custom.input wire:model="user.email" id="user.email" label="Correo" type="email"
+                                required />
+                            @error('user.email')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div>
+                            <x-custom.input wire:model="user.address" id="user.address" label="Dirección" type="text"
+                                required />
+                            @error('user.address')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+
+                    <div class="grid grid-cols-3 gap-3 p-2">
+                        <div>
+                            <x-custom.input wire:model="user.qualification" id="user.qualification" label="Titulo"
+                                type="text" />
+                            @error('user.qualification')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div>
+                            <x-custom.input wire:model="user.specialty" id="user.specialty" label="Especialización"
+                                type="text" />
+                            @error('user.specialty')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div>
+                            <x-custom.input wire:model="user.license_number" id="user.license_number" label="Licencia"
+                                type="number" />
+                            @error('user.license_number')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-3 p-2">
+                        <div>
+                            <x-custom.input wire:model="user.years_experience" id="user.years_experience"
+                                label="Años de experiencia" type="number" />
+                            @error('user.years_experience')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div>
+                            <x-custom.input wire:model="user.password" id="user.password" label="Contraseña"
+                                type="password" />
+                            @error('user.years_experience')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div>
+                            <x-custom.input id="user.rol" label="Roles" type="text" />
+                            @error('user.rol')
+                                <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
-            {{--  @if ($errors->any())
-                <div class="mt-3">
-                    <x-base.alert type="danger">
-                        <ul class="list-disc list-inside">
-                            @foreach ($errors->all() as $error)
-                                <li class="text-danger">{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </x-base.alert>
+            <x-custom.modal.footer>
+                <div class="text-right">
+                    <x-custom.button class="bg-slate-400 hover:bg-red-500" type="button"
+                        wire:click="$set('userModal', false)" {{--  wire:click="$dispatch('closetModal')"  --}}>
+                        Cancelar
+                    </x-custom.button>
+                    <x-custom.button class="bg-slate-400 hover:bg-green-500 " type="submit">
+                        {{ !$user ? 'Guardar' : 'Actualizar' }}
+                    </x-custom.button>
                 </div>
-            @endif --}}
-        </div>
-        <x-custom.modal.footer>
-            <div class="text-right">
-                <x-custom.button class="mr-1 w-24" data-tw-dismiss="modal" type="button" variant="outline-secondary">
-                    Cancelar
-                </x-custom.button>
-                <x-custom.button class="w-24" type="submit" variant="primary">
-                    {{-- {{ $user->id ? 'Actualizar' : 'Guardar' }} --}}
-                    Guardar
-                </x-custom.button>
-            </div>
-        </x-custom.modal.footer>
-    </form>
+            </x-custom.modal.footer>
+        </form>
+    </x-modal>
 </div>

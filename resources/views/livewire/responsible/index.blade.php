@@ -20,7 +20,8 @@
                     </div>
 
                     <div>
-                        <x-custom.button title="Crear un nuevo usuario" :icon="'fas fa-plus'"
+                        <x-custom.button wire:click="$dispatch('openCompanyModal')" title="Crear un nuevo usuario"
+                            :icon="'fas fa-plus'"
                             class="mr-2 bg-blue-700 hover:bg-blue-800 active:bg-blue-900 focus:bg-blue-700 tooltip inline-block text-[.925rem] font-medium leading-normal text-center align-middle cursor-pointer rounded-2xl transition-colors duration-150 ease-in-out text-light-inverse bg-light-dark border-light shadow-none border-0 py-2 px-5 hover:bg-secondary active:bg-light focus:bg-light"
                             variant="primary">
                             Nuevo responsable
@@ -88,3 +89,10 @@
     </div>
 
 </div>
+
+
+@push('modals')
+    <div id="manage-company-modal" show="manage-company-modal" size="xl" staticBackdrop wire:ignore>
+        <livewire:responsible.management />
+    </div>
+@endpush
