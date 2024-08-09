@@ -67,7 +67,8 @@
                                                         class="fas
                                                     fa-edit"></i></a>
                                                 @if (auth()->id() !== $user->id)
-                                                    <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
+                                                    <a wire:click="delete('users','{{ $user->uuid }}')"
+                                                        class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
                                                         title="Eliminar usuario">
                                                         <i class="fas solid fa-trash-can"></i>
                                                     </a>

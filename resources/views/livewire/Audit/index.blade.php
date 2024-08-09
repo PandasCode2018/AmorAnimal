@@ -24,29 +24,32 @@
                                 <thead class="align-bottom">
                                     <tr class="font-semibold text-secondary-dark border p-3">
                                         <th class="p-3 text-left">Responsable</th>
-                                        <th class="p-3 text-left">Acción</th>
+                                        <th class="p-3 text-center">Acción</th>
                                         <th class="p-3 text-center">Módulo</th>
                                         <th class="p-3 text-center">Valores</th>
-                                        <th class="p-3 text-center">Campos modificados</th>
+                                        <th class="p-3 text-center">Campos</th>
                                         <th class="p-3 text-center">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($this->audits as $audit)
+                                    @forelse ($this->Audits as $audit)
                                         <tr
                                             class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
-                                            {{--  <td class="p-3 capitalize text-left">{{ $audit->user->name }}</td> --}}
-                                            <td class="p-3 text-left"> {{ $audit->email }}</td>
+                                            <td class="p-3 capitalize text-left">{{ $audit->user->name }}</td>
                                             <td class="p-3">{{ $audit->event }} </td>
-                                            <td class="p-3">{{ $audit->auditable_type }} </td>
-                                            {{ $audit->auditable?->name ?? $audit->auditable_id . ' - (auditable_id)' }}
-                                            {{ collect($audit->old_values)->keys()->implode(', ') }}
-                                            <td class="p-3">{{ $audit->event }} </td>
+                                            <td class="p-3">{{ Str::afterLast($audit->auditable_type, '\\') }}</td>
                                             <td class="p-3">
-                                                <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
+                                                {{ $audit->auditable?->name }}
+                                            </td>
+                                            <td class="p-3">
+                                                {{ Str::limit(collect($audit->old_values)->keys()->implode(', '),20,'...') }}
+                                            </td>
+                                            <td class="p-3">
+                                                <a wire:click="$dispatch('openModalAudit', {audit: '{{ $audit->id }}'})"
+                                                    class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
                                                     title="Ver información completa">
                                                     <i class="fas fa-eye"></i></a>
-                                                <i class="fas fa-edit"></i></a>
+
                                                 <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
                                                     title="Eliminar usuario">
                                                     <i class="fas solid fa-trash-can"></i>
@@ -68,4 +71,9 @@
     <div>
         {{ $this->audits->links() }}
     </div>
+
+    @push('modals')
+        <livewire:Audit.management />
+    @endpush
+
 </div>
