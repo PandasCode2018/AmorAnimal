@@ -26,7 +26,7 @@ class Audit extends ModelsAudit
         $query = static::query();
         $search = trim($search);
 
-        /* $query->selectRaw('audits.*,
+        $query->selectRaw('audits.*,
                                 CASE
                                     WHEN event = "updated" THEN "Actualización"
                                     WHEN event = "created" THEN "Creación"
@@ -46,7 +46,7 @@ class Audit extends ModelsAudit
                     ->orWhereHas('user', function ($query) use ($search) {
                         $query->where('name', 'like', "%$search%");
                     });
-            }); */
+            });
 
         return $query->orderByDesc('id');
     }
