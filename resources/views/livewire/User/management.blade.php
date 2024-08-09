@@ -3,9 +3,8 @@
         <form wire:submit="store" wire:key="{{ uniqid() }}">
             <div class="p-5">
                 <div class="mb-3 mt-2 text-nowrap text-2xl text-center">
-                    {{ !$user ? 'Crear usuario' : 'Actualizar usuario' }}
+                    {{ $user->id ? 'Actualizar usuario' : 'Crear usuario' }}
                 </div>
-                {{ $user->license_number }}
                 <hr class="mb-5">
                 <div>
                     <div class="grid grid-cols-2 gap-3 p-2">
@@ -67,7 +66,7 @@
                         </div>
                         <div>
                             <x-custom.input wire:model="user.license_number" id="user.license_number" label="Licencia"
-                                type="number" />
+                                type="text" />
                             @error('user.license_number')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
@@ -77,7 +76,7 @@
                     <div class="grid grid-cols-3 gap-3 p-2">
                         <div>
                             <x-custom.input wire:model="user.years_experience" id="user.years_experience"
-                                label="Años de experiencia" type="number" />
+                                label="Años de experiencia" type="number" maxlength="2" />
                             @error('user.years_experience')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
@@ -85,13 +84,13 @@
                         <div>
                             <x-custom.input wire:model="user.password" id="user.password" label="Contraseña"
                                 type="password" />
-                            @error('user.years_experience')
+                            @error('user.password')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
                         </div>
                         <div>
-                            <x-custom.input id="user.rol" label="Roles" type="text" />
-                            @error('user.rol')
+                            <x-custom.input id="user.userRolesName" label="Roles" type="text" />
+                            @error('user.userRolesName')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
                         </div>
@@ -102,12 +101,11 @@
             </div>
             <x-custom.modal.footer>
                 <div class="text-right">
-                    <x-custom.button class="bg-slate-400 hover:bg-red-500" type="button"
-                        wire:click="$set('userModal', false)" {{--  wire:click="$dispatch('closetModal')"  --}}>
+                    <x-custom.button class="bg-slate-400 hover:bg-red-500" type="button" wire:click="closetModal">
                         Cancelar
                     </x-custom.button>
                     <x-custom.button class="bg-slate-400 hover:bg-green-500 " type="submit">
-                        {{ !$user ? 'Guardar' : 'Actualizar' }}
+                        {{ $user->id ? 'Actualizar' : 'Guardar' }}
                     </x-custom.button>
                 </div>
             </x-custom.modal.footer>

@@ -16,13 +16,36 @@ class Management extends Component
     use WithFileUploads, WithMessages;
     public $userModal = false;
     public User $user;
-
-    private $userCompanyId;
+    public $userCompanyId;
 
     public function mount()
     {
         $this->user = new User();
         $this->userCompanyId = Auth::user()->company_id;
+    }
+
+    protected $validationAttributes = [
+        'name' => 'Nombre',
+        'email' => 'Correo',
+        'document_number' => 'Docuemento',
+        'password' => 'Contraseña',
+        'phone' => 'Telefono',
+        'address' => 'Dirección',
+        'qualification' => 'Titulo',
+        'specialty' => 'Especialización',
+        'license_number' => 'Licencia',
+        'years_experience' => 'Años de experiencia',
+    ];
+
+    private function clearString()
+    {
+        $fillable = $this->user->getFillable();
+        foreach ($fillable as $field) {
+            $this->user->$field = is_string($this->user->$field) ? mb_strtolower(trim($this->user->$field)) : $this->user->$field;
+            if (empty($this->user->$field)) {
+                unset($this->user->$field);
+            }
+        }
     }
 
     public function rules()
@@ -31,17 +54,17 @@ class Management extends Component
         $validationPassword = $this->user?->id ? 'nullable|string|min:8|max:12' : 'required|string|min:8|max:12';
 
         return [
-            'user.name' => 'required|string|:max:100|min:2',
-            'user.document_number' => 'numeric',
-            'user.phone' => 'nullable|numeric|digits_between:6,12',
+            'user.name' => 'required|string|max:100|min:2',
             'user.email' => $validationEmail,
-            'user.address' => 'nullable|string',
-            'user.qualification' => 'nullable|string',
-            'user.specialty' => 'nullable|string',
-            'user.license_number' => 'nullable|string',
+            'user.document_number' => 'nullable|numeric|digits_between:5,15|unique:users,document_number',
             'user.password' => $validationPassword,
-            'user.company_id' => 'exists:companies,id',
-            //'userRolesName' => 'required|array|min:1|in:'.$this->roles->pluck('name')->implode(','),
+            'user.phone' => 'nullable|numeric|digits_between:6,12',
+            'user.address' => 'nullable|string|max:100',
+            'user.qualification' => 'nullable|string|max:100',
+            'user.specialty' => 'nullable|string|max:100',
+            'user.license_number' => 'nullable|string|max:100',
+            'user.years_experience' => 'nullable|numeric|digits_between:1,2',
+            //'userRolesName' => 'required|array|min:1|in:' . $this->roles->pluck('name')->implode(','),
         ];
     }
 
@@ -49,18 +72,17 @@ class Management extends Component
     {
 
         $this->validate();
-
         $isEdit = (bool) $this->user->id;
 
         try {
+            $this->clearString();
             if ($this->user->password) {
                 $this->user->password = bcrypt($this->user->password);
             }
-            // unset($this->user->rolesName);
-            unset($this->user->password);
+            //unset($this->user->rolesName);
+            $this->user->company_id = $this->userCompanyId;
             $this->user->save();
         } catch (\Throwable $th) {
-            //$this->showError($th->getMessage());
             $this->showError('Error creando el usuario');
             return;
         }
@@ -77,16 +99,6 @@ class Management extends Component
     }
 
 
-
-
-
-
-    public function closetModal()
-    {
-
-        $this->userModal = false;
-    }
-
     #[On('openUserModal')]
     public function openModal($userUuid = '')
     {
@@ -96,6 +108,11 @@ class Management extends Component
         }
 
         $this->userModal = true;
+    }
+
+    public function closetModal()
+    {
+        $this->userModal = false;
     }
 
     public function render()

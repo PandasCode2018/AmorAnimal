@@ -20,7 +20,7 @@
 
                     <div>
                         <x-custom.button wire:click="$dispatch('openUserModal')" title="Crear un nuevo usuario"
-                            :icon="'fas fa-plus'" class="bg-slate-400 hover:bg-blue-500">
+                            :icon="'fas fa-plus'" class="bg-blue-400 hover:bg-blue-500">
                             Nuevo Usuario
                         </x-custom.button>
                     </div>
