@@ -11,7 +11,9 @@ use App\Http\Traits\WithTableActions;
 class Index extends Component
 {
 
-    use WithPagination, WithTableActions, WithMessages;
+    use WithPagination;
+    use WithTableActions;
+    use WithMessages;
 
     public  $user;
 

@@ -4,9 +4,18 @@ namespace App\Livewire\Responsible;
 
 use App\Models\Responsible;
 use Livewire\Component;
+use Livewire\WithPagination;
+use App\Http\Traits\WithTableActions;
+use App\Http\Traits\WithMessages;
 
 class Index extends Component
 {
+
+    use WithPagination;
+    use WithTableActions;
+    use WithMessages;
+
+
     public $responsibles;
     public ?string $search = '';
     public $perPage = 8;

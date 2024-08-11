@@ -39,7 +39,11 @@ class Company extends Model implements Auditable
 
     public function responsibles()
     {
-
         return $this->hasMany(Responsible::class);
+    }
+
+    public function animals()
+    {
+        return $this->hasMany(Animal::class);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Traits;
 
+use App\Models\Animal;
 use App\Models\Company;
+use App\Models\Responsible;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
@@ -56,6 +58,12 @@ trait WithTableActions
             case 'companies':
                 $model = Company::class;
                 break;
+            case 'animals':
+                $model = Animal::class;
+                break;
+            case 'responsibles':
+                $model = Responsible::class;
+                break;
             case 'users':
                 if (auth()->user()->uuid == $modelUuid) {
                     $this->showError('No puedes eliminar tu propio usuario');
@@ -63,8 +71,6 @@ trait WithTableActions
                 }
                 $model = User::class;
                 break;
-
-
 
             default:
                 $this->showError('El modelo no existe.');
@@ -77,8 +83,6 @@ trait WithTableActions
             $this->showError('Error al intentar eliminar el registro.');
             return;
         }
-
-
         $record->delete();
         $this->showSuccess('Registro eliminado correctamente');
     }

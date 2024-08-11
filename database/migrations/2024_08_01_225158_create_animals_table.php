@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreignId('animal_species_id')->nullable()->constrained('animal_species')->onDelete('set null');
             $table->string('animal_race', 200)->nullable();
             $table->string('weight')->nullable();
-            $table->string('sex', 1)->nullable();
+            $table->string('sex', 50)->nullable();
             $table->string('age', 3)->nullable();
             $table->string('blood_type', 3)->nullable();
             $table->string('microchip_code', 100)->nullable();

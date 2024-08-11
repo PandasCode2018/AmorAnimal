@@ -23,8 +23,9 @@
                             <table class="w-full my-0 align-middle text-dark border-neutral-200">
                                 <thead class="align-bottom">
                                     <tr class="font-semibold text-secondary-dark border p-3">
+                                        <th class="p-3 text-left">Indice</th>
                                         <th class="p-3 text-left">Responsable</th>
-                                        <th class="p-3 text-center">Acción</th>
+                                        <th class="p-3 text-left">Acción</th>
                                         <th class="p-3 text-center">Módulo</th>
                                         <th class="p-3 text-center">Valores</th>
                                         <th class="p-3 text-center">Campos</th>
@@ -35,8 +36,9 @@
                                     @forelse ($this->Audits as $audit)
                                         <tr
                                             class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
+                                            <td class="p-3 capitalize text-left">{{ $audit->id }}</td>
                                             <td class="p-3 capitalize text-left">{{ $audit->user->name }}</td>
-                                            <td class="p-3">{{ $audit->event }} </td>
+                                            <td class="p-3 text-left">{{ $audit->event }} </td>
                                             <td class="p-3">{{ Str::afterLast($audit->auditable_type, '\\') }}</td>
                                             <td class="p-3">
                                                 {{ $audit->auditable?->name }}

@@ -8,7 +8,7 @@
             <h2 class="mr-auto text-lg leading-mediun">Dashboard</h2>
         </div>
         <div class="mt-5 grid  grid-cols-12 gap-6">
-            <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-lg">
+            <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
                 <div class="p-2 w-full">
                     <div class="flex-auto block p-3">
                         <div class="overflow-x-auto lg:overflow-visible">
