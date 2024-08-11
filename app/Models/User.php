@@ -85,6 +85,15 @@ class User extends Authenticatable implements Auditable
         return $this->hasMany(Responsible::class);
     }
 
+    public function animals()
+    {
+        return $this->hasMany(Animal::class);
+    }
+    public function animalSpecies()
+    {
+        return $this->hasMany(AnimalSpecies::class);
+    }
+
 
     public function getProfilePhotoUrlAttribute()
     {

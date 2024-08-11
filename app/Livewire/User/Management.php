@@ -93,7 +93,7 @@ class Management extends Component
             $this->showSuccess('Usuario creado correctamente');
         }
 
-        $this->closetModal();
+        $this->closeModal();
         $this->dispatch('user-index:refresh');
         $this->user = new User();
     }
@@ -110,7 +110,7 @@ class Management extends Component
         $this->userModal = true;
     }
 
-    public function closetModal()
+    public function closeModal()
     {
         $this->userModal = false;
     }

@@ -100,7 +100,7 @@ class Management extends Component
 
         $this->responsibleModal = true;
     }
-    public function closetModal()
+    public function closeModal()
     {
         $this->responsibleModal = false;
     }

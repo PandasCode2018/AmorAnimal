@@ -12,6 +12,7 @@ class Index extends Component
 
     public User $user;
     public Company $company;
+    public $imagePreview;
 
     public function mount()
     {
@@ -31,6 +32,10 @@ class Index extends Component
         ];
     }
 
+    public function updatedImage()
+    {
+        $this->imagePreview = $this->image->temporaryUrl();
+    }
 
     public function updateUserProfile()
     {

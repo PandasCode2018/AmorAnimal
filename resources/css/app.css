@@ -1,12 +1,13 @@
 /* Importa tus archivos CSS adicionales primero */
 @import 'all.css';
 @import 'styles.css';
+@import 'select2/dist/css/select2.min.css';
 
 /* Luego incluye las directivas de Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* @import '~@left4code/tw-starter/dist/tw-starter.css'; */
+
 
 [x-cloak] {
     display: none;
