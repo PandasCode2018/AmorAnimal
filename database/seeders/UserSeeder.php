@@ -27,13 +27,13 @@ class UserSeeder extends Seeder
                 'email' => $faker->unique()->safeEmail,
                 'document_number' => $faker->unique()->numerify('#########'),
                 'password' => Hash::make('password'),
-                'phone' => $faker->phoneNumber,
+                'phone' => '3013144793',
                 'address' => $faker->address,
                 'qualification' => $faker->randomElement(['PhD', 'MD', 'MSc']),
                 'specialty' => $faker->randomElement(['Cardiology', 'Neurology', 'Dermatology']),
                 'license_number' => $faker->unique()->bothify('LIC#####'),
                 'years_experience' => $faker->numberBetween(1, 20),
-                'profile_photo_path' => 'path/to/profile_photo.jpg',
+                'profile_photo_path' => '',
                 'status' => 1,
             ]);
         }

@@ -17,11 +17,11 @@
     </ul>
     <ul class="list-reset flex flex-col ">
 
-        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800" >
+        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
             <a href="{{ route('dashboard.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
-                <i class="fa-solid fa-chart-line mr-2"></i>
-                Dashboard
+                <i class="fa-solid fa-house mr-2"></i>
+                Inicio
             </a>
         </li>
         <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
@@ -32,7 +32,7 @@
             </a>
         </li>
         <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
-            <a href="#"
+            <a href="{{ route('roles.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
                 <i class="fas fa-user-tag mr-2"></i>
                 Roles

@@ -33,10 +33,12 @@ Route::middleware(['auth'])->group(function () {
     Route::name('users.')->group(function () {
         Route::get('/users', \App\Livewire\User\Index::class)->name('index');
     });
+    Route::name('roles.')->group(function () {
+        Route::get('/roles', \App\Livewire\Role\Index::class)->name('index');
+    });
     Route::name('audits.')->group(function () {
         Route::get('/audits', \App\Livewire\Audit\Index::class)->name('index');
     });
-
     Route::name('responsible.')->group(function () {
         Route::get('/responsible', \App\Livewire\Responsible\Index::class)->name('index');
     });

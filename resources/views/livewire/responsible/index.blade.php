@@ -70,8 +70,8 @@
                                                 </a>
                                             </td>
                                         </tr>
-                                    @empty
-                                        <td class="text-center text-white dark:bg-darkmode-600 bg-slate-500 font-bold"
+                                        @empty
+                                        <td class="pt-5 text-center text-black dark:bg-darkmode-600 bg-transparent font-bold"
                                             colspan="100">No
                                             hay registros disponibles</td>
                                     @endforelse
