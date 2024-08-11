@@ -12,7 +12,9 @@ use App\Http\Traits\WithMessages;
 
 class Management extends Component
 {
-    use WithFileUploads, WithMessages;
+    use WithFileUploads;
+    
+    use WithMessages;
     public $responsibleModal = false;
     public Responsible $responsible;
     public $companyId;
@@ -85,7 +87,7 @@ class Management extends Component
         } else {
             $this->showSuccess('Responsable creado correctamente');
         }
-        $this->closetModal();
+        $this->closeModal();
         $this->dispatch('responsible-index:refresh');
         $this->responsible = new Responsible();
     }

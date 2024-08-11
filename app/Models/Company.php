@@ -29,9 +29,6 @@ class Company extends Model implements Auditable
         'end_license'
     ];
 
-
-
-
     public function users()
     {
         return $this->hasMany(User::class);
@@ -45,5 +42,9 @@ class Company extends Model implements Auditable
     public function animals()
     {
         return $this->hasMany(Animal::class);
+    }
+    public function roles()
+    {
+        return $this->hasMany(Role::class);
     }
 }
