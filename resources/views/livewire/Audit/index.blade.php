@@ -33,10 +33,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($this->Audits as $audit)
+                                    @forelse ($this->Audits as $index => $audit)
                                         <tr
                                             class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
-                                            <td class="p-3 capitalize text-left">{{ $audit->id }}</td>
+                                            <td class="p-3 text-left">{{ $index+1 }}</td>
                                             <td class="p-3 capitalize text-left">{{ $audit->user->name }}</td>
                                             <td class="p-3 text-left">{{ $audit->event }} </td>
                                             <td class="p-3">{{ Str::afterLast($audit->auditable_type, '\\') }}</td>

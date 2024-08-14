@@ -22,6 +22,9 @@ class User extends Authenticatable implements Auditable
     use SoftDeletes;
     use WithUuid;
 
+    public const ACTIVO = 1;
+    public const INACTIVO = 0;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -41,6 +44,7 @@ class User extends Authenticatable implements Auditable
         'years_experience',
         'profile_photo_path',
         'status',
+        'bool_doctor',
 
     ];
 
@@ -78,13 +82,10 @@ class User extends Authenticatable implements Auditable
     {
         return $this->belongsTo(Company::class);
     }
-
     public function responsibles()
     {
-
         return $this->hasMany(Responsible::class);
     }
-
     public function animals()
     {
         return $this->hasMany(Animal::class);
@@ -92,6 +93,10 @@ class User extends Authenticatable implements Auditable
     public function animalSpecies()
     {
         return $this->hasMany(AnimalSpecies::class);
+    }
+    public function treatments()
+    {
+        return $this->hasMany(Treatment::class);
     }
 
 
@@ -123,5 +128,16 @@ class User extends Authenticatable implements Auditable
 
         $query->where('company_id', auth()->user()->company_id);
         return $query->with('company')->orderByDesc('id');
+    }
+
+    public static function select($boolDoctor = '')
+    {
+        return static::query()
+            ->whereNull('deleted_at')
+            ->select('id', 'name')
+            ->where('company_id', auth()->user()->company_id)
+            ->where('status', self::ACTIVO)
+            ->where('bool_doctor', self::ACTIVO)
+            ->get();
     }
 }

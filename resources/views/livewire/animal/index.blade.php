@@ -3,12 +3,12 @@
 @endsection
 <div class="mx-2">
     <div class="mb-2 w-full">
-        <div class="intro-y mt-8 flex items-center shadow-inner">
-            <h2 class="mr-auto text-lg font-extralight font-mono">Listado de animales</h2>
-        </div>
         <div class="mt-5 grid grid-cols-12 gap-6">
 
             <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
+                <div class="intro-y mt-8 flex justify-center items-center">
+                    <h2 class="font-sans font-bold text-center text-xl text-cyan-800">Listado de animales</h2>
+                </div>
                 <div
                     class="intro-y col-span-12 mt-2 flex items-center justify-between  border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 ">
 
@@ -41,10 +41,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($this->animals as $animal)
+                                    @forelse ($this->animals as $index => $animal)
                                         <tr
                                             class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
-                                            <td class="p-3 text-left">{{ $animal->id }}</td>
+                                            <td class="p-3 text-left">{{ $index+1 }}</td>
                                             <td class="p-3 text-left">{{ $animal->code_animal }}</td>
                                             <td class="p-3  text-left"> {{ $animal->name }}</td>
                                             <td class="p-3 text-center"> {{ $animal->animalSpecies->name }}</td>

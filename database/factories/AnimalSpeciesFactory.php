@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Company;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,10 @@ class AnimalSpeciesFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'company_id' => Company ::inRandomOrder()->first()->id,
+            'name' => $this->faker->name,
+            'status' => $this->faker->randomElement([0,1]),
+            'user_id' => User::inRandomOrder()->first()->id,
         ];
     }
 }
