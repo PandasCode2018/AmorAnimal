@@ -101,8 +101,9 @@ class Management extends Component
         if ($isEdit) {
             $this->showSuccess('Animal actualizado correctamente');
         } else {
-            $this->showSuccess('animal creado correctamente');
+            $this->showSuccess('Animal creado correctamente');
         }
+        $this->resetErrorBag();
         $this->closeModal();
         $this->dispatch('animal-index:refresh');
         $this->animal = new Animal();

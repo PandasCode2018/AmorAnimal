@@ -17,9 +17,14 @@ return new class extends Migration
             $table->foreignId('company_id')->nullable()->constrained('companies')->onDelete('set null');
             $table->foreignId('consultation_id')->nullable()->constrained('consultations')->onDelete('set null');
             $table->string('drug_name', 100)->nullable();
+            $table->string('medicine_presentation', 50)->nullable(true);
+            $table->date('application_date')->nullable();
+            $table->date('reinforcement_date')->nullable();
             $table->string('dose', 50)->nullable();
             $table->string('frequency', 200)->nullable();
             $table->string('duration', 200)->nullable();
+            $table->boolean('internal_or_external')->nullable();
+            $table->string('treatment_duration')->nullable(true);
             $table->longText('note')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();

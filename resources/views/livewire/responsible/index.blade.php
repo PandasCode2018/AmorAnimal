@@ -42,10 +42,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($this->Responsibles as $Responsible)
+                                    @forelse ($this->Responsibles as $index => $Responsible)
                                         <tr
                                             class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
-                                            <td class="p-3  text-left">{{ $Responsible->id }}</td>
+                                            <td class="p-3 text-left">{{ $index+1 }}</td>
                                             <td class="p-3 capitalize text-left">{{ $Responsible->name }}</td>
                                             <td class="p-3 text-left"> {{ $Responsible->email }}</td>
                                             <td class="p-3">{{ $Responsible->phone }} </td>

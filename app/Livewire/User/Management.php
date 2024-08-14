@@ -103,6 +103,7 @@ class Management extends Component
     public function openModal($userUuid = '')
     {
         $this->user = new User();
+        $this->resetErrorBag();
         if (Uuid::isValid($userUuid)) {
             $this->user = User::uuid($userUuid)->first();
         }

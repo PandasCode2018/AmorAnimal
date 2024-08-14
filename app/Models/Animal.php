@@ -15,6 +15,8 @@ class Animal extends Model implements Auditable
     use SoftDeletes;
     use WithUuid;
 
+    public const ACTIVO = 1;
+    public const INACTIVO = 0;
     protected $fillable = [
         'company_id',
         'code_animal',
@@ -83,5 +85,14 @@ class Animal extends Model implements Auditable
         }
         $query->where('company_id', auth()->user()->company_id);
         return $query->with('responsible', 'AnimalSpecies')->orderByDesc('animals.id');
+    }
+
+    public static function select()
+    {
+        return static::query()
+        ->whereNull('deleted_at')
+        ->select('id', 'name')
+        ->where('company_id', auth()->user()->company_id)
+        ->get();
     }
 }

@@ -72,6 +72,12 @@
                 <i class="fas fa-clipboard-check mr-2"></i> Auditoría
             </a>
         </li>
+        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
+            <a href="{{ route('audits.index') }}"
+                class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
+                <i class="fa-solid fa-comment mr-2"></i> Sugerencias
+            </a>
+        </li>
         {{-- <li class="w-full h-full py-3 px-2 border-b border-slate-700">
             <a href="#"
                 class="flex items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline pl-2 text-white font-bold">

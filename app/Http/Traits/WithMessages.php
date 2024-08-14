@@ -14,7 +14,7 @@ trait WithMessages
         ]);
     }
 
-    public function showSuccess($message, $title = 'Acción Realizada', $timer = 5000)
+    public function showSuccess($message, $title = '', $timer = 5000)
     {
         $this->showMessage('success', $title, $message, $timer);
     }

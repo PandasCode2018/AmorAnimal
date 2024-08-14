@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('animal_id')->nullable()->constrained('animals')->onDelete('set null');
             $table->foreignId('doctor_id')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('query_status_id')->nullable()->constrained('query_status')->onDelete('set null');
-            $table->longText('reason')->nullable(false);
-            $table->longText('note')->nullable();
+            $table->longText('reason')->nullable(true);
+            $table->longText('note')->nullable(true);
             $table->dateTime('date_time_query')->nullable(false);
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();

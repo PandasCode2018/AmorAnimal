@@ -3,9 +3,6 @@
 @endsection
 <div class=" mx-2">
     <div class="mb-2  w-full">
-        <div class="intro-y mt-6 flex items-center">
-            <h2 class="mr-auto text-lg leading-mediun">Inicio</h2>
-        </div>
         <div class="mt-3 grid grid-cols-12 gap-6">
             <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
                 <div class="p-2 w-full">
@@ -39,7 +36,7 @@
                                         <div class="grid grid-cols-2 gap-4">
                                             <div class="col-span-2">
                                                 <div class="p-4 bg-green-100 rounded-xl">
-                                                    <div class="font-bold text-xl text-gray-800 leading-none">
+                                                    <div class="font-bold text-md text-gray-800 leading-none">
                                                         Buenos dias, <br>{{ Auth::user()->name }}</div>
                                                     <div class="mt-5">
                                                         <button type="button"

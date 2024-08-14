@@ -23,15 +23,15 @@
                         <div class="block px-4 py-2 text-xs text-gray-400">
                             {{ __('Configuración') }}
                         </div>
-                        <x-dropdown-link href="{{ route('profile.show') }}">
+                      {{--   <x-dropdown-link href="{{ route('profile.show') }}">
                             {{ __(Auth::user()->name) }}
-                        </x-dropdown-link>
-                        <x-dropdown-link href="{{ route('profile.show') }}">
+                        </x-dropdown-link> --}}
+                       {{--  <x-dropdown-link href="{{ route('profile.show') }}">
                             {{ __(Auth::user()->company->name_company) }}
-                        </x-dropdown-link>
-                        <x-dropdown-link href="{{ route('consultation.index') }}">
+                        </x-dropdown-link> --}}
+                       {{--  <x-dropdown-link href="{{ route('consultation.index') }}">
                             {{ __('Manuales') }}
-                        </x-dropdown-link>
+                        </x-dropdown-link> --}}
                         <x-dropdown-link href="{{ route('profile.show') }}">
                             {{ __('Soporte') }}
                         </x-dropdown-link>

@@ -96,6 +96,7 @@ class Management extends Component
     public function openModal($responbibleUuid = '')
     {
         $this->responsible = new Responsible();
+        $this->resetErrorBag();
         if (Uuid::isValid($responbibleUuid)) {
             $this->responsible = Responsible::uuid($responbibleUuid)->first();
         }

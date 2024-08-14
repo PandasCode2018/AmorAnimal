@@ -16,6 +16,8 @@ class Company extends Model implements Auditable
     use SoftDeletes;
     use WithUuid;
 
+    public const ACTIVO = 1;
+    public const INACTIVO = 0;
 
 
     protected $fillable = [
@@ -46,5 +48,9 @@ class Company extends Model implements Auditable
     public function roles()
     {
         return $this->hasMany(Role::class);
+    }
+    public function treatments()
+    {
+        return $this->hasMany(Treatment::class);
     }
 }
