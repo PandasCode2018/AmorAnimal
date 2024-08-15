@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-   /*  Route::get('/dashboard', function () {
+    /*  Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard'); */
 
@@ -47,6 +47,9 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::name('consultation.')->group(function () {
         Route::get('/consultation', \App\Livewire\Consultation\Index::class)->name('index');
+    });
+    Route::name('historial.')->group(function () {
+        Route::get('/historial', \App\Livewire\Historial\Index::class)->name('index');
     });
     Route::name('profiles.')->group(function () {
         Route::get('/profile', \App\Livewire\Profile\index::class)->name('index');

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique()->nullable(false);
             $table->string('name_status', 50)->nullable(false);
+            $table->string('color', 50)->nullable(false);
             $table->timestamps();
             $table->softDeletes();
         });
