@@ -58,7 +58,7 @@ class Animal extends Model implements Auditable
         return $this->belongsTo(User::class);
     }
 
-    public function constations()
+    public function consultations()
     {
 
         return $this->hasMany(Consultation::class);
@@ -90,7 +90,7 @@ class Animal extends Model implements Auditable
             });
         }
         $query->where('company_id', auth()->user()->company_id);
-        return $query->with('responsible', 'AnimalSpecies', 'constations')->orderByDesc('animals.id');
+        return $query->with('responsible', 'AnimalSpecies', 'consultations')->orderByDesc('animals.id');
     }
 
     public static function select()

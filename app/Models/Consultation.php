@@ -17,6 +17,9 @@ class Consultation extends Model implements Auditable
 
     public const ACTIVO = 1;
     public const INACTIVO = 0;
+    public const CANCELADO = 'Cancelada';
+    public const FINALIZADO = 'Finalizada';
+
 
     protected $fillable = [
         'company_id',
@@ -62,7 +65,7 @@ class Consultation extends Model implements Auditable
         return $this->hasMany(Treatment::class);
     }
 
-    public static function filter($search)
+    public static function filter($search, $boolAll = false)
     {
 
         $query = static::query();
@@ -71,8 +74,11 @@ class Consultation extends Model implements Auditable
         if (strlen($search) > 0) {
             # code...
         }
+        if ($boolAll == false) {
+            $query->where('company_id', auth()->user()->company_id)
+                ->whereNotIn('query_status_id', [4, 2]);
+        }
 
-        $query->where('company_id', auth()->user()->company_id);
-        return $query->with('company', 'animal', 'user', 'queryStatus')->orderByDesc('consultations.id');
+        return $query->with('company', 'animal', 'user', 'queryStatus', 'treatments')->orderByDesc('consultations.id');
     }
 }

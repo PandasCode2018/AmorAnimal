@@ -1,4 +1,4 @@
-<aside id="sidebar" class="bg-nav-blue w-1/2 md:w-1/6 lg:w-1/6 border-r border-side-nav hidden md:block lg:block"
+<aside id="sidebar" class="bg-nav-blue w-1/2 md:w-1/6 lg:w-1/6 border-r border-side-nav md:block lg:block"
     x-show="openSidebar" x-transition:enter="transition ease-out duration-300"
     x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
     x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 scale-100"
@@ -60,7 +60,7 @@
             </a>
         </li>
         <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
-            <a href="#"
+            <a href="{{ route('historial.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
                 <i class="fas fa-file-alt mr-2"></i>
                 Historial de consultas
@@ -78,20 +78,25 @@
                 <i class="fa-solid fa-comment mr-2"></i> Sugerencias
             </a>
         </li>
-        {{-- <li class="w-full h-full py-3 px-2 border-b border-slate-700">
+        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800 sm:hidden">
+            <!-- Escondido en pantallas pequeñas y arriba -->
             <a href="#"
-                class="flex items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline pl-2 text-white font-bold">
+                class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
                 <i class="fas fa-book mr-2"></i>
-                Manuales
-            </a>
-        </li>
-        <li class="w-full h-full py-3 px-2 border-b border-slate-700">
-            <a href="#"
-                class="flex items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline pl-2 text-white font-bold">
-                <i class="fa-solid fa-ticket mr-2"></i>
                 Soporte
             </a>
-        </li> --}}
+        </li>
+        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800 block sm:hidden ">
+            <!-- Solo se muestra en pantallas pequeñas, escondido en pantallas medianas y grandes -->
+            <form method="POST" action="{{ route('logout') }}" x-data>
+                @csrf
+                <a href="{{ route('logout') }}"
+                    class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold"
+                    @click.prevent="$root.submit()">
+                    <i class="fas fa-sign-out-alt mr-2"></i>
+                    Cerrar
+                </a>
+            </form>
+        </li>
     </ul>
-
 </aside>
