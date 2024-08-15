@@ -18,38 +18,88 @@
                     </button>
                 </div>
                 <div>
-                    <div class="grid grid-cols-3 gap-3 pt-3 p-2">
+                    <div class="grid grid-cols-2 gap-3 pt-3 p-2">
                         <div>
-                            <x-custom.input wire:model='user.name' id="user.name" label="Nombre" type="text"
-                                required />
+                            <x-custom.input wire:model="treatment.drug_name" id="treatment.drug_name"
+                                label="Medicamento" type="text" required />
                         </div>
                         <div>
-                            <x-custom.input wire:model='user.name' id="user.name" label="Nombre" type="text"
-                                required />
+                            <x-custom.form-label class="form-label text-left w-full">Presentación *
+                            </x-custom.form-label>
+                            <select wire:model="treatment.medicine_presentation" id="treatment.medicine_presentation"
+                                class ="select2 transition duration-200 ease-in-out w-full text-sm  border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent readonly:bg-slate-100 readonly:cursor-not-allowed readonly:dark:bg-darkmode-800/50 readonly:dark:border-transparent group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 ">
+                                <option value="" selected>Seleccione un opción</option>
+                                @foreach ($this->presentaciones as $presentacion)
+                                    <option value="{{ $presentacion }}">{{ $presentacion }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 pt-3 p-2">
+                        <div>
+                            <x-custom.input wire:model='treatment.dose' id="treatment.dose" label="Dosis"
+                                placeholder="1 tableta" type="text" required />
                         </div>
                         <div>
-                            <x-custom.input wire:model='user.name' id="user.name" label="Nombre" type="text"
-                                required />
+                            <x-custom.input wire:model='treatment.frequency' id="treatment.frequency" label="Frecuencia"
+                                placeholder="cada 24 horas" type="text" />
                         </div>
-                        <div>
-                            <x-custom.input wire:model='user.name' id="user.name" label="Nombre" type="text"
-                                required />
-                        </div>
-                        <div>
-                            <x-custom.input wire:model='user.name' id="user.name" label="Nombre" type="text"
-                                required />
-                        </div>
+                    </div>
 
+                    <div class="grid grid-cols-2 gap-3 pt-3 p-2">
+                        <div>
+                            <x-custom.form-label class="form-label text-left w-full">Interno o externa
+                            </x-custom.form-label>
+                            <select wire:model="treatment.internal_or_external" id="treatment.internal_or_external"
+                                class ="select2 transition duration-200 ease-in-out w-full text-sm  border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent readonly:bg-slate-100 readonly:cursor-not-allowed readonly:dark:bg-darkmode-800/50 readonly:dark:border-transparent group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 ">
+                                <option value="" selected>Seleccione un opción</option>
+                                @foreach ($this->internaOexterna as $index => $tipo)
+                                    <option value="{{ $index }}">{{ $tipo }}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                        <div>
+                            <x-custom.input wire:model='treatment.treatment_duration' id="treatment.treatment_duration"
+                                label="Duracion del tratamiento" type="text" placeholder="1 semana" />
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 pt-3 p-2">
+                        <div>
+                            <x-custom.input wire:model='treatment.application_date' id="treatment.application_date"
+                                label="Fecha de aplicación" type="date" min="{{ date('Y-m-d') }}" required />
+                        </div>
+                        <div>
+                            <x-custom.input wire:model='treatment.reinforcement_date' id="treatment.reinforcement_date"
+                                label="Fecha de refuerzo" type="date" min="{{ date('Y-m-d') }}" />
+                        </div>
+                    </div>
+
+                    <div class="grip gap-3 grip-cols-3 p-t3 p-2">
+                        <div>
+                            <label class="mt-2 mb-1">Observaciones</label>
+                            <textarea wire:model="treatment.note"
+                                class="
+                                transition duration-200 ease-in-out w-full text-sm  border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-2 
+                                focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 
+                                 dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 disabled:bg-slate-100
+                                  disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent readonly:bg-slate-100 
+                                  readonly:cursor-not-allowed readonly:dark:bg-darkmode-800/50 readonly:dark:border-transparent group-[.form-inline]:flex-1 
+                                  group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l 
+                                  group-[.input-group]:last:rounded-r group-[.input-group]:z-10"
+                                id="treatment.note" cols="100" rows="4"></textarea>
+                        </div>
                     </div>
                 </div>
 
                 @if ($errors->any())
                     <div class="alert alert-danger">
-                        <ul>
+                        <ul class="list-disc list-inside">
                             @foreach ($errors->all() as $error)
-                                <li>
-                                    <alert class="bg-red-600">{{ $error }}</alert>
-                                </li>
+                                <ul>
+                                    <alert class="text-red-500">{{ $error }}</alert>
+                                </ul>
                             @endforeach
                         </ul>
                     </div>

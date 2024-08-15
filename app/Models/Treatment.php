@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\WithUuid;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Treatment extends Model
+class Treatment extends Model implements Auditable
 {
     use HasFactory;
+    use \OwenIt\Auditing\Auditable;
+    use SoftDeletes;
+    use WithUuid;
+
 
 
     protected $fillable = [
@@ -20,7 +27,6 @@ class Treatment extends Model
         'reinforcement_date',
         'dose',
         'frequency',
-        'duration',
         'internal_or_external',
         'treatment_duration',
         'note',
@@ -46,20 +52,17 @@ class Treatment extends Model
     }
 
 
-    public static function filter($search)
+    public static function filter($search, $consultaid)
     {
-
         $query = static::query();
         $search = trim($search);
 
         if (strlen($search) > 0) {
         }
 
+        $query->where('company_id', auth()->user()->company_id)
+            ->where('consultation_id', $consultaid);
 
-        $query->where('company_id', auth()->user()->company_id);
-        if (!empty($uuidConsulta)) {
-            $query->where('uuid', $uuidConsulta);
-        }
         return $query->with('company', 'consultation', 'user')->orderByDesc('treatments.id');
     }
 }

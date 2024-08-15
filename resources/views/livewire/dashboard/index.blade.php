@@ -47,24 +47,35 @@
                                                 </div>
                                             </div>
                                             <div class="p-4 bg-yellow-100 rounded-xl text-gray-800">
-                                                <div class="font-bold text-2xl leading-none">{{ $this->totalAnimales }}
+                                                <div class="font-bold text-2xl leading-none pb-3">
+                                                    {{ $this->totalAnimales }}
                                                 </div>
-                                                <div class="mt-2">Total de animales</div>
+                                                <a href="{{ route('animal.index') }}"
+                                                    class="py-2 px-3 mt-2 rounded-xl bg-white text-gray-800 hover:text-yellow-400 text-sm font-semibold transition">
+                                                    Total de animales</a>
                                             </div>
                                             <div class="p-4 bg-yellow-100 rounded-xl text-gray-800">
-                                                <div class="font-bold text-2xl leading-none">
+                                                <div class="font-bold text-2xl leading-none pb-3">
                                                     {{ $this->totalConsultasHoy }}</div>
-                                                <div class="mt-2">Total de consultas para hoy</div>
+                                                <a href="{{ route('consultation.index') }}"
+                                                    class="py-2 px-3 mt-2 rounded-xl bg-white text-gray-800 hover:text-yellow-400 text-sm font-semibold transitio">
+                                                    Total de consultas para hoy</a>
                                             </div>
                                             <div class="p-4 bg-yellow-100 rounded-xl text-gray-800">
-                                                <div class="font-bold text-2xl leading-none">{{ $this->totalConsultas }}
+                                                <div class="font-bold text-2xl leading-none pb-3">
+                                                    {{ $this->totalConsultas }}
                                                 </div>
-                                                <div class="mt-2">Total de consultas atendidas</div>
+                                                <a href="{{ route('consultation.index') }}"
+                                                    class="py-2 px-3 mt-2 rounded-xl bg-white text-gray-800 hover:text-yellow-400 text-sm font-semibold transitio">
+                                                    Total de consultas</a>
                                             </div>
                                             <div class="p-4 bg-yellow-100 rounded-xl text-gray-800">
-                                                <div class="font-bold text-2xl leading-none">{{ $this->totalUsuarios }}
+                                                <div class="font-bold text-2xl leading-none pb-3">
+                                                    {{ $this->totalResponsables }}
                                                 </div>
-                                                <div class="mt-2">Total de usuarios</div>
+                                                <a href="{{ route('responsible.index') }}"
+                                                    class="py-2 px-3 mt-2 rounded-xl bg-white text-gray-800 hover:text-yellow-400 text-sm font-semibold transition">
+                                                    Total de Responsables</a>
                                             </div>
 
                                         </div>

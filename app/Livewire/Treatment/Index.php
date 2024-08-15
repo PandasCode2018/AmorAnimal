@@ -11,27 +11,26 @@ class Index extends Component
 {
 
     public $indexModal = false;
-    public Treatment $consulta;
-    public $tratamiento;
+    public $idConsulta;
     public ?string $search = '';
 
     public $perPage = 8;
 
     protected $queryString = ['search'];
 
-    protected $listeners = ['consultation-index:refresh' => 'refresh'];
+    protected $listeners = ['teatment-index:refresh' => 'refresh', 'openTreatmentModal' => 'loadTreatmentData'];
 
 
-    public function getCosaQueryProperty()
+    public function getTreatmentQueryProperty()
     {
 
-        return Treatment::filter($this->search);
+        return Treatment::filter($this->search, $this->idConsulta);
     }
 
-    public function getCosaProperty()
+    public function getTreatmentProperty()
     {
 
-        return $this->cosaQuery->paginate($this->perPage);
+        return $this->TreatmentQuery->get();
     }
 
     public function updatedSearch()
@@ -40,10 +39,11 @@ class Index extends Component
     }
 
     #[On('indexTratamientoModal')]
-    public function openModal()
+    public function openModal($idConsulta)
     {
 
         $this->indexModal = true;
+        $this->idConsulta = $idConsulta;
     }
 
     public function closeModal()

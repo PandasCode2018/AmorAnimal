@@ -4,12 +4,9 @@
             <div class="mb-2 w-full">
                 <div class="mt-5 grid grid-cols-12 gap-6">
                     <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
-
                         <div class="flex justify-between items-center py-3 px-4 border-b">
-
-
                             <h3 class="text-nowrap text-2xl text-gray-800 dark:text-gray-800">
-                                Agregar tratamiento
+                                Listado tratamiento
                             </h3>
                             <button type="button" wire:click='closeModal'
                                 class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-300 hover:bg-gray-200 hover:scale-105 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400">
@@ -22,16 +19,14 @@
                                 </svg>
                             </button>
                         </div>
-
                         <div class="flex justify-between items-center py-3 px-4 border-b">
-
                             <div class="relative w-56 text-slate-500">
                                 <x-input id="search" titleInput="búscar " wire:model.live="search"
                                     class="!box w-56 pr-10 tooltip" type="search" placeholder="Búscar..." />
                             </div>
                             <div>
                                 <x-custom.button wire:click="$dispatch('openTratamientoModal')"
-                                    title="Crear una consulta" :icon="'fas fa-plus'" class="bg-blue-400 hover:bg-blue-500">
+                                    title="Crear una consulta" class="bg-blue-400 hover:bg-blue-500">
                                     Nuevo tratamiento
                                 </x-custom.button>
                             </div>
@@ -54,7 +49,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($this->Cosa as $tratamiento)
+                                            @forelse ($this->Treatment as $tratamiento)
                                                 <tr
                                                     class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
                                                     <td class="p-3 text-left">{{ $tratamiento->drug_name }}</td>

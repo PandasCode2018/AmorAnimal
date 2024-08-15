@@ -19,8 +19,8 @@
                     </button>
                 </div>
                 <div>
-                    <div class="grid grid-cols-3 gap-3 pt-3 p-2">
-                        <div>
+                    <div class="grid grid-cols-2 gap-3 pt-3 p-2">
+                      {{--   <div>
                             <x-custom.form-label class="form-label text-left w-full">Animal *
                             </x-custom.form-label>
                             <select wire:model="consultations.animal_id" id="consultations.animal_id"
@@ -30,7 +30,7 @@
                                     <option value="{{ $animal->id }}">{{ $animal->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
                         <div>
                             <x-custom.form-label class="form-label text-left w-full">Doctor *
                             </x-custom.form-label>

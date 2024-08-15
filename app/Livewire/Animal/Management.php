@@ -26,7 +26,8 @@ class Management extends Component
     public $imagePreview;
     public $image;
     public $prueba;
-    public $sexoAnimal = ['1' => 'Macho', '2' => 'Hembra', '3' => 'Hermafroditismo', '4' => 'Dioico', '5' => 'Monoico'];
+    public $sexoAnimal = ['Macho', 'Hembra', 'Hermafroditismo', 'Dioico', 'Monoico'];
+    public $animalId;
     public function mount()
     {
         $this->animal = new Animal();
