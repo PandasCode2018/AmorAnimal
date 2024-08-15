@@ -18,16 +18,17 @@ class Management extends Component
 
     use WithMessages;
     public $consultaModal = false;
+    public $estadosModal = false;
     public Consultation $consultations;
     public $doctores;
     public $animales;
-    public $estados;
+    public $estadoConsulta;
     public $idConsultaActual;
     public $companyId;
     public $userId;
     public $selectedUuid;
     public  $estadoInicial = 1;
-
+    public $animalId;
 
 
     public function mount()
@@ -35,13 +36,12 @@ class Management extends Component
         $this->consultations = new Consultation();
         $this->doctores = User::select(true);
         $this->animales = Animal::select();
-        $this->estados = query_status::select();
+        $this->estadoConsulta = query_status::select();
         $this->companyId = Auth::user()->company_id;
         $this->userId = Auth::id();
     }
 
     protected $validationAttributes = [
-        'animal_id' => 'Paciente',
         'doctor_id' => 'Doctor',
         'reason' => 'Motivo de la consulta',
         'note' => 'Observaciones',
@@ -51,11 +51,10 @@ class Management extends Component
     public function rules()
     {
         return [
-            'consultations.animal_id' => 'required|exists:animals,id',
             'consultations.doctor_id' => 'required|exists:users,id',
             'consultations.reason' => 'nullable|string',
             'consultations.note' => 'nullable|string',
-            'consultations.date_time_query' => 'required|after_or_equal:now',
+            'consultations.date_time_query' => 'required|after_or_equal:today',
         ];
     }
 
@@ -86,6 +85,10 @@ class Management extends Component
             $this->consultations->company_id = $this->companyId;
             $this->consultations->user_id = $this->userId;
             $this->consultations->query_status_id = $this->estadoInicial;
+            $this->consultations->animal_id = $this->animalId;
+
+            // validar que el id del animal no tenga una conculta activa para asi agrgar otra OPCION2
+            // desactivar el boton de agregar consulta en el listado de animales si tiene una consulta activa OPCION1 
             $this->consultations->save();
         } catch (\Throwable $th) {
 
@@ -102,14 +105,15 @@ class Management extends Component
         $this->consultations = new Consultation();
     }
 
-
     #[On('openConsultaModal')]
-    public function openModal($consultaUuid = '')
+    public function openModal($consultaUuid = '', $animalId = '')
     {
         $this->consultations = new Consultation();
+        $this->animalId = $animalId;
         $this->resetErrorBag();
         if (Uuid::isValid($consultaUuid)) {
             $this->consultations = Consultation::uuid($consultaUuid)->first();
+            $this->animalId = $this->consultations->animal_id;
         }
         $this->consultaModal = true;
     }

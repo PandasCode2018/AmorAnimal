@@ -3,14 +3,15 @@
 namespace App\Models;
 
 use App\Http\Traits\WithUuid;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Consultation extends Model
+class Consultation extends Model implements Auditable
 {
     use HasFactory;
+    use \OwenIt\Auditing\Auditable;
     use SoftDeletes;
     use WithUuid;
 
@@ -41,10 +42,10 @@ class Consultation extends Model
         return $this->belongsTo(Animal::class);
     }
 
-    public function queryStatu()
+    public function queryStatus()
     {
 
-        return $this->belongsTo(query_status::class);
+        return $this->belongsTo(Query_status::class);
     }
 
     public function user()
@@ -72,6 +73,6 @@ class Consultation extends Model
         }
 
         $query->where('company_id', auth()->user()->company_id);
-        return $query->with('company', 'animal', 'user', 'queryStatu')->orderByDesc('consultations.id');
+        return $query->with('company', 'animal', 'user', 'queryStatus')->orderByDesc('consultations.id');
     }
 }

@@ -2,12 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\WithUuid;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Query_status extends Model
+class Query_status extends Model implements Auditable
 {
     use HasFactory;
+    use \OwenIt\Auditing\Auditable;
+    use SoftDeletes;
+    use WithUuid;
 
 
     protected $table = 'query_status';
@@ -16,7 +22,7 @@ class Query_status extends Model
 
     ];
 
-    public function consulta()
+    public function consultations()
     {
 
         return $this->hasMany(Consultation::class);

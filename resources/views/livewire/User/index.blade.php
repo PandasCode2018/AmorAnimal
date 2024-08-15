@@ -18,7 +18,7 @@
 
                     <div>
                         <x-custom.button wire:click="$dispatch('openUserModal')" title="Crear un nuevo usuario"
-                            :icon="'fas fa-plus'" class="bg-blue-400 hover:bg-blue-500">
+                            class="bg-blue-400 hover:bg-blue-500">
                             Nuevo Usuario
                         </x-custom.button>
                     </div>
@@ -29,7 +29,6 @@
                             <table class="w-full max-w-full my-0 align-middle text-dark border-neutral-200">
                                 <thead class="align-bottom">
                                     <tr class="font-semibold text-secondary-dark border p-3">
-                                        <th class="p-3 text-left">Indice</th>
                                         <th class="p-3 text-left">Nombre</th>
                                         <th class="p-3 text-left">Correo</th>
                                         <th class="p-3 text-center">Documento</th>
@@ -42,7 +41,6 @@
                                     @forelse ($this->users as $index => $user)
                                         <tr
                                             class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
-                                            <td class="p-3 text-left">{{ $index+1 }}</td>
                                             <td class="p-3 capitalize text-left">{{ $user->name }}</td>
                                             <td class="p-3 text-left"> {{ $user->email }}</td>
                                             <td class="p-3">{{ $user->document_number }} </td>

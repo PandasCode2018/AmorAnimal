@@ -58,6 +58,12 @@ class Animal extends Model implements Auditable
         return $this->belongsTo(User::class);
     }
 
+    public function constations()
+    {
+
+        return $this->hasMany(Consultation::class);
+    }
+
 
     public static function filter($search)
     {
@@ -84,15 +90,15 @@ class Animal extends Model implements Auditable
             });
         }
         $query->where('company_id', auth()->user()->company_id);
-        return $query->with('responsible', 'AnimalSpecies')->orderByDesc('animals.id');
+        return $query->with('responsible', 'AnimalSpecies', 'constations')->orderByDesc('animals.id');
     }
 
     public static function select()
     {
         return static::query()
-        ->whereNull('deleted_at')
-        ->select('id', 'name')
-        ->where('company_id', auth()->user()->company_id)
-        ->get();
+            ->whereNull('deleted_at')
+            ->select('id', 'name')
+            ->where('company_id', auth()->user()->company_id)
+            ->get();
     }
 }

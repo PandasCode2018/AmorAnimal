@@ -18,8 +18,8 @@
 
                     <div>
                         <x-custom.button wire:click="$dispatch('openRolModal')" title="Crear un nuevo usuario"
-                            :icon="'fas fa-plus'" class="bg-blue-400 hover:bg-blue-500">
-                            Nuevo rol
+                             class="bg-blue-400 hover:bg-blue-500">
+                            Nuevo Rol
                         </x-custom.button>
                     </div>
                 </div>

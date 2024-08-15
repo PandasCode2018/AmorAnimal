@@ -22,7 +22,6 @@ return new class extends Migration
             $table->date('reinforcement_date')->nullable();
             $table->string('dose', 50)->nullable();
             $table->string('frequency', 200)->nullable();
-            $table->string('duration', 200)->nullable();
             $table->boolean('internal_or_external')->nullable();
             $table->string('treatment_duration')->nullable(true);
             $table->longText('note')->nullable();
