@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use App\Http\Traits\WithUuid;
 use Spatie\Permission\Models\Role as ModelsRole;
 
 class Role extends ModelsRole
 {
-    use WithUuid;
 
     public function company()
     {

@@ -10,7 +10,7 @@
                         <div class="overflow-x-auto lg:overflow-visible">
                             <div class="bg-white rounded-3xl p-8 mb-5">
                                 <h1 class="text-3xl font-bold mb-7">¡Bienvenidos a AmorAnimal!</h1>
-                                <div class="flex items-center justify-between">
+                                <div class="items-center justify-between hidden sm:flex">
                                     <div class="flex items-stretch">
                                         <div class="text-gray-400 text-xs"></div>
                                         <div class="h-100 border-l mx-4"></div>
@@ -80,7 +80,7 @@
 
                                         </div>
                                     </div>
-                                    <div>
+                                    <div class="border-t pt-2 mt-2">
                                         <h2 class="text-2xl font-bold mb-4">Información del sistema</h2>
 
                                         <div class="space-y-4">

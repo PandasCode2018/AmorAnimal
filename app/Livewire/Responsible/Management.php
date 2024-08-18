@@ -13,7 +13,7 @@ use App\Http\Traits\WithMessages;
 class Management extends Component
 {
     use WithFileUploads;
-    
+
     use WithMessages;
     public $responsibleModal = false;
     public Responsible $responsible;
@@ -32,7 +32,7 @@ class Management extends Component
         'phone' => 'Teléfono',
         'address' => 'Dirección',
         'document_number' => 'Documento',
-        'password' => 'Contraseña',
+        'currenPassword' => 'Contraseña',
     ];
 
     public function rules()
@@ -46,7 +46,7 @@ class Management extends Component
             'responsible.phone' => 'required|numeric|digits_between:6,12',
             'responsible.address' => 'required|string|max:100',
             'responsible.document_number' => $validationDocument,
-            'responsible.password' => 'nullable|string|min:8|max:12',
+            'responsible.currentPassword' => 'nullable|string|min:8|max:12',
 
         ];
     }
@@ -64,21 +64,20 @@ class Management extends Component
     {
         $this->validate();
         $isEdit = (bool) $this->responsible->id;
-
+        
         try {
             $this->clearString();
-
-            if ($this->responsible->password) {
-                $this->responsible->password = bcrypt($this->responsible->password);
-            }
             if (!$isEdit) {
                 $this->responsible->password = bcrypt($this->responsible->document_number);
+            } else {
+                $this->responsible->password = bcrypt($this->responsible->currentPassword);
             }
+            unset($this->responsible->currentPassword);
             $this->responsible->company_id = $this->companyId;
             $this->responsible->user_id = $this->userId;
             $this->responsible->save();
         } catch (\Throwable $th) {
-            $this->showError('Error creando el responsable');
+            $this->showError($th->getMessage());
             return;
         }
 

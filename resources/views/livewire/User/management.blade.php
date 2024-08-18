@@ -18,7 +18,7 @@
                     </button>
                 </div>
                 <div>
-                    <div class="grid grid-cols-2 gap-3 p-2">
+                    <div class="grid grid-cols-1 gap-3 p-2 sm:grid-cols-2">
                         <div>
                             <x-custom.input wire:model='user.name' id="user.name" label="Nombre" type="text"
                                 required />
@@ -29,7 +29,7 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-3 p-2">
+                    <div class="grid grid-cols-1 gap-3 p-2 sm:grid-cols-3">
                         <div>
                             <x-custom.input wire:model="user.phone" id="user.phone" label="Telefono" type="number"
                                 maxlength="12" />
@@ -45,7 +45,7 @@
                     </div>
 
 
-                    <div class="grid grid-cols-3 gap-3 p-2">
+                    <div class="grid grid-cols-1 gap-3 p-2 sm:grid-cols-3">
                         <div>
                             <x-custom.input wire:model="user.qualification" id="user.qualification" label="Titulo"
                                 type="text" />
@@ -60,17 +60,25 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-3 p-2">
+                    <div class="grid grid-cols-1 gap-3 p-2 sm:grid-cols-3">
                         <div>
                             <x-custom.input wire:model="user.years_experience" id="user.years_experience"
                                 label="Años de experiencia" type="number" maxlength="2" />
                         </div>
+                        @if ($user->id)
+                            <div>
+                                <x-custom.input wire:model="user.password" id="user.password" label="Contraseña"
+                                    type="password" />
+                            </div>
+                        @endif
                         <div>
-                            <x-custom.input wire:model="user.password" id="user.password" label="Contraseña"
-                                type="password" />
-                        </div>
-                        <div>
-                            <x-custom.input id="user.userRolesName" label="Roles" type="text" />
+                            <x-custom.input-select id="userRolesName" name="userRolesName" wire:model="userRolesName"
+                                label="Rol" required>
+                                <option value="" selected>Seleccione un rol</option>
+                                @foreach ($this->selectRoles as $rol)
+                                    <option value="{{ $rol->name }}">{{ $rol->name }}</option>
+                                @endforeach
+                            </x-custom.input-select>
                         </div>
                     </div>
                 </div>

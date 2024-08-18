@@ -30,6 +30,7 @@
                             <table class="w-full my-0 align-middle text-dark border-neutral-200">
                                 <thead class="align-bottom">
                                     <tr class="font-semibold text-secondary-dark border p-3">
+                                        <th class="p-3 text-left">Foto</th>
                                         <th class="p-3 text-left">identificacion</th>
                                         <th class="p-3 text-left">Nombre</th>
                                         <th class="p-3 text-center">Especie</th>
@@ -42,6 +43,9 @@
                                     @forelse ($this->animals as $animal)
                                         <tr
                                             class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
+                                            <td class="p-3 text-left"> <img
+                                                    src="{{ Storage::url($animal->photo) ?? '' }}" alt="Foto del animal"
+                                                    class="w-12 h-12 object-cover rounded-full shadow-lg"></td>
                                             <td class="p-3 text-left">{{ $animal->code_animal }}</td>
                                             <td class="p-3  text-left"> {{ $animal->name }}</td>
                                             <td class="p-3 text-center"> {{ $animal->animalSpecies->name }}</td>
@@ -55,7 +59,7 @@
                                                 </a>
                                                 <a wire:click="$dispatch('openConsultaModal',{animalId:'{{ $animal->id }}'})"
                                                     class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
-                                                    title="Ver información completa">
+                                                    title="Agregar Consulta">
                                                     <i class="fa-solid fa-stethoscope"></i>
                                                 </a>
 
@@ -67,6 +71,7 @@
 
                                                 <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
                                                     wire:click="delete('animals','{{ $animal->uuid }}')"
+                                                    wire:confirm.prompt="{{ $this->confirmQuestion }}"
                                                     title="Eliminar usuario">
                                                     <i class="fas solid fa-trash-can"></i>
                                                 </a>

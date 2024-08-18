@@ -15,8 +15,6 @@ class Animal extends Model implements Auditable
     use SoftDeletes;
     use WithUuid;
 
-    public const ACTIVO = 1;
-    public const INACTIVO = 0;
     protected $fillable = [
         'company_id',
         'code_animal',

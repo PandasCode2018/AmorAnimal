@@ -20,37 +20,28 @@
                 </div>
                 <div>
                     <div class="grid grid-cols-2 gap-3 pt-3 p-2">
-                      {{--   <div>
-                            <x-custom.form-label class="form-label text-left w-full">Animal *
-                            </x-custom.form-label>
-                            <select wire:model="consultations.animal_id" id="consultations.animal_id"
-                                class ="select2 transition duration-200 ease-in-out w-full text-sm  border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent readonly:bg-slate-100 readonly:cursor-not-allowed readonly:dark:bg-darkmode-800/50 readonly:dark:border-transparent group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 ">
-                                <option value="" selected>Seleccione un animal</option>
-                                @foreach ($this->animales as $animal)
-                                    <option value="{{ $animal->id }}">{{ $animal->name }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
-                        <div>
-                            <x-custom.form-label class="form-label text-left w-full">Doctor *
-                            </x-custom.form-label>
-                            <select wire:model="consultations.doctor_id" id="consultations.doctor_id"
-                                class ="select2 transition duration-200 ease-in-out w-full text-sm  border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent readonly:bg-slate-100 readonly:cursor-not-allowed readonly:dark:bg-darkmode-800/50 readonly:dark:border-transparent group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 ">
-                                <option value="" selected>Seleccione un doctor</option>
-                                @foreach ($this->doctores as $doctore)
-                                    <option value="{{ $doctore->id }}">{{ $doctore->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div>
-                            <x-custom.input wire:model='consultations.date_time_query'
-                                id="consultations.date_time_query" label="Fecha consulta" type="datetime-local"
-                                required />
-                        </div>
+                        @if ($this->boolOcultar)
+                            <div>
+                                <x-custom.form-label class="form-label text-left w-full">Doctor *
+                                </x-custom.form-label>
+                                <select wire:model="consultations.doctor_id" id="consultations.doctor_id"
+                                    class ="select2 transition duration-200 ease-in-out w-full text-sm  border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent readonly:bg-slate-100 readonly:cursor-not-allowed readonly:dark:bg-darkmode-800/50 readonly:dark:border-transparent group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 ">
+                                    <option value="" selected>Seleccione un doctor</option>
+                                    @foreach ($this->doctores as $doctore)
+                                        <option value="{{ $doctore->id }}">{{ $doctore->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div>
+                                <x-custom.input wire:model='consultations.date_time_query'
+                                    id="consultations.date_time_query" label="Fecha consulta" type="datetime-local"
+                                    min="{{ now()->format('Y-m-d\TH:i') }}"
+                                    required />
+                            </div>
+                        @endif
                     </div>
-
                     <div class="grid grid-cols-1 gap-3 p-2">
-                        <div>
+                        <div wire:ignore>
                             <label class="mt-2 mb-1">Motivo de la consulta</label>
                             <textarea wire:model="consultations.reason"
                                 class="

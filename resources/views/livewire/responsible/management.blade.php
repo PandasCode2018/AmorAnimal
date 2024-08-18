@@ -18,68 +18,57 @@
                     </button>
                 </div>
                 <div>
-                    <div class="grid grid-cols-2 gap-3 p-2">
+                    <div class="grid grid-cols-1 gap-3 p-2 sm:grid-cols-2">
                         <div>
                             <x-custom.input wire:model='responsible.name' id="responsible.name" label="Nombre"
                                 type="text" required />
-                            @error('responsible.name')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
                         </div>
                         <div>
                             <x-custom.input wire:model='responsible.email' id="responsible.email" label="Correo"
                                 type="email" required />
-                            @error('responsible.email')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-3 p-2">
+                    <div class="grid grid-cols-1 gap-3 p-2 sm:grid-cols-2">
                         <div>
                             <x-custom.input wire:model='responsible.phone' id="responsible.phone" label="Telefono"
                                 type="number" required />
-                            @error('responsible.phone')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
                         </div>
                         <div>
                             <x-custom.input wire:model='responsible.address' id="responsible.address" label="Dirección"
                                 type="text" required />
-                            @error('responsible.address')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-3 p-2">
+                    <div class="grid grid-cols-1 gap-3 p-2 sm:grid-cols-2">
                         <div>
                             <x-custom.input wire:model='responsible.document_number' id="responsible.document_number"
                                 label="Documento" type="number" required />
-                            @error('responsible.document_number')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
                         </div>
                         @if ($responsible->id)
                             <div>
-                                <x-custom.input wire:model='responsible.currenPassword' id="responsible.password"
-                                    label="Contraseña" type="password" />
-                                @error('responsible.password')
-                                    <span class="text-red-500">{{ $message }}</span>
-                                @enderror
+                                <x-custom.input wire:model='responsible.currentPassword'
+                                    id="responsible.currentPassword" label="Contraseña" type="password" />
                             </div>
                         @endif
                     </div>
                 </div>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="list-disc list-inside">
+                            @foreach ($errors->all() as $error)
+                                <li class="text-red-500">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
             <x-custom.modal.footer>
                 <div class="text-right">
-                   {{--  <x-custom.button class="bg-slate-400 hover:bg-red-500" type="button" wire:click="closeModal">
-                        Cancelar
-                    </x-custom.button> --}}
                     <x-custom.button class="bg-green-300 hover:bg-green-500 " type="submit">
                         {{ $responsible->id ? 'Actualizar' : 'Guardar' }}
                     </x-custom.button>
                 </div>
             </x-custom.modal.footer>
         </form>
+        <x-custom.cargando message="Creando Usuario ..." tarejt="store" />
     </x-modal>
 </div>

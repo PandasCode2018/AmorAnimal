@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements Auditable
 {
@@ -21,9 +22,8 @@ class User extends Authenticatable implements Auditable
     use \OwenIt\Auditing\Auditable;
     use SoftDeletes;
     use WithUuid;
+    use HasRoles;
 
-    public const ACTIVO = 1;
-    public const INACTIVO = 0;
 
     /**
      * The attributes that are mass assignable.
@@ -130,14 +130,14 @@ class User extends Authenticatable implements Auditable
         return $query->with('company')->orderByDesc('id');
     }
 
-    public static function select($boolDoctor = '')
+    public static function select()
     {
         return static::query()
             ->whereNull('deleted_at')
             ->select('id', 'name')
             ->where('company_id', auth()->user()->company_id)
-            ->where('status', self::ACTIVO)
-            ->where('bool_doctor', self::ACTIVO)
+            ->where('status', ACTIVO)
+            ->where('bool_doctor', ACTIVO)
             ->get();
     }
 }

@@ -21,9 +21,13 @@
             @if (!is_null($this->informacionAnimal))
                 @forelse ($this->informacionAnimal as $animal)
                     <div class="bg-white rounded shadow p-6 mb-6">
-                        <h2 class="text-2xl font-semibold mb-4">Datos de {{ $animal->name }}</h2>
+                        <span>Animal</span>
+                        <h2 class="text-2xl font-semibold mb-4">{{ $animal->name }}</h2>
                         <hr class="mt-2 mb-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {{--  <div>
+                                <img src="{{ Storage::url($animal->photo) }}" alt="" class="h-20 w-20">
+                            </div> --}}
                             <div>
                                 <label class="font-semibold">Especie:</label>
                                 <p class="text-gray-700">{{ $animal->animalSpecies->name }}</p>
@@ -56,11 +60,11 @@
             @endif
 
             <!-- Owner Information -->
-
             @if ($this->infomacionResponsable)
                 @forelse ($this->infomacionResponsable as $responsable)
                     <div class="bg-white rounded shadow p-6 mb-6">
-                        <h2 class="text-2xl font-semibold mb-4">Datos de {{ $responsable->name }}</h2>
+                        <span>Responsable</span>
+                        <h2 class="text-2xl font-semibold mb-4">{{ $responsable->name }}</h2>
                         <hr class="mt-2 mb-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
@@ -96,86 +100,98 @@
                             <tr>
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Fecha</th>
+                                    Fecha
+                                </th>
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Doctor</th>
+                                    Doctor
+                                </th>
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Motivo</th>
+                                    Motivo
+                                </th>
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Estado</th>
+                                    Estado
+                                </th>
                             </tr>
                         </thead>
-                        @forelse ($this->informacionConsultas as $consultas)
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach ($consultas->treatments as $tratamiento)
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $consultas->date_time_query }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $consultas->user->name }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $consultas->reason }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $consultas->query_status_id }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4" class="px-6 py-4 bg-gray-50">
-                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                <div>
-                                                    <label class="font-semibold">Nombre del Medicamento:</label>
-                                                    <p class="text-gray-700">{{ $tratamiento->drug_name }}</p>
-                                                </div>
-                                                <div>
-                                                    <label class="font-semibold">Presentación:</label>
-                                                    <p class="text-gray-700">{{ $tratamiento->medicine_presentation }}
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <label class="font-semibold">Fecha de Aplicación:</label>
-                                                    <p class="text-gray-700">{{ $tratamiento->application_date }}</p>
-                                                </div>
-                                                <div>
-                                                    <label class="font-semibold">Fecha de Refuerzo:</label>
-                                                    <p class="text-gray-700">{{ $tratamiento->drug_name }}</p>
-                                                </div>
-                                                <div>
-                                                    <label class="font-semibold">Dosis:</label>
-                                                    <p class="text-gray-700">{{ $tratamiento->reinforcement_date }}</p>
-                                                </div>
-                                                <div>
-                                                    <label class="font-semibold">Frecuencia:</label>
-                                                    <p class="text-gray-700">
-                                                        {{ $tratamiento->frequency }}
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <label class="font-semibold">Interno o Externo:</label>
-                                                    <p class="text-gray-700">
-                                                        {{ $tratamiento->internal_or_external == 1 ? 'Interno' : 'Externo' }}
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <label class="font-semibold">Duración del Tratamiento:</label>
-                                                    <p class="text-gray-700">{{ $tratamiento->treatment_duration }}</p>
-                                                </div>
-                                                <div class="col-span-2">
-                                                    <label class="font-semibold">Notas de ingreso:</label>
-                                                    <p class="text-gray-700">{{ $consultas->note }}</p>
-                                                </div>
-                                                <div class="col-span-2">
-                                                    <label class="font-semibold">Notas del tratemiento:</label>
-                                                    <p class="text-gray-700">{{ $tratamiento->note }}</p>
-                                                </div>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @foreach ($this->informacionConsultas as $consulta)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $consulta->date_time_query }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $consulta->user->name }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $consulta->reason }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ $consulta->queryStatus->name_status }}
+                                    </td>
+                                </tr>
+
+                                <!-- Mostrar Notas de ingreso una sola vez -->
+                                <tr>
+                                    <td colspan="4" class="px-6 py-4 bg-gray-50">
+                                        <div class="col-span-2">
+                                            <label class="font-semibold">Notas de ingreso:</label>
+                                            <p class="text-gray-700">{{ $consulta->note }}</p>
+                                        </div>
+                                    </td>
+
+                                    <!-- Tratamientos de la consulta -->
+                                    @foreach ($consulta->treatments as $tratamiento)
+                                <tr>
+                                    <td colspan="4" class="px-6 py-4 bg-gray-50">
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <div>
+                                                <label class="font-semibold">Nombre del Medicamento:</label>
+                                                <p class="text-gray-700">{{ $tratamiento->drug_name }}</p>
                                             </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                    </table>
-                </div>
-            @empty
-                <p>Error al consultar la información médica</p>
-            @endforelse
-            @endif
+                                            <div>
+                                                <label class="font-semibold">Presentación:</label>
+                                                <p class="text-gray-700">{{ $tratamiento->medicine_presentation }}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label class="font-semibold">Fecha de Aplicación:</label>
+                                                <p class="text-gray-700">{{ $tratamiento->application_date }}</p>
+                                            </div>
+                                            <div>
+                                                <label class="font-semibold">Fecha de Refuerzo:</label>
+                                                <p class="text-gray-700">{{ $tratamiento->reinforcement_date }}</p>
+                                            </div>
+                                            <div>
+                                                <label class="font-semibold">Dosis:</label>
+                                                <p class="text-gray-700">{{ $tratamiento->dose }}</p>
+                                            </div>
+                                            <div>
+                                                <label class="font-semibold">Frecuencia:</label>
+                                                <p class="text-gray-700">{{ $tratamiento->frequency }}</p>
+                                            </div>
+                                            <div>
+                                                <label class="font-semibold">Interno o Externo:</label>
+                                                <p class="text-gray-700">
+                                                    {{ $tratamiento->internal_or_external == 1 ? 'Interno' : 'Externo' }}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label class="font-semibold">Duración del Tratamiento:</label>
+                                                <p class="text-gray-700">{{ $tratamiento->treatment_duration }}</p>
+                                            </div>
+                                            <div class="col-span-2">
+                                                <label class="font-semibold">Notas del tratamiento:</label>
+                                                <p class="text-gray-700">{{ $tratamiento->note }}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+            @endforeach
+            </tbody>
+            </table>
         </div>
-    </x-modal>
+    @else
+        <p>No hay consultas médicas disponibles.</p>
+        @endif
+
+</div>
+</x-modal>
 </div>

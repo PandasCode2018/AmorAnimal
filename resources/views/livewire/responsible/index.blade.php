@@ -13,7 +13,7 @@
                     class="intro-y col-span-12 mt-2 flex flex-col sm:flex-row items-center justify-between border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400">
 
                     <div class="relative w-full sm:w-56 text-slate-500 mb-4 sm:mb-0">
-                        <x-input id="search" titleInput="Filtro para buscar usuarios" wire:model.live="search"
+                        <x-input id="search" titleInput="Filtro para buscar" wire:model.live="search"
                             class="!box w-full sm:w-56 pr-10 tooltip" type="search" placeholder="Buscar..." />
                     </div>
 
@@ -41,7 +41,7 @@
                                 </thead>
                                 <tbody>
                                     @forelse ($this->Responsibles as $index => $Responsible)
-                                        <tr
+                                        <tr wire:key="{{ uniqid() }}"
                                             class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
                                             <td class="p-3 capitalize text-left">{{ $Responsible->name }}</td>
                                             <td class="p-3 text-left"> {{ $Responsible->email }}</td>
@@ -83,7 +83,6 @@
     <div>
         {{ $this->Responsibles->links() }}
     </div>
-
 </div>
 
 

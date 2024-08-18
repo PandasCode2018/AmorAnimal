@@ -14,9 +14,7 @@ class AnimalSpecies extends Model implements Auditable
     use \OwenIt\Auditing\Auditable;
     use SoftDeletes;
     use WithUuid;
-
-    public const ACTIVO = 1;
-    public const INACTIVO = 0;
+    
     protected $fillable = [
 
         'company_id',
@@ -37,7 +35,7 @@ class AnimalSpecies extends Model implements Auditable
             ->whereNull('deleted_at')
             ->select('id', 'name')
             ->where('company_id', auth()->user()->company_id)
-            ->where('status', self::ACTIVO)
+            ->where('status', ACTIVO)
             ->get();
     }
     

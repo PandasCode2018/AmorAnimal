@@ -15,12 +15,6 @@ class Consultation extends Model implements Auditable
     use SoftDeletes;
     use WithUuid;
 
-    public const ACTIVO = 1;
-    public const INACTIVO = 0;
-    public const CANCELADO = 'Cancelada';
-    public const FINALIZADO = 'Finalizada';
-
-
     protected $fillable = [
         'company_id',
         'animal_id',

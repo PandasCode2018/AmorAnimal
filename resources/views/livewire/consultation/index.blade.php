@@ -16,12 +16,6 @@
                         <x-input id="search" titleInput="búscar " wire:model.live="search"
                             class="!box w-56 pr-10 tooltip" type="search" placeholder="Búscar..." />
                     </div>
-                    {{--  <div>
-                        <x-custom.button wire:click="$dispatch('openConsultaModal')" title="Crear una consulta"
-                             class="bg-blue-400 hover:bg-blue-500">
-                            Nuevo Consulta
-                        </x-custom.button>
-                    </div> --}}
                 </div>
                 <div class="p-2 w-full">
                     <div class="flex-auto block p-3">
@@ -50,19 +44,21 @@
                                                 {{ \Carbon\Carbon::parse($consulta->date_time_query)->format('h:i A') }}
                                             </td>
                                             <td class="p-3">
-                                                <a wire:click="$dispatch('openEstatusModal',{statusIdActual: {{ $consulta->queryStatus->id }}, statusUuid: '{{ $consulta->queryStatus->uuid }}'})"
-                                                    class="bg-{{ $consulta->queryStatus->color }}-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-{{ $consulta->queryStatus->color }}-500"
+                                                <a wire:click="$dispatch('openEstatusModal',{statusIdActual: {{ $consulta->queryStatus->id }}, orden: '{{ $consulta->queryStatus->orden }}', consultaUuid: '{{ $consulta->uuid }}'})"
                                                     title="Cambio de estado">
-                                                    {{ $consulta->queryStatus->name_status }}
+                                                    <p
+                                                        class="bg-{{ $consulta->queryStatus->color }}-400 cursor-pointer rounded p-1 text-sm text-white hover:bg-{{ $consulta->queryStatus->color }}-500">
+                                                        {{ $consulta->queryStatus->name_status }}</p>
                                                 </a>
                                             </td>
-
                                             <td class="p-3">
-                                                <a wire:click="$dispatch('indexTratamientoModal',{idConsulta: '{{ $consulta->id }}'},)"
-                                                    class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-green-500"
-                                                    title="Agregar Tratamiento medico">
-                                                    <i class="fas fa-syringe"></i>
-                                                </a>
+                                                @if ($consulta->queryStatus->orden != 1)
+                                                    <a wire:click="$dispatch('indexTratamientoModal',{idConsulta: '{{ $consulta->id }}'})"
+                                                        class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-green-500"
+                                                        title="Agregar Tratamiento medico">
+                                                        <i class="fas fa-syringe"></i>
+                                                    </a>
+                                                @endif
                                                 <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
                                                     title="Ver consulta completa">
                                                     <i class="fas fa-eye"></i>
@@ -72,7 +68,9 @@
                                                     title="Editar consulta">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
+                                                <a wire:click="delete('consultations','{{ $consulta->uuid }}')"
+                                                    wire:confirm.prompt="{{ $this->confirmQuestion }}"
+                                                    class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
                                                     title="Eliminar consulta">
                                                     <i class="fas solid fa-trash-can"></i>
                                                 </a>
@@ -92,12 +90,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
 </div>
 
 @push('modals')

@@ -43,10 +43,9 @@
                                             <td class="p-3 capitalize text-left">{{ $role->name }}</td>
 
                                             <td class="p-3">
-                                                <a wire:click="$dispatch('openRolModal', {id: '{{ $role->id }}'})"
-                                                    class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300
-                                                    title="Ver
-                                                    información completa">
+                                                <a wire:click="$dispatch('openRolModal', {roleId: '{{ $role->id }}'})"
+                                                    class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300"
+                                                    title="Ver información completa">
                                                     <i class="fas fa-edit"></i></a>
 
                                                 <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"

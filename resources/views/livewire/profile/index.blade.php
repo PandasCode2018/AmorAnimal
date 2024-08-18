@@ -13,20 +13,18 @@
                     <div class="relative flex items-center p-5">
                         @if ($contenedorUserVisibles)
                             <div class="image-fit h-12 w-12">
-                                <img class="rounded-full"
-                                    src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/e40b6ea6361a1abe28f32e7910f63b66/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
+                                <img class="rounded-full" src="{{ Storage::url(Auth::user()->profile_photo_path) }}"
                                     alt="Foto" />
                             </div>
                             <div class="ml-4 mr-auto">
-                                <div class="text-base font-medium">
-                                    {{ Auth::user()->name }}
+                                <div wire:nodel='name' class="text-base font-medium capitalize">
+                                    {{ $this->name }}
                                 </div>
                             </div>
                         @endif
                         @if ($contenedorCompanyVisibles)
                             <div class="image-fit h-12 w-12">
-                                <img class="rounded-full"
-                                    src="https://www.zarla.com/images/zarla-logro-comercial-1x1-2400x2400-20220202-www4ychwq9jwvrchmkf4.png?crop=1:1,smart&width=250&dpr=2"
+                                <img class="rounded-full" src="{{ Storage::url(Auth::user()->company->logo) }}"
                                     alt="Foto" />
                             </div>
                             <div class="ml-4 mr-auto">
@@ -42,7 +40,7 @@
                             <!-- Botón para Usuario -->
                             <div>
                                 <button wire:click="viewContenedorCompany"
-                                    class="active:bg-blue-500 active:text-white focus:outline-none border-green-300 cursor-pointer block appearance-none px-5 border border-1 font-bold text-slate-700 dark:text-slate-400 hover:dark:text-slate-500 hover:scale-105 shadow-[0px_3px_20px_#0000000b] rounded-md w-full py-2">
+                                    class="focus:outline-none border-green-300 cursor-pointer block appearance-none px-5 border border-1 font-bold text-slate-700 dark:text-slate-400 hover:dark:text-slate-500 hover:scale-105 shadow-[0px_3px_20px_#0000000b] rounded-md w-full py-2">
                                     Usuario
                                 </button>
                             </div>
@@ -60,15 +58,15 @@
 
             <!-- Div para Usuario -->
             @if ($contenedorUserVisibles)
-                <div x-transition class="col-span-12 lg:col-span-8 2xl:col-span-10 shadow-2xl">
+                <div class="col-span-12 lg:col-span-8 2xl:col-span-10 shadow-2xl">
                     <div
                         class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-0">
                         <h2 class="mr-auto text-base font-medium py-5">Información personal</h2>
                     </div>
                     <div class="p-5 w-full">
-                        <form wire:key="{{ uniqid() }}">
+                        <form wire:submit='updateUserProfile' wire:key="{{ uniqid() }}">
                             <div class="p-5">
-                                <div class="grid grid-cols-3 gap-3 pb-3">
+                                <div class="grid grid-cols-1 gap-3 pb-3 sm:grid-cols-3">
                                     <div>
                                         <x-custom.input wire:model="user.name" title="Nombre completo" required
                                             id="user.name" label="Nombre completo" type="text" maxlength="100" />
@@ -82,7 +80,7 @@
                                             id="user.address" label="Direccion" type="text" maxlength="100" />
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-4 gap-3 pt-3 pb-3">
+                                <div class="grid grid-cols-1 gap-3 pt-3 pb-3 sm:grid-cols-4">
                                     <div>
                                         <x-custom.input wire:model="user.document_number" title="Documento" required
                                             id="user.document_number" label="Documento" type="number"
@@ -102,7 +100,7 @@
                                             id="user.phone" label="Teléfono" type="number" maxlength="15" />
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-4 gap-3 pt-3 pb-3">
+                                <div class="grid grid-cols-1 gap-3 pt-3 pb-3 sm:grid-cols-4">
                                     <div>
                                         <x-custom.input wire:model='user.qualification' title="Título" disabled readonly
                                             id="user.qualification" label="Título" type="text" maxlength="100" />
@@ -124,23 +122,18 @@
                                     </div>
                                 </div>
 
-
                                 <div class="grid grid-cols-1 gap-3 pt-3">
                                     <div>
-                                        <input type="file" wire:model="image"
+                                        <input type="file" wire:model="user.profile_photo_path"
+                                            id="user.profile_photo_path"
                                             class=" items-center p-4 gap-3 rounded-3xl border border-gray-300 border-dashed bg-gray-50 cursor-pointer space-y-2 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
 
-                                        @if ($imagePreview)
-                                            <img src="{{ $imagePreview }}" alt="Image Preview"
+                                        @if ($this->imagePreview)
+                                            <img src="{{ $this->imagePreview }}" alt="Image Preview"
                                                 class="mt-4 rounded shadow max-w-xs w-64 h-48">
                                         @endif
-
-                                        @error('animal.foto')
-                                            <span class="text-red-500">{{ $message }}</span>
-                                        @enderror
                                     </div>
                                 </div>
-
                             </div>
 
                             <x-custom.modal.footer>
@@ -165,9 +158,9 @@
                         <h2 class="mr-auto text-base font-medium py-5">Información Empresarial</h2>
                     </div>
                     <div class="p-5 w-full">
-                        <form wire:key="{{ uniqid() }}">
+                        <form wire:submit='updateCompanyPerfile' wire:key="{{ uniqid() }}">
                             <div class="p-5">
-                                <div class="grid grid-cols-3 gap-3 pb-3">
+                                <div class="grid grid-cols-1 gap-3 pb-3 sm:grid-cols-3">
                                     <div>
                                         <x-custom.input wire:model="company.name_company" title="Nombre" required
                                             id="company.name_company" label="Nombre" type="text"
@@ -194,7 +187,7 @@
                                     </div>
                                 </div>
 
-                                <div class="grid grid-cols-3 gap-3 pt-3 pb-3">
+                                <div class="grid grid-cols-1 gap-3 pt-3 pb-3 sm:grid-cols-3">
                                     <div>
                                         <x-custom.input wire:model="company.address" title="Direccion" required
                                             id="company.address" label="Dirección" type="text" maxlength="100" />
@@ -228,10 +221,6 @@
                                             <img src="{{ $logoPreview }}" alt="Image Preview"
                                                 class="mt-4 rounded shadow max-w-xs w-64 h-48">
                                         @endif
-
-                                        @error('company.foto')
-                                            <span class="text-red-500">{{ $message }}</span>
-                                        @enderror
                                     </div>
                                 </div>
                             </div>
