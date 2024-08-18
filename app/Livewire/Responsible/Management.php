@@ -13,7 +13,6 @@ use App\Http\Traits\WithMessages;
 class Management extends Component
 {
     use WithFileUploads;
-
     use WithMessages;
     public $responsibleModal = false;
     public Responsible $responsible;
@@ -77,7 +76,7 @@ class Management extends Component
             $this->responsible->user_id = $this->userId;
             $this->responsible->save();
         } catch (\Throwable $th) {
-            $this->showError($th->getMessage());
+            $this->showError('Error creando el responsable');
             return;
         }
 
