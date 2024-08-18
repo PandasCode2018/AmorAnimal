@@ -54,4 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::name('profiles.')->group(function () {
         Route::get('/profile', \App\Livewire\Profile\index::class)->name('index');
     });
+    Route::name('Suggestions.')->group(function () {
+        Route::get('/Suggestion', \App\Livewire\Suggestion\index::class)->name('index');
+    });
 });

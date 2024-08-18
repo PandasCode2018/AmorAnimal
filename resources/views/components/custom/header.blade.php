@@ -14,8 +14,8 @@
                         <button
                             class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                             <img class="h-8 w-8 rounded-full object-cover"
-                                src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/e40b6ea6361a1abe28f32e7910f63b66/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
-                                alt="{{ Auth::user()->name }}" />
+                                src="{{ Storage::url(Auth::user()->profile_photo_path) }}"
+                                alt="*" />
                         </button>
                     </x-slot>
 
@@ -32,7 +32,7 @@
                        {{--  <x-dropdown-link href="{{ route('consultation.index') }}">
                             {{ __('Manuales') }}
                         </x-dropdown-link> --}}
-                        <x-dropdown-link href="{{ route('profile.show') }}">
+                        <x-dropdown-link href="{{ route('Suggestions.index') }}">
                             {{ __('Soporte') }}
                         </x-dropdown-link>
                         @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

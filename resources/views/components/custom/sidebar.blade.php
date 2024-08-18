@@ -28,7 +28,7 @@
             <a href="{{ route('users.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
                 <i class="fas fa-user mr-2"></i>
-                Usuario
+                Usuarios
             </a>
         </li>
         <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
@@ -42,7 +42,7 @@
             <a href="{{ route('responsible.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
                 <i class="fas fa-users mr-2"></i>
-                Responsable
+                Responsables
             </a>
         </li>
         <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
@@ -56,7 +56,7 @@
             <a href="{{ route('consultation.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
                 <i class="fa-solid fa-stethoscope mr-2"></i>
-                Consulta
+                Consultas
             </a>
         </li>
         <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
@@ -73,7 +73,7 @@
             </a>
         </li>
         <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
-            <a href="{{ route('audits.index') }}"
+            <a href="{{ route('Suggestions.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
                 <i class="fa-solid fa-comment mr-2"></i> Sugerencias
             </a>

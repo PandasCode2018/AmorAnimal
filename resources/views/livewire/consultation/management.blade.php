@@ -41,7 +41,7 @@
                         @endif
                     </div>
                     <div class="grid grid-cols-1 gap-3 p-2">
-                        <div wire:ignore>
+                        <div>
                             <label class="mt-2 mb-1">Motivo de la consulta</label>
                             <textarea wire:model="consultations.reason"
                                 class="
