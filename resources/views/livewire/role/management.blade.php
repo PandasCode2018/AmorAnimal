@@ -31,13 +31,15 @@
                                     <div class="overflow-x-auto lg:overflow-visible">
                                         <table class="w-full my-0 align-middle text-dark border-neutral-200">
                                             <tbody>
-                                                @forelse ($this->permissions as $Permission)
+                                                @forelse ($this->permissions as $permission)
                                                     <tr
                                                         class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
                                                         <td class="p-3">
                                                             <div class="flex justify-between items-center">
-                                                                <label class="text-left">{{ $Permission->name }}</label>
-                                                                <input type="checkbox" name="{{ $Permission->id }}"
+                                                                <label class="text-left">{{ $permission->name }}</label>
+                                                                <input type="checkbox" name="{{ $permission->id }}"
+                                                                    value="{{ $permission->name }}"
+                                                                    id="permission-{{ $permission->id }}"
                                                                     wire:model="rolePermissions"
                                                                     class="focus:outline-none active:outline-none h-6 w-6 text-green-500">
                                                             </div>
@@ -49,9 +51,6 @@
                                                         No hay registros disponibles
                                                     </td>
                                                 @endforelse
-                                                @error('permission')
-                                                    <span class="error">{{ $message }}</span>
-                                                @enderror
                                             </tbody>
                                         </table>
                                     </div>
@@ -59,8 +58,15 @@
                             </div>
                         </div>
                     </div>
-
-
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li class="text-red-500">{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </div>
                 <x-custom.modal.footer>
                     <div class="text-right">
@@ -70,6 +76,7 @@
                     </div>
                 </x-custom.modal.footer>
             </form>
+            <x-custom.cargando message="Creando Usuario ..." tarejt="rolModal" />
         </div>
     </x-modal>
 </div>

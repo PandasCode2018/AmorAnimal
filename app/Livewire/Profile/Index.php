@@ -3,13 +3,14 @@
 namespace App\Livewire\Profile;
 
 use App\Models\User;
-use Livewire\Attributes\On;
 use App\Models\Company;
-use Livewire\WithFileUploads;
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
+use Livewire\WithFileUploads;
+use Illuminate\Validation\Rule;
 use App\Http\Traits\WithMessages;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class Index extends Component
 {
@@ -23,12 +24,16 @@ class Index extends Component
     public $contenedorUserVisibles = true;
     public $contenedorCompanyVisibles = false;
     public $logoPreview;
+    public $name;
+    public $nameCompany;
+    protected $listeners = ['profile-index:refresh' => 'refresh'];
 
     public function mount()
     {
+        $this->company = Company::find(Auth::id());
         $this->user = User::find(Auth::id());
         $this->companyId = $this->user->company_id;
-        $this->company = $this->user->company;
+        $this->name = $this->user->name;
     }
 
     public function viewContenedorCompany()
@@ -45,6 +50,28 @@ class Index extends Component
     }
 
 
+    private function processImage(&$attribute, $folder, $validation)
+    {
+        $image = $attribute->image;
+        $imageOriginal = $attribute->getOriginal('image');
+        if ($attribute->getOriginal('image') != $image || empty($attribute->id)) {
+            $attribute->image = '';
+            if ($image instanceof \Illuminate\Http\UploadedFile) {
+                $this->validate($validation);
+                $attribute->image = $image->store($folder, 'public');
+            }
+
+            if ($attribute->id) {
+                $originalImage = $imageOriginal ?? '';
+                if (Storage::disk('public')->exists($originalImage)) {
+                    Storage::disk('public')->delete($originalImage);
+                }
+            }
+        }
+    }
+
+
+
     protected $validationAttributes = [
         'name' => 'Nombre',
         'email' => 'Correo',
@@ -56,6 +83,7 @@ class Index extends Component
         'specialty' => 'Especialización',
         'license_number' => 'Licencia',
         'years_experience' => 'Años de experiencia',
+        'profile_photo_path' => 'Foto',
     ];
 
     public function getUserRules()
@@ -72,6 +100,7 @@ class Index extends Component
             'user.newPassword' => 'nullable|string|min:8|max:12',
             'user.phone' => 'required|numeric|digits_between:6,12',
             'user.document_number' => 'required|numeric|digits_between:8,22',
+            'user.profile_photo_path' => 'nullable'
         ];
     }
 
@@ -82,9 +111,9 @@ class Index extends Component
             'company.nit' => 'required',
             'company.email' => 'nullable|email|unique:companies,email,' . $this->company?->id,
             'company.address' => 'nullable|string',
-            'company.phone' => 'required|unique:companies,phone,' . $this->company?->id,
+            'company.phone' => ['required', Rule::unique('companies', 'phone')->ignore($this->company->id)],
             'company.logo' => 'nullable',
-            'company.end_licencia' => 'required',
+            'company.end_license' => 'required',
         ];
     }
 
@@ -95,7 +124,7 @@ class Index extends Component
 
     public function updatedImage()
     {
-        $this->imagePreview = $this->image->temporaryUrl();
+        $this->imagePreview = $this->user->profile_photo_path->temporaryUrl();
     }
 
     private function clearString(&$attribute)
@@ -111,12 +140,18 @@ class Index extends Component
     }
 
 
-    #[On('updateUser')]
     public function updateUserProfile()
     {
         $this->validate($this->getUserRules());
 
         try {
+            $imagen = $this->user->profile_photo_path;
+            if ($imagen && $imagen instanceof \Illuminate\Http\UploadedFile) {
+                $imageName = time() . '.' . $imagen->getClientOriginalExtension();
+                $imagen->storeAs('Pandas', $imageName, 'public');
+                $rutaImagen = 'Pandas/' . $imageName;
+                $this->user->profile_photo_path = $rutaImagen;
+            }
             $this->clearString($this->user);
             if ($this->user->currentPassword) {
                 if (! Hash::check($this->user->currentPassword, $this->user->password)) {
@@ -133,22 +168,29 @@ class Index extends Component
             unset($this->user->newPassword);
             $this->user->save();
         } catch (\Throwable $th) {
-            $this->showError('Error actualizando el usuario');
+            $this->showError('Error actualizada los datos');
             return;
         }
 
         $this->showSuccess('Usuario actualizada correctamente');
         $this->contenedorUserVisibles = true;
         $this->resetErrorBag();
-        $this->user->refresh();
+        $this->dispatch('profile-index:refresh');
     }
 
-    #[On('updateCompany')]
     public function updateCompanyPerfile()
     {
 
         $this->validate($this->getCompanyRules());
         try {
+            $logo = $this->company->logo;
+            if ($logo && $logo instanceof \Illuminate\Http\UploadedFile) {
+                $imageName = time() . '.' . $logo->getClientOriginalExtension();
+                $logo->storeAs('Pandas', $imageName, 'public');
+                $rutaImagen = 'Pandas/' . $imageName;
+                $this->company->logo = $rutaImagen;
+            }
+
             $this->clearString($this->company);
             $this->company->save();
         } catch (\Throwable $th) {
@@ -157,9 +199,9 @@ class Index extends Component
         }
 
         $this->showSuccess('Empresa actualizada correctamente');
-        $this->contenedorCompanyVisibles = true;
+        $this->contenedorUserVisibles = false;
         $this->resetErrorBag();
-        $this->company->refresh();
+        $this->dispatch('profile-index:refresh');
     }
 
 
@@ -168,3 +210,14 @@ class Index extends Component
         return view('livewire.profile.index');
     }
 }
+
+
+/**
+ * Revisar si se puede aplicar validaciones con rule
+ * revisar la previsuañizacion de las imaganes
+ */
+
+/* 'status' => [
+    'required',
+    Rule::in(['active', 'inactive']),
+], */

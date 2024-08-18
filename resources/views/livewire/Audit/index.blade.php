@@ -24,6 +24,8 @@
                                 <thead class="align-bottom">
                                     <tr class="font-semibold text-secondary-dark border p-3">
                                         <th class="p-3 text-left">Responsable</th>
+                                        <th class="p-3 text-left">Fecha</th>
+                                        <th class="p-3 text-left">Hora</th>
                                         <th class="p-3 text-left">Acción</th>
                                         <th class="p-3 text-center">Módulo</th>
                                         <th class="p-3 text-center">Valores</th>
@@ -32,10 +34,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($this->Audits as $index => $audit)
+                                    @forelse ($this->Audits as $audit)
                                         <tr
                                             class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
                                             <td class="p-3 capitalize text-left">{{ $audit->user->name }}</td>
+                                            <td class="p-3 text-left">
+                                                {{ \Carbon\Carbon::parse($audit->created_at)->format('Y-m-d') }}
+                                            </td>
+                                            <td class="p-3 text-left">
+                                                {{ \Carbon\Carbon::parse($audit->created_at)->format('h-i-A') }}
+                                            </td>
                                             <td class="p-3 text-left">{{ $audit->event }} </td>
                                             <td class="p-3">{{ Str::afterLast($audit->auditable_type, '\\') }}</td>
                                             <td class="p-3">

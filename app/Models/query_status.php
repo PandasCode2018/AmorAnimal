@@ -19,7 +19,8 @@ class Query_status extends Model implements Auditable
     protected $table = 'query_status';
     protected $fillable = [
         'name_status',
-        'color'
+        'color',
+        'orden'
     ];
 
     public function consultations()

@@ -28,6 +28,7 @@ class Management extends Component
     public $prueba;
     public $sexoAnimal = ['Macho', 'Hembra', 'Hermafroditismo', 'Dioico', 'Monoico'];
     public $animalId;
+    public $booColsulta = 1;
     public function mount()
     {
         $this->animal = new Animal();
@@ -65,7 +66,6 @@ class Management extends Component
             'animal.age' => 'nullable|numeric|max:1000',
             'animal.blood_type' => 'nullable|string|max:100',
             'animal.microchip_code' => 'nullable|string|max:100',
-            'animal.photo' => 'nullable',
         ];
     }
 
@@ -84,6 +84,14 @@ class Management extends Component
     {
         $this->validate();
         $isEdit = (bool) $this->animal->id;
+        $imagen = $this->image;
+
+        if ($imagen && $imagen instanceof \Illuminate\Http\UploadedFile) {
+            $imageName = time() . '.' . $imagen->getClientOriginalExtension();
+            $imagen->storeAs('animal', $imageName, 'public');
+            $rutaImagen = 'animal/' . $imageName;
+            $this->animal->photo = $rutaImagen;
+        }
         try {
 
             if (!$isEdit) {
@@ -110,11 +118,6 @@ class Management extends Component
         $this->animal = new Animal();
     }
 
-    public function updatedImage()
-    {
-        $this->imagePreview = $this->image->temporaryUrl();
-    }
-
     #[On('openAnimalModal')]
     public function openModal($animalUuid = '')
     {
@@ -128,6 +131,7 @@ class Management extends Component
     public function closeModal()
     {
         $this->animalModal = false;
+        $this->image = '';
     }
 
     public function generateCode($name): string
@@ -149,3 +153,7 @@ class Management extends Component
         return view('livewire.animal.management');
     }
 }
+
+/**
+ * crear delete, sis e elimana un animal se eliminar toda su informacion asociada
+ */

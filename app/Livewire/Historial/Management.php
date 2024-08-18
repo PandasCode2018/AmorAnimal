@@ -20,8 +20,6 @@ class Management extends Component
     public $infomacionResponsable;
     public $informacionConsultas;
 
-
-
     public function mount()
     {
         $this->userCompanyId = auth()->user()->company_id;
@@ -42,8 +40,9 @@ class Management extends Component
 
     public function getInformacionConsulta($animalId)
     {
-        return Consultation::with('treatments')
+        return Consultation::with(['treatments', 'queryStatus', 'user'])
             ->where('animal_id', $animalId)
+            ->orderByDesc('date_time_query')
             ->get();
     }
 

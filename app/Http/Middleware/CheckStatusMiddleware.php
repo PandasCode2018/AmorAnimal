@@ -22,13 +22,13 @@ class CheckStatusMiddleware
         if ($user) {
 
             // valida que la cuenta del usuario este activa
-            if ($user->status != \App\Models\User::ACTIVO) {
+            if ($user->status != ACTIVO) {
                 Auth::logout();
                 abort(403, 'Tu cuenta ha sido desactivada.');
             }
 
             // valida que la empresa este activa
-            if ($user->company->status != \App\Models\Company::ACTIVO) {
+            if ($user->company->status != ACTIVO) {
                 Auth::logout();
                 abort(403, 'Tu empresa esta inactiva, Contacta al administrador para más información');
             }

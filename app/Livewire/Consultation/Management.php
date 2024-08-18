@@ -29,12 +29,13 @@ class Management extends Component
     public $selectedUuid;
     public  $estadoInicial = 1;
     public $animalId;
+    public $boolOcultar;
 
 
     public function mount()
     {
         $this->consultations = new Consultation();
-        $this->doctores = User::select(true);
+        $this->doctores = User::select();
         $this->animales = Animal::select();
         $this->estadoConsulta = query_status::select();
         $this->companyId = Auth::user()->company_id;
@@ -54,7 +55,7 @@ class Management extends Component
             'consultations.doctor_id' => 'required|exists:users,id',
             'consultations.reason' => 'nullable|string',
             'consultations.note' => 'nullable|string',
-            'consultations.date_time_query' => 'required|after_or_equal:today',
+            'consultations.date_time_query' => $this->consultations->id ? 'required|date' : 'required|date|after_or_equal:today'
         ];
     }
 
@@ -82,16 +83,20 @@ class Management extends Component
         try {
             $this->clearString();
 
+            if (!$isEdit) {
+                $this->consultations->query_status_id = $this->estadoInicial;
+            }
+
             $this->consultations->company_id = $this->companyId;
             $this->consultations->user_id = $this->userId;
-            $this->consultations->query_status_id = $this->estadoInicial;
             $this->consultations->animal_id = $this->animalId;
 
             // validar que el id del animal no tenga una conculta activa para asi agrgar otra OPCION2
             // desactivar el boton de agregar consulta en el listado de animales si tiene una consulta activa OPCION1 
+
+            //dd($this->consultations);
             $this->consultations->save();
         } catch (\Throwable $th) {
-
             $this->showError('Error creando el animal');
             return;
         }
@@ -100,8 +105,8 @@ class Management extends Component
         } else {
             $this->showSuccess('Consulta creado correctamente');
         }
-        $this->closeModal();
         $this->dispatch('consultation-index:refresh');
+        $this->closeModal();
         $this->consultations = new Consultation();
     }
 
@@ -109,12 +114,13 @@ class Management extends Component
     public function openModal($consultaUuid = '', $animalId = '')
     {
         $this->consultations = new Consultation();
-        $this->animalId = $animalId;
         $this->resetErrorBag();
-        if (Uuid::isValid($consultaUuid)) {
+        if (Uuid::isValid($consultaUuid) && empty($animalId)) {
             $this->consultations = Consultation::uuid($consultaUuid)->first();
             $this->animalId = $this->consultations->animal_id;
         }
+        $this->boolOcultar = $animalId;
+        $this->animalId = $animalId;
         $this->consultaModal = true;
     }
 

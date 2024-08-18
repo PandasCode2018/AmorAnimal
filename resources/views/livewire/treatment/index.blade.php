@@ -19,14 +19,19 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="flex justify-between items-center py-3 px-4 border-b">
-                            <div class="relative w-56 text-slate-500">
-                                <x-input id="search" titleInput="búscar " wire:model.live="search"
-                                    class="!box w-56 pr-10 tooltip" type="search" placeholder="Búscar..." />
-                            </div>
-                            <div>
-                                <x-custom.button wire:click="$dispatch('openTratamientoModal')"
-                                    title="Crear una consulta" class="bg-blue-400 hover:bg-blue-500">
+                        <div
+                            class="intro-y col-span-12 mt-2 flex flex-col sm:flex-row items-center justify-between border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400">
+
+                            {{--    <div class="relative w-full sm:w-56 text-slate-500 mb-4 sm:mb-0">
+                                <x-input id="search" titleInput="Filtro para buscar" wire:model.live="search"
+                                    class="!box w-full sm:w-56 pr-10 tooltip" type="search" placeholder="Buscar..." />
+                            </div> --}}
+
+                            <div class="p-2 w-full sm:w-auto">
+                                <x-custom.button 
+                                wire:click="$dispatch('openTratamientoModal')"
+                                    title="Crear un nuevo usuario"
+                                    class="w-full sm:w-auto bg-blue-400 hover:bg-blue-500 text-white py-2 px-4 text-base sm:text-sm font-medium">
                                     Nuevo tratamiento
                                 </x-custom.button>
                             </div>
@@ -49,42 +54,49 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($this->Treatment as $tratamiento)
-                                                <tr
-                                                    class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
-                                                    <td class="p-3 text-left">{{ $tratamiento->drug_name }}</td>
-                                                    <td class="p-3 text-left"> {{ $tratamiento->medicine_presentation }}
-                                                    </td>
-                                                    <td class="p-3 text-center">
-                                                        {{ $tratamiento->application_date }}</td>
-                                                    <td class="p-3">{{ $tratamiento->reinforcement_date }} </td>
-                                                    <td class="p-3">{{ $tratamiento->dose }} </td>
-                                                    <td class="p-3">{{ $tratamiento->frequency }} </td>
-                                                    <td class="p-3">
-                                                        {{ $tratamiento->internal_or_external ? 'Interno' : 'Externo' }}
-                                                    </td>
-                                                    <td class="p-3">{{ $tratamiento->treatment_duration }} </td>
+                                            @if ($this->datos)
+                                                @forelse ($this->datos as $tratamiento)
+                                                    <tr
+                                                        class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all
+                                                         duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
+                                                        <td class="p-3 text-left">{{ $tratamiento->drug_name }}</td>
+                                                        <td class="p-3 text-left">
+                                                            {{ $tratamiento->medicine_presentation }}
+                                                        </td>
+                                                        <td class="p-3 text-center">
+                                                            {{ $tratamiento->application_date }}</td>
+                                                        <td class="p-3">{{ $tratamiento->reinforcement_date }} </td>
+                                                        <td class="p-3">{{ $tratamiento->dose }} </td>
+                                                        <td class="p-3">{{ $tratamiento->frequency }} </td>
+                                                        <td class="p-3">
+                                                            {{ $tratamiento->internal_or_external ? 'Interno' : 'Externo' }}
+                                                        </td>
+                                                        <td class="p-3">{{ $tratamiento->treatment_duration }} </td>
 
-                                                    <td class="p-3">
-                                                        <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
-                                                            title="Ver consulta completa">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
-                                                        <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
-                                                            title="Editar consulta">
-                                                            <i class="fas fa-edit"></i></a>
-                                                        <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
-                                                            title="Eliminar consulta">
-                                                            <i class="fas solid fa-trash-can"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            @empty
-                                                <td class="pt-5 text-center text-black dark:bg-darkmode-600 bg-transparent font-bold"
-                                                    colspan="100">
-                                                    No hay registros disponibles</td>
-                                            @endforelse
-
+                                                        <td class="p-3">
+                                                            <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
+                                                                title="Ver consulta completa">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                            <a wire:click="$dispatch('openTratamientoModal',{tratamientoUuid:'{{ $tratamiento->uuid }}'})"
+                                                                class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
+                                                                title="Editar tratamiento">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                            <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
+                                                                title="Eliminar tratamiento"
+                                                                wire:click="delete('treatments','{{ $tratamiento->uuid }}')"
+                                                                wire:confirm.prompt="{{ $this->confirmQuestion }}">
+                                                                <i class="fas solid fa-trash-can"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <td class="pt-5 text-center text-black dark:bg-darkmode-600 bg-transparent font-bold"
+                                                        colspan="100">
+                                                        No hay registros disponibles</td>
+                                                @endforelse
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>

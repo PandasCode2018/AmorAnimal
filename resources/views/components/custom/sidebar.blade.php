@@ -7,7 +7,7 @@
     <ul>
         <li class="w-full h-full py-3 px-2 border-b  border-slate-700">
             <a href="{{ route('profiles.index') }}"
-                class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
+                class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold capitalize">
                 {{ Auth::user()->name }}
             </a>
         </li>

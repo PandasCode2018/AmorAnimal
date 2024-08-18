@@ -18,13 +18,10 @@
                     </button>
                 </div>
                 <div>
-                    <div class="grid grid-cols-3 gap-3 p-2">
+                    <div class="grid grid-cols-1 gap-3 p-2 sm:grid-cols-3">
                         <div>
                             <x-custom.input wire:model='animal.name' id="animal.name" label="Nombre" type="text"
                                 required />
-                            @error('animal.name')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
                         </div>
                         <div>
                             <x-custom.form-label class="form-label text-left w-full">Responsable *
@@ -36,20 +33,13 @@
                                     <option value="{{ $responsable->id }}">{{ $responsable->name }}</option>
                                 @endforeach
                             </select>
-                            @error('animal.responsible_id')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
                         </div>
-
                         <div>
                             <x-custom.input wire:model='animal.microchip_code' id="animal.microchip_code"
                                 label="Microchip" type="text" />
-                            @error('animal.microchip_code')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
-                    <div class="grid grid-cols-3 gap-3 p-2">
+                    <div class="grid grid-cols-1 gap-3 p-2 sm:grid-cols-3">
                         <div>
                             <x-custom.form-label class="form-label text-left w-full">Especie *
                             </x-custom.form-label>
@@ -60,39 +50,25 @@
                                     <option value="{{ $especie->id }}">{{ $especie->name }}</option>
                                 @endforeach
                             </select>
-                            @error('animal.animal_species_id')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
                         </div>
                         <div>
                             <x-custom.input wire:model='animal.animal_race' id="animal.animal_race" label="Raza"
                                 type="text" />
-                            @error('animal.animal_race')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
                         </div>
                         <div>
                             <x-custom.input wire:model='animal.blood_type' id="animal.blood_type" label="Tipo sangre"
                                 type="text" />
-                            @error('animal.blood_type')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
+
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-4 gap-3 p-2">
+                    <div class="grid grid-cols-1 gap-3 p-2 sm:grid-cols-4">
                         <div>
                             <x-custom.input wire:model='animal.color' id="animal.color" label="Color" type="text" />
-                            @error('animal.color')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
                         </div>
                         <div>
                             <x-custom.input wire:model='animal.weight' id="animal.weight" label="Peso"
                                 type="text" />
-                            @error('animal.weight')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
                         </div>
                         <div>
                             <x-custom.form-label class="form-label text-left w-full">Sexo
@@ -104,15 +80,9 @@
                                     <option value="{{ $sexo }}">{{ $sexo }}</option>
                                 @endforeach
                             </select>
-                            @error('animal.sex')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
                         </div>
                         <div>
                             <x-custom.input wire:model='animal.age' id="animal.age" label="Edad" type="text" />
-                            @error('animal.age')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
 
@@ -121,42 +91,33 @@
                             <input type="file" wire:model="image"
                                 class=" items-center p-4 gap-3 rounded-3xl border border-gray-300 border-dashed bg-gray-50 cursor-pointer space-y-2 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
 
-                            @if ($imagePreview)
-                                <img src="{{ $imagePreview }}" alt="Image Preview"
-                                    class="mt-4 rounded shadow max-w-xs w-64 h-48">
-                            @endif
-
-                            @error('animal.foto')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
+                            <div class="flex justify-center">
+                                @if ($this->image)
+                                    <img src="{{ $this->image->temporaryUrl() }}" alt="Image Preview"
+                                        class="mt-4 rounded shadow max-w-xs w-64 h-48">
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="list-disc list-inside">
+                            @foreach ($errors->all() as $error)
+                                <li class="text-red-500">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
             <x-custom.modal.footer>
                 <div class="text-right">
-                    {{--                     <x-custom.button class="bg-slate-400 hover:bg-red-500" type="button" wire:click="closeModal">
-                        Cancelar
-                    </x-custom.button> --}}
                     <x-custom.button class="bg-green-300 hover:bg-green-500 " type="submit">
                         {{ $animal->id ? 'Actualizar' : 'Guardar' }}
                     </x-custom.button>
                 </div>
             </x-custom.modal.footer>
         </form>
+        <x-custom.cargando message="Creando Usuario ..." tarejt="store" />
     </x-modal>
 </div>
-
-@push('scripts')
-    <script>
-        document.addEventListener('livewire:load', function() {
-            alert('holis');
-            $('#select2').select2();
-
-            $('#select2').on('change', function(e) {
-                var data = $('#select2').select2("val");
-                @this.set('selectedOption', data);
-            });
-        });
-    </script>
-@endpush

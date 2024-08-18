@@ -15,7 +15,6 @@ class Management extends Component
     use WithMessages;
 
     public Treatment $treatment;
-    public $indexModal = false;
     public $tratamientoModal = false;
     public $companyId;
     public $userId;
@@ -86,7 +85,6 @@ class Management extends Component
         try {
             $this->treatment->company_id = $this->companyId;
             $this->treatment->user_id = $this->userId;
-            $this->treatment->consultation_id = $this->idConsulta;
             $this->treatment->save();
         } catch (\Throwable $th) {
             $this->showError('Error creando el tratamiento');
@@ -115,7 +113,6 @@ class Management extends Component
         }
         $this->tratamientoModal = true;
     }
-
     public function closeModal()
     {
         $this->tratamientoModal = false;

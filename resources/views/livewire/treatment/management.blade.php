@@ -18,7 +18,7 @@
                     </button>
                 </div>
                 <div>
-                    <div class="grid grid-cols-2 gap-3 pt-3 p-2">
+                    <div class="grid grid-cols-1 gap-3 pt-3 p-2 sm:grid-cols-2">
                         <div>
                             <x-custom.input wire:model="treatment.drug_name" id="treatment.drug_name"
                                 label="Medicamento" type="text" required />
@@ -35,7 +35,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-3 pt-3 p-2">
+                    <div class="grid grid-cols-1 gap-3 pt-3 p-2 sm:grid-cols-2">
                         <div>
                             <x-custom.input wire:model='treatment.dose' id="treatment.dose" label="Dosis"
                                 placeholder="1 tableta" type="text" required />
@@ -46,7 +46,7 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-3 pt-3 p-2">
+                    <div class="grid grid-cols-1 gap-3 pt-3 p-2 sm:grid-cols-2">
                         <div>
                             <x-custom.form-label class="form-label text-left w-full">Interno o externa
                             </x-custom.form-label>
@@ -65,7 +65,7 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-3 pt-3 p-2">
+                    <div class="grid grid-cols-1 gap-3 pt-3 p-2 sm:grid-cols-2">
                         <div>
                             <x-custom.input wire:model='treatment.application_date' id="treatment.application_date"
                                 label="Fecha de aplicación" type="date" min="{{ date('Y-m-d') }}" required />
@@ -76,7 +76,7 @@
                         </div>
                     </div>
 
-                    <div class="grip gap-3 grip-cols-3 p-t3 p-2">
+                    <div class="grip gap-3 grip-cols-1 p-t3 p-2">
                         <div>
                             <label class="mt-2 mb-1">Observaciones</label>
                             <textarea wire:model="treatment.note"
