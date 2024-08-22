@@ -13,8 +13,8 @@
                     <div class="relative flex items-center p-5">
                         @if ($contenedorUserVisibles)
                             <div class="image-fit h-12 w-12">
-                                <img class="rounded-full" src="{{ Storage::url(Auth::user()->profile_photo_path) }}"
-                                    alt="Foto" />
+                               {{--  <img class="rounded-full" src="{{ Storage::url(Auth::user()->profile_photo_path) }}"
+                                    alt="Foto" /> --}}
                             </div>
                             <div class="ml-4 mr-auto">
                                 <div wire:nodel='name' class="text-base font-medium capitalize">
@@ -24,8 +24,8 @@
                         @endif
                         @if ($contenedorCompanyVisibles)
                             <div class="image-fit h-12 w-12">
-                                <img class="rounded-full" src="{{ Storage::url(Auth::user()->company->logo) }}"
-                                    alt="Foto" />
+                               {{--  <img class="rounded-full" src="{{ Storage::url(Auth::user()->company->logo) }}"
+                                    alt="Foto" /> --}}
                             </div>
                             <div class="ml-4 mr-auto">
                                 <div class="text-base font-medium">
@@ -124,14 +124,15 @@
 
                                 <div class="grid grid-cols-1 gap-3 pt-3">
                                     <div>
-                                        <input type="file" wire:model="user.profile_photo_path"
-                                            id="user.profile_photo_path"
+                                        <input type="file" wire:model="imagenUser" id="imagenUser"
                                             class=" items-center p-4 gap-3 rounded-3xl border border-gray-300 border-dashed bg-gray-50 cursor-pointer space-y-2 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
 
-                                        @if ($this->imagePreview)
-                                            <img src="{{ $this->imagePreview }}" alt="Image Preview"
-                                                class="mt-4 rounded shadow max-w-xs w-64 h-48">
-                                        @endif
+                                        <div class="flex justify-center">
+                                            @if ($this->imagenUser)
+                                                <img src="{{ $this->imagenUser->temporaryUrl() }}" alt="Image Preview"
+                                                    class="mt-4 rounded shadow max-w-xs w-64 h-48">
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -214,13 +215,16 @@
 
                                 <div class="grid grid-cols-1 gap-3 pt-3">
                                     <div>
-                                        <input type="file" wire:model="company.logo"
-                                            class=" items-center p-4 gap-3 rounded-3xl border border-gray-300 border-dashed bg-gray-50 cursor-pointer space-y-2 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
-
-                                        @if ($logoPreview)
-                                            <img src="{{ $logoPreview }}" alt="Image Preview"
-                                                class="mt-4 rounded shadow max-w-xs w-64 h-48">
-                                        @endif
+                                        <input type="file" wire:model="imagenCompany" id="imagenCompany"
+                                            class=" items-center p-4 gap-3 rounded-3xl border border-gray-300 border-dashed bg-gray-50 cursor-pointer 
+                                            space-y-2 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm 
+                                            file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                                        <div class="flex justify-center">
+                                            @if ($this->imagenCompany)
+                                                <img src="{{ $imagenCompany->temporaryUrl() }}" alt="Image Preview"
+                                                    class="mt-4 rounded shadow max-w-xs w-64 h-48">
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -23,7 +23,7 @@
                             <table class="w-full my-0 align-middle text-dark border-neutral-200">
                                 <thead class="align-bottom">
                                     <tr class="font-semibold text-secondary-dark border p-3">
-                                        <th class="p-3 text-left">Responsable</th>
+                                        <th class="p-3 text-left">Usuario</th>
                                         <th class="p-3 text-left">Fecha</th>
                                         <th class="p-3 text-left">Hora</th>
                                         <th class="p-3 text-left">Acción</th>

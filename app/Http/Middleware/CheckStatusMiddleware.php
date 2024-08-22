@@ -38,6 +38,12 @@ class CheckStatusMiddleware
                 Auth::logout();
                 abort(403, 'Tu empresa no tiene la licencia activa. Contacta al administrador para más información');
             }
+
+            // valida que la empresa acepto terminos y condiciones
+            if ($user->company && $user->company->bool_termino_codiciones == INACTIVO && empty($user->company->bool_termino_codiciones)) {
+                Auth::logout();
+                abort(403, 'Lo sentimso presentas un error al aceptar los terminos y condiciones');
+            }
         }
 
         return $next($request);

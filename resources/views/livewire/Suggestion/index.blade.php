@@ -33,7 +33,7 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <label class="p-2">Motivo de la consulta *</label>
+                                            <label class="p-2">Mensaje*</label>
                                             <textarea wire:model="sugerencias.message" required id="sugerencias.message"
                                                 class="w-full
                                                 transition duration-200 ease-in-out text-sm  border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-2 
@@ -61,7 +61,7 @@
                                                     @endforeach
                                                 @endif
                                             </div>
-                                        </div </form>
+                                        </div>
                                     </div>
                                     <x-custom.modal.footer>
                                         <div class="text-right">

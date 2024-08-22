@@ -75,7 +75,7 @@ class Management extends Component
             'user.specialty' => 'nullable|string|max:100',
             'user.license_number' => 'nullable|string|max:100',
             'user.years_experience' => 'nullable|numeric|digits_between:1,2',
-            'userRolesName' =>  'required|array|min:1|in:' . $this->selectRoles->pluck('name')->implode(','),
+            'userRolesName' =>  'required|string|min:1|in:' . $this->selectRoles->pluck('name')->implode(','),
         ];
     }
 
@@ -92,7 +92,7 @@ class Management extends Component
                 $this->user->password = bcrypt($this->user->password);
             }
 
-            $rolesName = (array)$this->userRolesName ?? [];
+        
             unset($this->user->rolesName);
             $this->user->company_id = $this->userCompanyId;
             $this->user->save();

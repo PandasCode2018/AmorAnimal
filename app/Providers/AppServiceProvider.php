@@ -28,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
         #Globales
         define('ACTIVO', 1);
         define('INACTIVO', 0);
+        define('YMD', 'Y-m-d');
     }
 }

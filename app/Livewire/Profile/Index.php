@@ -6,8 +6,8 @@ use App\Models\User;
 use App\Models\Company;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Validation\Rule;
 use App\Http\Traits\WithMessages;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -20,20 +20,22 @@ class Index extends Component
     public User $user;
     public Company $company;
     public $companyId;
-    public $imagePreview;
+    public $imagenUser;
+    public $imagenCompany;
     public $contenedorUserVisibles = true;
     public $contenedorCompanyVisibles = false;
-    public $logoPreview;
     public $name;
     public $nameCompany;
+    public $carpetaCompany;
     protected $listeners = ['profile-index:refresh' => 'refresh'];
 
     public function mount()
     {
-        $this->company = Company::find(Auth::id());
         $this->user = User::find(Auth::id());
         $this->companyId = $this->user->company_id;
         $this->name = $this->user->name;
+        $this->company = Company::find($this->companyId);
+        $this->carpetaCompany = $this->company->folder;
     }
 
     public function viewContenedorCompany()
@@ -48,29 +50,6 @@ class Index extends Component
         $this->contenedorCompanyVisibles = true;
         $this->contenedorUserVisibles = false;
     }
-
-
-    private function processImage(&$attribute, $folder, $validation)
-    {
-        $image = $attribute->image;
-        $imageOriginal = $attribute->getOriginal('image');
-        if ($attribute->getOriginal('image') != $image || empty($attribute->id)) {
-            $attribute->image = '';
-            if ($image instanceof \Illuminate\Http\UploadedFile) {
-                $this->validate($validation);
-                $attribute->image = $image->store($folder, 'public');
-            }
-
-            if ($attribute->id) {
-                $originalImage = $imageOriginal ?? '';
-                if (Storage::disk('public')->exists($originalImage)) {
-                    Storage::disk('public')->delete($originalImage);
-                }
-            }
-        }
-    }
-
-
 
     protected $validationAttributes = [
         'name' => 'Nombre',
@@ -100,7 +79,6 @@ class Index extends Component
             'user.newPassword' => 'nullable|string|min:8|max:12',
             'user.phone' => 'required|numeric|digits_between:6,12',
             'user.document_number' => 'required|numeric|digits_between:8,22',
-            'user.profile_photo_path' => 'nullable'
         ];
     }
 
@@ -111,8 +89,7 @@ class Index extends Component
             'company.nit' => 'required',
             'company.email' => 'nullable|email|unique:companies,email,' . $this->company?->id,
             'company.address' => 'nullable|string',
-            'company.phone' => ['required', Rule::unique('companies', 'phone')->ignore($this->company->id)],
-            'company.logo' => 'nullable',
+            'company.phone' => 'required|unique:companies,phone,' . $this->company->id,
             'company.end_license' => 'required',
         ];
     }
@@ -120,11 +97,6 @@ class Index extends Component
     protected function rules()
     {
         return array_merge($this->getUserRules(), $this->getCompanyRules());
-    }
-
-    public function updatedImage()
-    {
-        $this->imagePreview = $this->user->profile_photo_path->temporaryUrl();
     }
 
     private function clearString(&$attribute)
@@ -138,20 +110,21 @@ class Index extends Component
             }
         }
     }
-
-
     public function updateUserProfile()
     {
-        $this->validate($this->getUserRules());
-
+        $nameCarpeta =   $this->carpetaCompany;
+        //$this->validate($this->getUserRules());
+        //dd($this->user);
         try {
-            $imagen = $this->user->profile_photo_path;
+            $imagen = $this->imagenUser;
             if ($imagen && $imagen instanceof \Illuminate\Http\UploadedFile) {
+                Log::info('llegue');
                 $imageName = time() . '.' . $imagen->getClientOriginalExtension();
-                $imagen->storeAs('Pandas', $imageName, 'public');
-                $rutaImagen = 'Pandas/' . $imageName;
+                $imagen->storeAs("empresas/$nameCarpeta/', $imageName, 'public");
+                $rutaImagen = "empresas/$nameCarpeta/" . $imageName;
                 $this->user->profile_photo_path = $rutaImagen;
             }
+
             $this->clearString($this->user);
             if ($this->user->currentPassword) {
                 if (! Hash::check($this->user->currentPassword, $this->user->password)) {
@@ -176,18 +149,19 @@ class Index extends Component
         $this->contenedorUserVisibles = true;
         $this->resetErrorBag();
         $this->dispatch('profile-index:refresh');
+        $this->imagenUser = '';
     }
 
     public function updateCompanyPerfile()
     {
-
+        $nameCarpeta =   $this->carpetaCompany;
         $this->validate($this->getCompanyRules());
         try {
-            $logo = $this->company->logo;
+            $logo = $this->imagenCompany;
             if ($logo && $logo instanceof \Illuminate\Http\UploadedFile) {
                 $imageName = time() . '.' . $logo->getClientOriginalExtension();
-                $logo->storeAs('Pandas', $imageName, 'public');
-                $rutaImagen = 'Pandas/' . $imageName;
+                $logo->storeAs("empresas/$nameCarpeta/usuarios', $imageName, 'public");
+                $rutaImagen = "empresas/$nameCarpeta/usuarios" . $imageName;
                 $this->company->logo = $rutaImagen;
             }
 
@@ -202,6 +176,7 @@ class Index extends Component
         $this->contenedorUserVisibles = false;
         $this->resetErrorBag();
         $this->dispatch('profile-index:refresh');
+        $this->imagenCompany = '';
     }
 
 
@@ -210,14 +185,3 @@ class Index extends Component
         return view('livewire.profile.index');
     }
 }
-
-
-/**
- * Revisar si se puede aplicar validaciones con rule
- * revisar la previsuañizacion de las imaganes
- */
-
-/* 'status' => [
-    'required',
-    Rule::in(['active', 'inactive']),
-], */

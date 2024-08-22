@@ -63,7 +63,7 @@ class Index extends Component
             foreach ($rutaImagenes as $ruta) {
                 $this->imgEvidencia->create([
                     'imgEvidence' => $ruta,
-                    'sugerencia_id' => $sugerenciaId,
+                    'suggestion_id' => $sugerenciaId,
                 ]);
             }
         }

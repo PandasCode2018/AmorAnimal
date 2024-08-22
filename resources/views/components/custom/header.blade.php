@@ -13,9 +13,10 @@
                     <x-slot name="trigger">
                         <button
                             class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                            <img class="h-8 w-8 rounded-full object-cover"
-                                src="{{ Storage::url(Auth::user()->profile_photo_path) }}"
-                                alt="*" />
+                            @auth
+                                <img class="h-8 w-8 rounded-full object-cover"
+                                    src="{{ Storage::url(Auth::user()->profile_photo_path) }}" alt="*" />
+                            @endauth
                         </button>
                     </x-slot>
 
@@ -23,13 +24,13 @@
                         <div class="block px-4 py-2 text-xs text-gray-400">
                             {{ __('Configuración') }}
                         </div>
-                      {{--   <x-dropdown-link href="{{ route('profile.show') }}">
+                        {{--   <x-dropdown-link href="{{ route('profile.show') }}">
                             {{ __(Auth::user()->name) }}
                         </x-dropdown-link> --}}
-                       {{--  <x-dropdown-link href="{{ route('profile.show') }}">
+                        {{--  <x-dropdown-link href="{{ route('profile.show') }}">
                             {{ __(Auth::user()->company->name_company) }}
                         </x-dropdown-link> --}}
-                       {{--  <x-dropdown-link href="{{ route('consultation.index') }}">
+                        {{--  <x-dropdown-link href="{{ route('consultation.index') }}">
                             {{ __('Manuales') }}
                         </x-dropdown-link> --}}
                         <x-dropdown-link href="{{ route('Suggestions.index') }}">

@@ -24,6 +24,7 @@ class CompanyFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'phone' => '3013147893',
             'end_license' => $this->faker->date('Y-m-d', '+2 years'),
+            'bool_termino_codiciones' => rand(0, 1)
         ];
     }
 }
