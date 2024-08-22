@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,16 +17,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login');
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+
+// Grupo de  rutas para páginas públicas (sin autenticación)
+Route::middleware('guest')->name('public.')->group(function () {
+    Route::get('/companies', [CompanyController::class, 'index'])->name('company.form');;
+    Route::post('/companies', [CompanyController::class, 'store'])->name('company.store');;
+    
 });
 
+
+# Grupo de rutas privadas y protegidas
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-    /*  Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard'); */
 
     Route::name('dashboard.')->group(function () {
         Route::get('/dashboard', \App\Livewire\Dashboard\Index::class)->name('index');

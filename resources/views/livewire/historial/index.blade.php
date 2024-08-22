@@ -41,11 +41,18 @@
                                                     title="Ver información completa">
                                                     <i class="fas fa-eye text-blue-500 text-lg"></i>
                                                 </a></td>
-                                            <td> <a wire:click="$dispatch('openModalHistorial',{animalId:{{ $animal->id }}})"
+                                            <td>
+                                                <a wire:click="$dispatch('generatePdf',{animalId:{{ $animal->id }}, responsableId:{{ $animal->responsible_id }}})"
+                                                    wire:loading.attr="disabled"
                                                     class="bg-slate-200 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-300"
                                                     title="Ver información completa">
+                                                    {{--  <span wire:loading.remove>Generate PDF</span> --}}
+                                                    <div wire:loading>
+                                                        Downloading Report...
+                                                    </div>
                                                     <i class="fa-regular fa-file-pdf m-1 text-lg text-red-500"></i>
-                                                </a></td>
+                                                </a>
+                                            </td>
                                         </tr>
                                     @empty
                                         <td class="pt-5 text-center text-black dark:bg-darkmode-600 bg-transparent font-bold"
@@ -62,7 +69,10 @@
     <div>
         {{ $this->animals->links() }}
     </div>
+    <livewire:historial.generar-pdf />
 </div>
+
+
 
 @push('modals')
     <livewire:historial.management />

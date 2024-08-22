@@ -22,6 +22,8 @@ return new class extends Migration
             $table->boolean('status')->default(true);
             $table->string('logo', 2048)->nullable();
             $table->date('end_license')->nullable(false);
+            $table->integer('bool_termino_codiciones')->nullable(false);
+            $table->string('folder', 200)->nullable(true);
             $table->timestamps();
             $table->softDeletes();
         });

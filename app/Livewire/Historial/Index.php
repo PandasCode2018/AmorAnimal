@@ -4,9 +4,11 @@ namespace App\Livewire\Historial;
 
 use App\Models\Animal;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
-use App\Http\Traits\WithTableActions;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Traits\WithMessages;
+use App\Http\Traits\WithTableActions;
 
 
 class Index extends Component
@@ -16,6 +18,7 @@ class Index extends Component
     use WithMessages;
 
 
+    public $animalId;
     public $Animals;
     public ?string $search = '';
     public $perPage = 8;
@@ -23,6 +26,7 @@ class Index extends Component
     protected $listeners = ['historial-index:refresh' => 'refresh'];
 
 
+   
 
     public function getAnimalsQueryProperty()
     {

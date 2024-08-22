@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Auth;
 use OwenIt\Auditing\Models\Audit as ModelsAudit;
-
+ 
 class Audit extends ModelsAudit
 {
+
+    
     protected static function boot()
     {
         parent::boot();

@@ -4,17 +4,22 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Http\Traits\WithUuid;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
-use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements Auditable
 {
+
+    // ! ACTUALMENTE AL REGISTRAR UNA EMPRESA NO DA UN ERROR Y AL PARCER ES POR EL LA LIBRERIA AUDITABLE SI LO RETIRAMOS FUNCIONA 
+    // ! SE DEBE BUSCAR LA FORMA DE QUE EL AUDI NO HAGA CASO CUANDO EL USUAIRO NO ESTA AUTENTICADO, SE DEBE HACER LO MISMO CON EL MODELO DE USER
+
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
@@ -23,6 +28,22 @@ class User extends Authenticatable implements Auditable
     use SoftDeletes;
     use WithUuid;
     use HasRoles;
+
+
+
+    /*   
+    protected static function boot()
+  {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (!Auth::check()) {
+                $model->disableAuditing();
+            }
+        });
+    }
+ */
+
 
 
     /**
@@ -119,9 +140,9 @@ class User extends Authenticatable implements Auditable
                     ->orWhereHas('company', function ($q) use ($search) {
                         $q->where('name', 'like', "%{$search}%");
                     })
-                    /*   ->orWhereHas('roles', function ($q) use ($search) {
+                    ->orWhereHas('roles', function ($q) use ($search) {
                         $q->where('name', 'like', "%{$search}%");
-                    }) */
+                    })
                     ->orWhereRaw("IF(status = 1, 'activo', 'inactivo') like '%$search%'");
             });
         }

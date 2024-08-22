@@ -11,7 +11,7 @@ use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use App\Http\Traits\WithMessages;
-
+use App\Models\Company;
 
 class Management extends Component
 {
@@ -19,6 +19,7 @@ class Management extends Component
 
     public $animalModal = false;
     public Animal $animal;
+    public $company;
     public $companyId;
     public $selectResponsable;
     public $selectEspecies;
@@ -28,14 +29,16 @@ class Management extends Component
     public $prueba;
     public $sexoAnimal = ['Macho', 'Hembra', 'Hermafroditismo', 'Dioico', 'Monoico'];
     public $animalId;
-    public $booColsulta = 1;
+    public $carpetaCompany;
     public function mount()
     {
         $this->animal = new Animal();
         $this->userId = Auth::id();
         $this->companyId = Auth::user()->company_id;
+        $this->company = Company::find($this->companyId);
         $this->selectResponsable = Responsible::select();
         $this->selectEspecies = AnimalSpecies::select();
+        $this->carpetaCompany = $this->company->folder;
     }
 
     # el campo quedo escrito de forma diferenet veririfcar con el responsible
@@ -82,14 +85,15 @@ class Management extends Component
 
     public function store()
     {
+        $nameCarpeta =   $this->carpetaCompany;
         $this->validate();
         $isEdit = (bool) $this->animal->id;
         $imagen = $this->image;
 
         if ($imagen && $imagen instanceof \Illuminate\Http\UploadedFile) {
             $imageName = time() . '.' . $imagen->getClientOriginalExtension();
-            $imagen->storeAs('animal', $imageName, 'public');
-            $rutaImagen = 'animal/' . $imageName;
+            $imagen->storeAs("empresas/$nameCarpeta/animales', $imageName, 'public");
+            $rutaImagen = "empresas/$nameCarpeta/animales" . $imageName;
             $this->animal->photo = $rutaImagen;
         }
         try {

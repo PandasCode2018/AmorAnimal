@@ -6,14 +6,16 @@ use App\Models\Animal;
 use Livewire\Component;
 use App\Models\Responsible;
 use Livewire\Attributes\On;
-use App\Http\Traits\WithMessages;
 use App\Models\Consultation;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Traits\WithMessages;
 
 class Management extends Component
 {
     use WithMessages;
     public $historialModal = false;
     public $animaId;
+    public $animalId;
     public $responsableId;
     public $userCompanyId;
     public $informacionAnimal;
@@ -64,6 +66,22 @@ class Management extends Component
     public function closeModal()
     {
         $this->historialModal = false;
+    }
+
+
+    #[On('generatePdf')]
+    public function dischargePdf($animalId, $responsableId)
+    {
+
+        $this->informacionAnimal =  $this->getInfoAnimal($animalId);
+        $this->infomacionResponsable =  $this->getInfoResponsable($responsableId);
+        $this->informacionConsultas = $this->getInformacionConsulta($animalId);
+
+        // Genera el PDF con los datos del animal
+        $pdf = Pdf::loadView('historial.generar-pdf');
+
+        // Descarga el PDF
+        return $pdf->download('Historial.pdf');
     }
 
     public function render()

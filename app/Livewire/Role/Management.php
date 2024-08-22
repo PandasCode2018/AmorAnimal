@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Http\Traits\WithMessages;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Permission;
 
@@ -34,7 +35,7 @@ class Management extends Component
         return [
             //'role.name' => 'required|string|max:255|unique:roles,name,'.$this->role->id.',id,company_id,'.$this->role->company_id,
             'role.name' => 'required|string|max:255',
-            'rolePermissions' => 'nullable|array|min:1|in:' . Permission::pluck('name')->implode(','), // solo permisos existentes
+            'rolePermissions' => 'nullable|array|in:' . Permission::pluck('name')->implode(','), // solo permisos existentes
         ];
     }
     private function clearString()
@@ -57,6 +58,7 @@ class Management extends Component
 
         try {
             $this->clearString();
+            $this->role->company_id = Auth::user()->company_id;
             $this->role->save();
             $this->role->syncPermissions($this->rolePermissions);
         } catch (\Throwable $th) {

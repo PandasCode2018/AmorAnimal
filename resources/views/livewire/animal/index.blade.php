@@ -43,9 +43,9 @@
                                     @forelse ($this->animals as $animal)
                                         <tr
                                             class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
-                                            <td class="p-3 text-left"> <img
+                                            <td class="p-3 text-left"> {{-- <img
                                                     src="{{ Storage::url($animal->photo) ?? '' }}" alt="Foto del animal"
-                                                    class="w-12 h-12 object-cover rounded-full shadow-lg"></td>
+                                                    class="w-12 h-12 object-cover rounded-full shadow-lg"> --}}</td>
                                             <td class="p-3 text-left">{{ $animal->code_animal }}</td>
                                             <td class="p-3  text-left"> {{ $animal->name }}</td>
                                             <td class="p-3 text-center"> {{ $animal->animalSpecies->name }}</td>

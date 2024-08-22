@@ -2,17 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role as ModelsRole;
 
 class Role extends ModelsRole
 {
+
+    protected $fillable = ['name', 'guard_name', 'company_id'];
 
     public function company()
     {
         return $this->belongsTo(Company::class);
     }
 
-    public static function filter($search = '', $company_id = null)
+    public static function filter($search = '')
     {
         $query = static::query()->with('company', 'users')->withCount('users', 'permissions');
         $search = trim($search);
@@ -23,9 +26,7 @@ class Role extends ModelsRole
                 });
         }
 
-        /* if ($company_id) {
-            $query->where('company_id', $company_id);
-        } */
+        $query->where('company_id', Auth::user()->company_id);
 
         return $query->orderByDesc('id');
     }
