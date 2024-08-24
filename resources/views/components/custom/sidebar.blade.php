@@ -17,68 +17,69 @@
     </ul>
     <ul class="list-reset flex flex-col ">
 
-        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
+        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-600">
             <a href="{{ route('dashboard.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
                 <i class="fa-solid fa-house mr-2"></i>
                 Inicio
             </a>
         </li>
-        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
-            <a href="{{ route('users.index') }}"
-                class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
-                <i class="fas fa-user mr-2"></i>
-                Usuarios
-            </a>
-        </li>
-        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
+        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-600">
             <a href="{{ route('roles.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
                 <i class="fas fa-user-tag mr-2"></i>
                 Roles
             </a>
         </li>
-        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
+        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-600">
+            <a href="{{ route('users.index') }}"
+                class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
+                <i class="fas fa-user mr-2"></i>
+                Usuarios
+            </a>
+        </li>
+
+        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-600">
             <a href="{{ route('responsible.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
                 <i class="fas fa-users mr-2"></i>
                 Responsables
             </a>
         </li>
-        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
+        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-600">
             <a href="{{ route('animal.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
                 <i class="fas fa-paw mr-2"></i>
                 Animales
             </a>
         </li>
-        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
+        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-600">
             <a href="{{ route('consultation.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
                 <i class="fa-solid fa-stethoscope mr-2"></i>
                 Consultas
             </a>
         </li>
-        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
+        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-600">
             <a href="{{ route('historial.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
                 <i class="fas fa-file-alt mr-2"></i>
                 Historial de consultas
             </a>
         </li>
-        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
+        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-600">
             <a href="{{ route('audits.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
                 <i class="fas fa-clipboard-check mr-2"></i> Auditoría
             </a>
         </li>
-        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800">
+        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-600">
             <a href="{{ route('Suggestions.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
                 <i class="fa-solid fa-comment mr-2"></i> Sugerencias
             </a>
         </li>
-        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800 sm:hidden">
+        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-600 sm:hidden">
             <!-- Escondido en pantallas pequeñas y arriba -->
             <a href="#"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
@@ -86,7 +87,7 @@
                 Soporte
             </a>
         </li>
-        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-800 block sm:hidden ">
+        <li class="w-full h-full py-3 px-2 border-b border-slate-700 hover:bg-blue-600 block sm:hidden ">
             <!-- Solo se muestra en pantallas pequeñas, escondido en pantallas medianas y grandes -->
             <form method="POST" action="{{ route('logout') }}" x-data>
                 @csrf
