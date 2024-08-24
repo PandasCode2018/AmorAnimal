@@ -15,7 +15,7 @@
                             class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                             @auth
                                 <img class="h-8 w-8 rounded-full object-cover"
-                                    src="{{ Storage::url(Auth::user()->profile_photo_path) }}" alt="*" />
+                                    src="{{ Auth::user()->profile_photo_path ? Storage::url(Auth::user()->profile_photo_path) : asset('img_sistema/perfil.png') }}">
                             @endauth
                         </button>
                     </x-slot>

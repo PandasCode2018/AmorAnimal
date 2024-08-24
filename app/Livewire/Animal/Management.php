@@ -83,21 +83,24 @@ class Management extends Component
         }
     }
 
-    public function store()
+    public function saveFile($file)
     {
         $nameCarpeta =   $this->carpetaCompany;
+        if ($file && $file instanceof \Illuminate\Http\UploadedFile) {
+            $imageName = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs("empresas/{$nameCarpeta}" . '/animales/', $imageName, 'public');
+            $this->animal->photo = "empresas/{$nameCarpeta}" . '/animales/' . $imageName;
+        }
+    }
+
+    public function store()
+    {
+
         $this->validate();
         $isEdit = (bool) $this->animal->id;
-        $imagen = $this->image;
-
-        if ($imagen && $imagen instanceof \Illuminate\Http\UploadedFile) {
-            $imageName = time() . '.' . $imagen->getClientOriginalExtension();
-            $imagen->storeAs("empresas/$nameCarpeta/animales', $imageName, 'public");
-            $rutaImagen = "empresas/$nameCarpeta/animales" . $imageName;
-            $this->animal->photo = $rutaImagen;
-        }
+        $file = $this->image;
         try {
-
+            $this->saveFile($file);
             if (!$isEdit) {
                 $this->animal->code_animal = $this->generateCode($this->animal->name);
             }

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreProfileRequest;
 
 class Index extends Component
 {
@@ -89,7 +90,7 @@ class Index extends Component
             'company.nit' => 'required',
             'company.email' => 'nullable|email|unique:companies,email,' . $this->company?->id,
             'company.address' => 'nullable|string',
-            'company.phone' => 'required|unique:companies,phone,' . $this->company->id,
+            'company.phone' => 'required|unique:companies,phone,' . $this->company?->id,
             'company.end_license' => 'required',
         ];
     }
@@ -113,15 +114,20 @@ class Index extends Component
     public function updateUserProfile()
     {
         $nameCarpeta =   $this->carpetaCompany;
-        //$this->validate($this->getUserRules());
-        //dd($this->user);
+        $this->validate($this->getUserRules());
         try {
             $imagen = $this->imagenUser;
             if ($imagen && $imagen instanceof \Illuminate\Http\UploadedFile) {
-                Log::info('llegue');
                 $imageName = time() . '.' . $imagen->getClientOriginalExtension();
-                $imagen->storeAs("empresas/$nameCarpeta/', $imageName, 'public");
-                $rutaImagen = "empresas/$nameCarpeta/" . $imageName;
+                $imagen->storeAs("empresas/{$nameCarpeta}" . '/usuarios/', $imageName, 'public');
+                $rutaImagen = "empresas/{$nameCarpeta}" . '/usuarios/' . $imageName;
+
+                if ($this->user->profile_photo_path) {
+                    $oldImagePath = public_path("storage/{$this->user->profile_photo_path}");
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
+                }
                 $this->user->profile_photo_path = $rutaImagen;
             }
 
@@ -160,9 +166,18 @@ class Index extends Component
             $logo = $this->imagenCompany;
             if ($logo && $logo instanceof \Illuminate\Http\UploadedFile) {
                 $imageName = time() . '.' . $logo->getClientOriginalExtension();
-                $logo->storeAs("empresas/$nameCarpeta/usuarios', $imageName, 'public");
-                $rutaImagen = "empresas/$nameCarpeta/usuarios" . $imageName;
-                $this->company->logo = $rutaImagen;
+                $carpetaEmpresa = "empresas/{$nameCarpeta}";
+                $imagePath = "{$carpetaEmpresa}/{$imageName}";
+                $logo->storeAs($carpetaEmpresa, $imageName, 'public');
+
+                #eliminia la imagen existente
+                if ($this->company->logo) {
+                    $oldImagePath = public_path("storage/{$this->company->logo}");
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
+                }
+                $this->company->logo = $imagePath;
             }
 
             $this->clearString($this->company);

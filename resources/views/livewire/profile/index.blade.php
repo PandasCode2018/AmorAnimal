@@ -13,8 +13,9 @@
                     <div class="relative flex items-center p-5">
                         @if ($contenedorUserVisibles)
                             <div class="image-fit h-12 w-12">
-                               {{--  <img class="rounded-full" src="{{ Storage::url(Auth::user()->profile_photo_path) }}"
-                                    alt="Foto" /> --}}
+                                <img class="rounded-full"
+                                    src="{{ Auth::user()->profile_photo_path ? Storage::url(Auth::user()->profile_photo_path) : asset('img_sistema/perfil.png') }}"
+                                    alt="Foto" />
                             </div>
                             <div class="ml-4 mr-auto">
                                 <div wire:nodel='name' class="text-base font-medium capitalize">
@@ -24,8 +25,9 @@
                         @endif
                         @if ($contenedorCompanyVisibles)
                             <div class="image-fit h-12 w-12">
-                               {{--  <img class="rounded-full" src="{{ Storage::url(Auth::user()->company->logo) }}"
-                                    alt="Foto" /> --}}
+                                <img class="rounded-full"
+                                    src="{{ Auth::user()->company->logo ? Storage::url(Auth::user()->company->logo) : asset('img_sistema/company.png') }}"
+                                    alt="Foto" />
                             </div>
                             <div class="ml-4 mr-auto">
                                 <div class="text-base font-medium">

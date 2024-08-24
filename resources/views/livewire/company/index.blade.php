@@ -61,7 +61,7 @@
 
                                         <div class="flex items-baseline space-x-2 mt-2">
                                             <input type="checkbox" name="" id="" class="inline-block">
-                                            <a href="{{-- {{ route('policy') }} --}}"
+                                            <a href="{{route('policy.show')}}"
                                                 class="text-gray-600 text-sm hover:text-blue-500">Acepto
                                                 Termino y condiciones.</a>
                                         </div>

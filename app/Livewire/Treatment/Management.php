@@ -80,9 +80,16 @@ class Management extends Component
 
     public function store()
     {
+
+        if (is_null($this->idConsulta) || empty($this->idConsulta)) {
+            $this->showError('Error creando el tratamiento');
+            return;
+        }
+
         $this->validate();
         $isEdit = (bool) $this->treatment->id;
         try {
+            $this->treatment->consultation_id =  $this->idConsulta;
             $this->treatment->company_id = $this->companyId;
             $this->treatment->user_id = $this->userId;
             $this->treatment->save();
@@ -98,8 +105,14 @@ class Management extends Component
         }
         $this->resetErrorBag();
         $this->closeModal();
-        $this->dispatch('teatment-index:refresh');
+        $this->dispatch('treatment-index:refresh');
         $this->treatment = new Treatment();
+    }
+
+    #[On('consultaIdSet')]
+    public function handleConsultaId($consultaId)
+    {
+        $this->idConsulta = $consultaId;
     }
 
 
@@ -113,6 +126,7 @@ class Management extends Component
         }
         $this->tratamientoModal = true;
     }
+
     public function closeModal()
     {
         $this->tratamientoModal = false;

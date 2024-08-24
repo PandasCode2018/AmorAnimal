@@ -28,8 +28,7 @@
                             </div> --}}
 
                             <div class="p-2 w-full sm:w-auto">
-                                <x-custom.button 
-                                wire:click="$dispatch('openTratamientoModal')"
+                                <x-custom.button wire:click="$dispatch('openTratamientoModal')"
                                     title="Crear un nuevo usuario"
                                     class="w-full sm:w-auto bg-blue-400 hover:bg-blue-500 text-white py-2 px-4 text-base sm:text-sm font-medium">
                                     Nuevo tratamiento
@@ -65,7 +64,7 @@
                                                         </td>
                                                         <td class="p-3 text-center">
                                                             {{ $tratamiento->application_date }}</td>
-                                                        <td class="p-3">{{ $tratamiento->reinforcement_date }} </td>
+                                                        <td class="p-3">{{ $tratamiento->reinforcement_date ?? 'no aplica' }} </td>
                                                         <td class="p-3">{{ $tratamiento->dose }} </td>
                                                         <td class="p-3">{{ $tratamiento->frequency }} </td>
                                                         <td class="p-3">

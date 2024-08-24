@@ -66,11 +66,19 @@ class Consultation extends Model implements Auditable
         $search = trim($search);
 
         if (strlen($search) > 0) {
-            # code...
+            $query->whereHas('animal', function ($infAnimal) use ($search) {
+                $infAnimal->where('name', 'like', "%{$search}%")
+                    ->orWhere('microchip_code', 'like', "%{$search}%")
+                    ->orWhere('code_animal', 'like', "%{$search}%")
+                    ->orWhereHas('responsible', function ($infoResponsable) use ($search) {
+                        $infoResponsable->where('name', 'like', "%{$search}%")
+                            ->orWhere('document_number', 'like', "%{$search}%");
+                    });
+            });
         }
         if ($boolAll == false) {
             $query->where('company_id', auth()->user()->company_id)
-                ->whereNotIn('query_status_id', [4, 2]);
+                ->whereNotIn('query_status_id', [3, 4]);
         }
 
         return $query->with('company', 'animal', 'user', 'queryStatus', 'treatments')->orderByDesc('consultations.id');

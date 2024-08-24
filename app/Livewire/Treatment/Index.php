@@ -55,6 +55,7 @@ class Index extends Component
         $this->consultaId = $idConsulta;
         $this->datos = $this->treatment($idConsulta);
         $this->indexModal = true;
+        $this->dispatch('consultaIdSet', $this->consultaId);
     }
 
     public function closeModal()
