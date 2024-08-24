@@ -27,6 +27,10 @@ class Management extends Component
         $this->userCompanyId = auth()->user()->company_id;
     }
 
+    function isSetAndNotEmpty($variable)
+    {
+        return is_null($variable) && empty($variable);
+    }
     public function getInfoAnimal($animaId)
     {
         return Animal::where('id', $animaId)
@@ -73,15 +77,29 @@ class Management extends Component
     public function dischargePdf($animalId, $responsableId)
     {
 
-        $this->informacionAnimal =  $this->getInfoAnimal($animalId);
-        $this->infomacionResponsable =  $this->getInfoResponsable($responsableId);
-        $this->informacionConsultas = $this->getInformacionConsulta($animalId);
+        if ($this->isSetAndNotEmpty($animalId) || $this->isSetAndNotEmpty($responsableId)) {
+            $this->showError('Error obteniendo datos, comuníquese con el administrador.');
+            return;
+        }
 
-        // Genera el PDF con los datos del animal
-        $pdf = Pdf::loadView('historial.generar-pdf');
+        $informacionAnimal =  $this->getInfoAnimal($animalId);
+        $infomacionResponsable =  $this->getInfoResponsable($responsableId);
+        $informacionConsultas = $this->getInformacionConsulta($animalId);
 
-        // Descarga el PDF
-        return $pdf->download('Historial.pdf');
+        if ($this->isSetAndNotEmpty($informacionAnimal) || $this->isSetAndNotEmpty($infomacionResponsable)) {
+            $this->showError('Error obteniendo datos, comuníquese con el administrador.');
+            return;
+        }
+        $historial = [
+            'informacionAnimal' => $informacionAnimal,
+            'infomacionResponsable' => $infomacionResponsable,
+            'informacionConsultas' => $informacionConsultas,
+        ];
+
+        $pdf = Pdf::loadView('livewire.historial.generar-pdf', $historial);
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, 'Hitorial.pdf');
     }
 
     public function render()

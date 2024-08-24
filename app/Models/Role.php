@@ -20,14 +20,10 @@ class Role extends ModelsRole
         $query = static::query()->with('company', 'users')->withCount('users', 'permissions');
         $search = trim($search);
         if (strlen($search) > 0) {
-            $query->where('name', 'like', "%$search%")
-                ->orWhereHas('company', function ($query) use ($search) {
-                    $query->where('name', 'like', "%$search%");
-                });
+            $query->where('name', 'like', "%$search%");
         }
 
         $query->where('company_id', Auth::user()->company_id);
-
         return $query->orderByDesc('id');
     }
 }

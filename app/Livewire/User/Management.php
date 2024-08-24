@@ -28,7 +28,7 @@ class Management extends Component
     {
         $this->user = new User();
         $this->userCompanyId = Auth::user()->company_id;
-        $this->selectRoles = Role::all();
+        $this->selectRoles = Role::where('company_id', $this->userCompanyId)->get();
     }
 
     protected $validationAttributes = [
@@ -92,7 +92,7 @@ class Management extends Component
                 $this->user->password = bcrypt($this->user->password);
             }
 
-        
+
             unset($this->user->rolesName);
             $this->user->company_id = $this->userCompanyId;
             $this->user->save();
