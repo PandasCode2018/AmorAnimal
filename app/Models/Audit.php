@@ -4,17 +4,20 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Auth;
 use OwenIt\Auditing\Models\Audit as ModelsAudit;
- 
+
 class Audit extends ModelsAudit
 {
 
-    
+
     protected static function boot()
     {
         parent::boot();
 
         static::creating(function ($model) {
-            $model->company_id = Auth::user()->company_id;
+
+            $user = Auth::user();
+            $model->company_id = $user ? $user->company_id : null;
+            // $model->company_id = Auth::user()->company_id ?? null;
         });
     }
 
