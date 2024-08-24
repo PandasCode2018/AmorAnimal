@@ -32,7 +32,7 @@ class Company extends Model implements Auditable
         'folder',
     ];
 
-    protected static function boot()
+   /*  protected static function boot()
     {
         parent::boot();
 
@@ -48,7 +48,7 @@ class Company extends Model implements Auditable
     public function shouldBeAudited()
     {
         return Auth::check();
-    }
+    } */
 
 
     public function users()

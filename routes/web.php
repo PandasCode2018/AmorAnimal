@@ -18,13 +18,10 @@ use App\Http\Controllers\CompanyController;
 Route::redirect('/', '/login');
 
 
-
-
 // Grupo de  rutas para páginas públicas (sin autenticación)
 Route::middleware('guest')->name('public.')->group(function () {
-    Route::get('/companies', [CompanyController::class, 'index'])->name('company.form');;
-    Route::post('/companies', [CompanyController::class, 'store'])->name('company.store');;
-    
+    Route::get('/companies', [CompanyController::class, 'index'])->name('company.form');
+    Route::post('/companies', [CompanyController::class, 'store'])->name('company.store');    
 });
 
 
