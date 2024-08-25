@@ -94,7 +94,8 @@
                                             <td class="p-3 text-center"> {{ $animal->responsible->name }}</td>
 
                                             <td class="p-3">
-                                                <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
+                                                <a wire:click="$dispatch('opeModalDetalleAnimal', {animalUuid:'{{ $animal->uuid }}'})"
+                                                    class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
                                                     title="Ver información completa">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
@@ -142,6 +143,11 @@
 @push('modals')
     <livewire:consultation.management />
 @endpush
+
 @push('modals')
     <livewire:animal-specie.management />
+@endpush
+
+@push('modals')
+    <livewire:animal.detalle />
 @endpush

@@ -1,7 +1,6 @@
 <div>
-    <x-modal wire:model='detalleUsertoModal' maxWidth="4xl" id="manage-detalleUser-modal">
-        <div class="flex justify-between items-center py-3 px-4 border-b">
-            <h3 class="text-nowrap text-2xl text-gray-800 dark:text-gray-800"> Detalle de {{ $user->name ?? '' }}</h3>
+    <x-modal wire:model='detalleUsertoModal' maxWidth="3xl" id="manage-detalleUser-modal">
+        <div class="flex justify-end items-center py-3 px-4 border-b">
             <button type="button" wire:click='closeModal'
                 class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-300
                  hover:bg-gray-200 hover:scale-105 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400">
@@ -13,61 +12,66 @@
                 </svg>
             </button>
         </div>
-        <div class="mt-5 grid grid-cols-12 gap-6">
-            <div class="col-span-12 lg:col-span-3 pt-4 bg-white flex items-center">
-                <img class="w-50 h-40 border mx-auto"
-                    src="{{ Auth::user()->profile_photo_path ? Storage::url(Auth::user()->profile_photo_path) : asset('img_sistema/perfil.png') }}"
-                    alt="Profile Photo">
-            </div>
-            <div class="col-span-12 lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-4 bg-white p-4 m-4">
+        <section class="w-full overflow-hidden dark:bg-gray-900">
+            <div class="flex flex-col">
+                <!-- Profile Image -->
+                <div class="sm:w-[80%] xs:w-[90%] mx-auto flex flex-col items-center">
+                    <img src="{{ $user->profile_photo_path ?? '' ? Storage::url($user->profile_photo_path) : asset('img_sistema/user.jpg') }}"
+                        alt="User Profile"
+                        class="rounded-md lg:w-[12rem] lg:h-[12rem] md:w-[10rem] md:h-[10rem] sm:w-[8rem] sm:h-[8rem] xs:w-[7rem] xs:h-[7rem]" />
 
-                <div>
-                    <label class="font-medium text-gray-700">Email:</label>
-                    <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                        value="{{ $user->email ?? '' }}" disabled>
+                    <!-- FullName -->
+                    <h1
+                        class="w-full text-center mt-4 sm:mx-4 text-gray-800 dark:text-white lg:text-4xl md:text-3xl sm:text-3xl xs:text-xl font-serif">
+                        {{ $user->name ?? '' }}
+                    </h1>
                 </div>
-                <div>
-                    <label class="font-medium text-gray-700">Documento:</label>
-                    <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                        value="{{ $user->document_number ?? '' }}" disabled>
-                </div>
-                <div>
-                    <label class="font-medium text-gray-700">Teléfono:</label>
-                    <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                        value="{{ $user->phone ?? '' }}" disabled>
-                </div>
-                <div>
-                    <label class="font-medium text-gray-700">Dirección:</label>
-                    <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                        value="{{ $user->address ?? '' }}" disabled>
-                </div>
-                <div>
-                    <label class="font-medium text-gray-700">Calificación:</label>
-                    <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                        value="{{ $user->qualification ?? '' }}" disabled>
-                </div>
-                <div>
-                    <label class="font-medium text-gray-700">Especialidad:</label>
-                    <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                        value="{{ $user->specialty ?? '' }}" disabled>
-                </div>
-                <div>
-                    <label class="font-medium text-gray-700">Licencia:</label>
-                    <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                        value="{{ $user->license_number ?? '' }}" disabled>
-                </div>
-                <div>
-                    <label class="font-medium text-gray-700">Experiencia:</label>
-                    <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                        value="{{ $user->years_experience ?? '' }}" disabled>
-                </div>
-                <div>
-                    <label class="font-medium text-gray-700">Estado:</label>
-                    <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                        value="{{ $user->status ?? null == 1 ? 'Activo' : 'Inactivo' }}" disabled>
-                </div>
-            </div>
-        </div>
 
+
+                <dl
+                    class="col-span-12 lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-4 p-4 m-4 text-gray-900  dark:text-white ">
+                    <div class="border-b">
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Correo</dt>
+                        <dd class="text-lg font-semibold">{{ $user->email ?? '' }}</dd>
+                    </div>
+                    <div class="border-b">
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Docuemnto</dt>
+                        <dd class="text-lg font-semibold">{{ $user->document_number ?? '' }}</dd>
+                    </div>
+                    <div class="border-b">
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Teléfono</dt>
+                        <dd class="text-lg font-semibold">{{ $user->phone ?? '' }}</dd>
+                    </div>
+                    <div class="border-b">
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">titulo</dt>
+                        <dd class="text-lg font-semibold">{{ $user->qualification ?? '' }}</dd>
+                    </div>
+                    <div class="border-b">
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Expecialización</dt>
+                        <dd class="text-lg font-semibold">{{ $user->specialty ?? '' }}</dd>
+                    </div>
+                    <div class="border-b">
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Numero de licencia</dt>
+                        <dd class="text-lg font-semibold">{{ $user->license_number ?? '' }}</dd>
+                    </div>
+                    <div class="border-b">
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Años de experiencia</dt>
+                        <dd class="text-lg font-semibold">{{ $user->years_experience ?? '' }} Años</dd>
+                    </div>
+                    <div class="border-b">
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Estado</dt>
+                        <dd class="text-lg font-semibold">{{ $user->status ?? '' == 1 ? 'Activo' : 'Inactivo' }}</dd>
+                    </div>
+                    <div class="border-b">
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Doctor</dt>
+                        <dd class="text-lg font-semibold">{{ $user->bool_doctor ?? '' == 1 ? 'Si' : 'No' }}</dd>
+                    </div>
+                    <div class="border-b">
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Dirección</dt>
+                        <dd class="text-lg font-semibold">{{ $user->address ?? '' }}</dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
     </x-modal>
 </div>
