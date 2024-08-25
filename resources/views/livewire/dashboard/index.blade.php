@@ -77,7 +77,6 @@
                                                     class="py-2 px-3 mt-2 rounded-xl bg-white text-gray-800 hover:text-yellow-400 text-sm font-semibold transition">
                                                     Total de Responsables</a>
                                             </div>
-
                                         </div>
                                     </div>
                                     <div class="border-t pt-2 mt-2">
@@ -107,9 +106,8 @@
                                                 <div class="flex justify-between">
                                                     <div class="text-gray-400 text-xs">PandasCode</div>
                                                 </div>
-                                                <a href="javascript:void(0)"
-                                                    class="font-bold hover:text-yellow-800 hover:underline">Cross-platform
-                                                    and browser QA</a>
+                                                <a href="{{ route('Suggestions.index') }}"
+                                                    class="font-bold hover:text-yellow-800 hover:underline">Sugerencias</a>
                                             </div>
                                         </div>
                                     </div>
