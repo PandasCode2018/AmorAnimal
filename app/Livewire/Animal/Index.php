@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Http\Traits\WithTableActions;
 use App\Http\Traits\WithMessages;
+use App\Models\AnimalSpecies;
 
 class Index extends Component
 {
@@ -15,10 +16,30 @@ class Index extends Component
     use WithMessages;
 
     public $Animals;
+    public $animalEspecies;
     public ?string $search = '';
-    public $perPage = 8;
+    public $perPage = 6;
     protected $queryString = ['search'];
     protected $listeners = ['animal-index:refresh' => 'refresh'];
+
+    public function mount()
+    {
+
+        $this->animalEspecies = AnimalSpecies::where('company_id', 98)->get();
+    }
+
+    /*  public function getanimalEspeciesQueryProperty()
+    {
+
+        AnimalSpecies::filter();
+    }
+
+    public function getanimalEspeciesProperty()
+    {
+
+        return $this->animalEspecies->paginate($this->perPage);
+    } */
+
 
     public function getAnimalsQueryProperty()
     {

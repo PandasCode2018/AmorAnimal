@@ -49,19 +49,14 @@
                                             <td class="p-3">{{ $Responsible->document_number }} </td>
                                             <td class="p-3">{{ $Responsible->address }} </td>
                                             <td class="p-3">
-                                                <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
-                                                    title="Ver información completa">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-
                                                 <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
-                                                    title="Editar usuario"
+                                                    title="Editar"
                                                     wire:click="$dispatch('openResponsibleModal', {responbibleUuid:'{{ $Responsible->uuid }}'})">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
 
                                                 <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
-                                                    title="Eliminar usuario"
+                                                    title="Eliminar"
                                                     wire:click="delete('responsibles','{{ $Responsible->uuid }}')">
                                                     <i class="fas solid fa-trash-can"></i>
                                                 </a>

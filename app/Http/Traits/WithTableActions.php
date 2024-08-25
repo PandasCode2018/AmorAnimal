@@ -3,6 +3,7 @@
 namespace App\Http\Traits;
 
 use App\Models\Animal;
+use App\Models\AnimalSpecies;
 use App\Models\Company;
 use App\Models\Responsible;
 use App\Models\Role;
@@ -57,6 +58,9 @@ trait WithTableActions
         switch ($module) {
             case 'companies':
                 $model = Company::class;
+                break;
+            case 'animalEspecies':
+                $model = AnimalSpecies::class;
                 break;
             case 'animals':
                 $model = Animal::class;
