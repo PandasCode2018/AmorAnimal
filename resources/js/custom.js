@@ -5,8 +5,9 @@ Livewire.on('notification', (event) => {
     const { type, message, title, timer } = event[0];
     switch (type) {
         case 'error':
-            var icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-danger w-6 h-6">
+            var icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" 
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="text-danger w-6 h-6">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
             </svg>`
@@ -31,7 +32,9 @@ Livewire.on('notification', (event) => {
             break;
     }
     //    escribir en un div del html el html que se quiere mostrar
-    const html = `<div id="success-notification-content" class="py-5 pl-5 pr-14 bg-white border border-slate-200/60 rounded-lg shadow-xl dark:bg-darkmode-600 dark:text-slate-300 dark:border-darkmode-600 flex">
+    const html = `<div id="success-notification-content" class="py-5 pl-5 pr-14 bg-white border
+                 border-slate-200/60 rounded-lg shadow-xl dark:bg-darkmode-600
+                  dark:text-slate-300 dark:border-darkmode-600 flex">
             ${icon}
             <div class="ml-4 mr-4">
                 <div class="font-medium">${title ? title : 'Acción Exitosa'}</div>

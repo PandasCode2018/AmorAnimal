@@ -9,8 +9,8 @@
                     <div class="flex-auto block p-3">
                         <div class="overflow-x-auto lg:overflow-visible">
                             <div class="bg-white rounded-3xl p-8 mb-5">
-                                <h1 class="text-3xl font-bold mb-7">¡Bienvenidos a AmorAnimal!</h1>
-                                <div class="items-center justify-between hidden sm:flex">
+                                <h1 class="text-lg sm:text-3xl font-bold sm:mb-7">¡Bienvenidos a AmorAnimal!</h1>
+                                <div class="items-center justify-between hidden sm:block">
                                     <div class="flex items-stretch">
                                         <div class="text-gray-400 text-xs"></div>
                                         <div class="h-100 border-l mx-4"></div>
@@ -26,13 +26,10 @@
                                     </div>
                                 </div>
 
-                                <hr class="my-10">
+                                <hr class="my-2 sm:my-10">
 
-                                <div class="grid grid-cols-2 gap-x-20">
-                                    <div>
-                                        <h2 class="text-2xl font-bold mb-4"> {{ Auth::user()->company->name_company }}
-                                        </h2>
-
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-20">
+                                    <div class="hidden sm:block">
                                         <div class="grid grid-cols-2 gap-4">
                                             <div class="col-span-2">
                                                 <div class="p-4 bg-green-100 rounded-xl">
@@ -79,30 +76,44 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="border-t pt-2 mt-2">
-                                        <h2 class="text-2xl font-bold mb-4">Información del sistema</h2>
+                                    <div class="pt-2 mt-2 w-full">
+                                        <h2 class="text-lg sm:text-2xl font-bold mb-4 w-full">Información del sistema
+                                        </h2>
 
                                         <div class="space-y-4">
-                                            <div class="p-4 bg-white border rounded-xl text-gray-800 space-y-2">
+
+                                            <div class="p-4 bg-green-100 rounded-xl sm:hidden">
+                                                <div class="font-bold text-md text-gray-800 leading-none">
+                                                    Escríbenos si tienes algún problema.
+                                                </div>
+                                                <div class="mt-5">
+                                                    <button type="button"
+                                                        class="inline-flex items-center justify-center py-2 px-3 rounded-xl bg-white text-gray-800 hover:text-green-500 text-sm font-semibold transition">
+                                                        whatsapp
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="p-4 bg-white border rounded-xl text-gray-800 space-y-2 w-full">
                                                 <div class="text-gray-400 text-xs">PandasCode</div>
                                                 <a href="#"
                                                     class="font-bold hover:text-yellow-800 hover:underline">Fecha
-                                                    vecimiento de licencia</a>
+                                                    vencimiento de licencia</a>
                                                 <div class="text-sm text-gray-600">
                                                     {{ $this->limiteLicencia }}
                                                 </div>
                                             </div>
-                                            <div class="p-4 bg-white border rounded-xl text-gray-800 space-y-2">
+
+                                            <div class="p-4 bg-white border rounded-xl text-gray-800 space-y-2 w-full">
                                                 <div class="flex justify-between">
                                                     <div class="text-gray-400 text-xs">PandasCode</div>
                                                 </div>
                                                 <a href="javascript:void(0)"
-                                                    class="font-bold hover:text-yellow-800 hover:underline">Manules</a>
-                                                <div class="text-sm text-gray-600">
-
-                                                </div>
+                                                    class="font-bold hover:text-yellow-800 hover:underline">Manuales</a>
+                                                <div class="text-sm text-gray-600"></div>
                                             </div>
-                                            <div class="p-4 bg-white border rounded-xl text-gray-800 space-y-2">
+
+                                            <div class="p-4 bg-white border rounded-xl text-gray-800 space-y-2 w-full">
                                                 <div class="flex justify-between">
                                                     <div class="text-gray-400 text-xs">PandasCode</div>
                                                 </div>
@@ -111,6 +122,8 @@
                                             </div>
                                         </div>
                                     </div>
+
+
                                 </div>
                             </div>
                         </div>

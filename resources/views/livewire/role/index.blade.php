@@ -48,8 +48,10 @@
                                                     title="Ver información completa">
                                                     <i class="fas fa-edit"></i></a>
 
-                                                <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
-                                                    title="Eliminar usuario">
+                                                <a
+                                                wire:click="delete('role','{{ $role->uuid }}')"
+                                                class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
+                                                    title="Eliminar">
                                                     <i class="fas solid fa-trash-can"></i>
                                                 </a>
                                             </td>

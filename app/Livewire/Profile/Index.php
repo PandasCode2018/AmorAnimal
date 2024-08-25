@@ -44,12 +44,14 @@ class Index extends Component
 
         $this->contenedorCompanyVisibles = false;
         $this->contenedorUserVisibles = true;
+        $this->resetErrorBag();
     }
     public function viewContenedorUser()
     {
 
         $this->contenedorCompanyVisibles = true;
         $this->contenedorUserVisibles = false;
+        $this->resetErrorBag();
     }
 
     protected $validationAttributes = [
@@ -69,13 +71,13 @@ class Index extends Component
     public function getUserRules()
     {
         return [
-            'user.name' => 'required|string:max:100|min:2',
+            'user.name' => 'required|string|max:100|min:2',
             'user.email' => 'required|email|unique:users,email,' . $this->user?->id,
-            'user.qualification' => 'required',
-            'user.specialty' => 'required',
-            'user.years_experience' => 'required',
-            'user.license_number' => 'required',
-            'user.address' => 'required|string:max:100,',
+            'user.qualification' => 'nullable',
+            'user.specialty' => 'nullable',
+            'user.years_experience' => 'nullable',
+            'user.license_number' => 'nullable',
+            'user.address' => 'required|string|max:100',
             'user.password' => 'nullable|string|min:8|max:12',
             'user.newPassword' => 'nullable|string|min:8|max:12',
             'user.phone' => 'required|numeric|digits_between:6,12',
@@ -90,7 +92,7 @@ class Index extends Component
             'company.nit' => 'required',
             'company.email' => 'nullable|email|unique:companies,email,' . $this->company?->id,
             'company.address' => 'nullable|string',
-            'company.phone' => 'required|unique:companies,phone,' . $this->company?->id,
+            'company.phone' => 'required|numeric|digits_between:6,12|unique:companies,phone,' . $this->company?->id,
             'company.end_license' => 'required',
         ];
     }
@@ -113,7 +115,7 @@ class Index extends Component
     }
     public function updateUserProfile()
     {
-        $nameCarpeta =   $this->carpetaCompany;
+        $nameCarpeta = $this->carpetaCompany;
         $this->validate($this->getUserRules());
         try {
             $imagen = $this->imagenUser;

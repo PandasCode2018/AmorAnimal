@@ -7,7 +7,6 @@ use App\Models\User;
 use Ramsey\Uuid\Uuid;
 use Livewire\Component;
 use Livewire\Attributes\On;
-use App\Services\UserService;
 use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule;
 use App\Http\Traits\WithMessages;
@@ -17,7 +16,8 @@ use Illuminate\Support\Facades\Auth;
 class Management extends Component
 {
 
-    use WithFileUploads, WithMessages;
+    use WithFileUploads;
+    use WithMessages;
     public $userModal = false;
     public User $user;
     public $userCompanyId;

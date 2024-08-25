@@ -57,7 +57,8 @@
 
                                                 <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
                                                     title="Eliminar"
-                                                    wire:click="delete('responsibles','{{ $Responsible->uuid }}')">
+                                                    wire:click="delete('responsibles','{{ $Responsible->uuid }}')"
+                                                    wire:confirm.prompt="{{ $this->confirmQuestion }}">
                                                     <i class="fas solid fa-trash-can"></i>
                                                 </a>
                                             </td>
