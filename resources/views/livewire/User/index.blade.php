@@ -56,7 +56,8 @@
                                                 </span>
                                             </td>
                                             <td class="p-3">
-                                                <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
+                                                <a wire:click="$dispatch('detalleUsertoModal', {userUuid: '{{ $user->uuid }}'})"
+                                                    class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
                                                     title="Ver información completa">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
@@ -91,8 +92,10 @@
     <div>
         {{ $this->users->links() }}
     </div>
-
     @push('modals')
         <livewire:user.management />
+    @endpush
+    @push('modals')
+        <livewire:user.detalle />
     @endpush
 </div>

@@ -14,7 +14,7 @@ class AnimalSpecies extends Model implements Auditable
     use \OwenIt\Auditing\Auditable;
     use SoftDeletes;
     use WithUuid;
-    
+
     protected $fillable = [
 
         'company_id',
@@ -28,7 +28,16 @@ class AnimalSpecies extends Model implements Auditable
 
         return $this->hasMany(Animal::class);
     }
-    
+
+    public static function filter()
+    {
+        $datos = static::query()
+            ->where('company_id', auth()->user()->company_id)
+            ->orderByDesc('id');
+            dd($datos->toSql());
+            dd($datos->getBindings());
+    }
+
     public static function select()
     {
         return static::query()
@@ -38,5 +47,4 @@ class AnimalSpecies extends Model implements Auditable
             ->where('status', ACTIVO)
             ->get();
     }
-    
 }
