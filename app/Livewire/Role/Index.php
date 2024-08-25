@@ -12,7 +12,7 @@ class Index extends Component
 {
     use WithMessages;
     use WithPagination;
-    use  WithTableActions;
+    use WithTableActions;
 
     public ?string $search = '';
     public $perPage = 8;

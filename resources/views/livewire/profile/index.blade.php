@@ -131,7 +131,11 @@
 
                                         <div class="flex justify-center">
                                             @if ($this->imagenUser)
-                                                <img src="{{ $this->imagenUser->temporaryUrl() }}" alt="Image Preview"
+                                                <img src="{{ $this->imagenUser->temporaryUrl() }}"
+                                                    alt="Image Preview">
+                                            @else
+                                                <img src="{{ Storage::url(Auth::user()->profile_photo_path) }}"
+                                                    alt="Image Preview"
                                                     class="mt-4 rounded shadow max-w-xs w-64 h-48">
                                             @endif
                                         </div>
@@ -148,7 +152,18 @@
                                 </div>
                             </x-custom.modal.footer>
                         </form>
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul class="list-disc list-inside">
+                                    @foreach ($errors->all() as $error)
+                                        <li class="text-red-500">{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </div>
+
                 </div>
             @endif
 
@@ -168,25 +183,16 @@
                                         <x-custom.input wire:model="company.name_company" title="Nombre" required
                                             id="company.name_company" label="Nombre" type="text"
                                             maxlength="100" />
-                                        @error('company.name_company')
-                                            <span class="text-red-500">{{ $message }}</span>
-                                        @enderror
                                     </div>
 
                                     <div>
                                         <x-custom.input wire:model="company.nit" title="Nit" id="company.nit"
                                             label="Nit" type="text" disabled readonly />
-                                        @error('company.nit')
-                                            <span class="text-red-500">{{ $message }}</span>
-                                        @enderror
                                     </div>
 
                                     <div>
                                         <x-custom.input wire:model="company.email" title="Correo" id="company.email"
                                             label="Correo" type="email" />
-                                        @error('company.email')
-                                            <span class="text-red-500">{{ $message }}</span>
-                                        @enderror
                                     </div>
                                 </div>
 
@@ -194,24 +200,15 @@
                                     <div>
                                         <x-custom.input wire:model="company.address" title="Direccion" required
                                             id="company.address" label="Dirección" type="text" maxlength="100" />
-                                        @error('company.address')
-                                            <span class="text-red-500">{{ $message }}</span>
-                                        @enderror
                                     </div>
                                     <div>
                                         <x-custom.input wire:model="company.phone" title="telefono" required
                                             id="company.phone" label="Teléfono" type="text" maxlength="12" />
-                                        @error('company.phone')
-                                            <span class="text-red-500">{{ $message }}</span>
-                                        @enderror
                                     </div>
                                     <div>
                                         <x-custom.input wire:model="company.end_license"
                                             title="Fecha vencimiento de licencia" disabled readonly
                                             id="company.end_license" label="Fecha licencia" type="text" />
-                                        @error('company.end_license')
-                                            <span class="text-red-500">{{ $message }}</span>
-                                        @enderror
                                     </div>
                                 </div>
 
@@ -224,6 +221,10 @@
                                         <div class="flex justify-center">
                                             @if ($this->imagenCompany)
                                                 <img src="{{ $imagenCompany->temporaryUrl() }}" alt="Image Preview"
+                                                    class="mt-4 rounded shadow max-w-xs w-64 h-48">
+                                            @else
+                                                <img src="{{ Storage::url(Auth::user()->company->logo) }}"
+                                                    alt="Image Preview"
                                                     class="mt-4 rounded shadow max-w-xs w-64 h-48">
                                             @endif
                                         </div>
@@ -239,6 +240,15 @@
                                 </div>
                             </x-custom.modal.footer>
                         </form>
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul class="list-disc list-inside">
+                                    @foreach ($errors->all() as $error)
+                                        <li class="text-red-500">{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </div>
                 </div>
             @endif

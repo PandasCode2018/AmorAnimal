@@ -36,6 +36,16 @@ class Index extends Component
 
         return $this->responsibleQuery->paginate($this->perPage);
     }
+
+    public function getConfirmQuestionProperty(): string
+    {
+        $numbers = [rand(1, 10), rand(1, 10)];
+        $operators = ['+', '-', '*'];
+        $operator = $operators[array_rand($operators)];
+        $result = eval("return $numbers[0] $operator $numbers[1];");
+
+        return "¿Estás seguro de eliminar este registro? \n Escribe la respuesta $numbers[0] $operator $numbers[1]|$result";
+    }
     public function updatedSearch()
     {
         $this->resetPage();

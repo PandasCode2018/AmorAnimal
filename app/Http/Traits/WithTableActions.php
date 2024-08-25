@@ -2,17 +2,22 @@
 
 namespace App\Http\Traits;
 
-use App\Models\Animal;
-use App\Models\AnimalSpecies;
-use App\Models\Company;
-use App\Models\Responsible;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Support\Facades\Gate;
 use Ramsey\Uuid\Uuid;
+use App\Models\Animal;
+use App\Models\Company;
+use App\Models\Responsible;
+use App\Models\AnimalSpecies;
+use App\Http\Traits\WithMessages;
+use App\Models\Consultation;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rules\Exists;
 
 trait WithTableActions
 {
+
+    use WithMessages;
     public function changeStatus($module, $modelUuid)
     {
         if (Gate::denies('edit ' . $module)) {
@@ -60,13 +65,37 @@ trait WithTableActions
                 $model = Company::class;
                 break;
             case 'animalEspecies':
+
+                $especie = AnimalSpecies::where('uuid', $modelUuid)->first();
+                if ($especie && Animal::where('animal_species_id', $especie->id)->exists()) {
+                    $this->showWarning('No puedes eliminar, esta asociado a otro registro');
+                    return;
+                }
                 $model = AnimalSpecies::class;
                 break;
+
             case 'animals':
+
+                $animal = Animal::where('uuid', $modelUuid)->first();
+                if ($animal && Consultation::where('animal_id', $animal->id)->Exists()) {
+                    $this->showWarning('No puedes eliminar, esta asociado a otro registro');
+                    return;
+                }
                 $model = Animal::class;
                 break;
+
             case 'responsibles':
+
+                $responsible = Responsible::where('uuid', $modelUuid)->first();
+                if ($responsible && Animal::where('responsible_id', $responsible->id)->exists()) {
+                    $this->showWarning('No puedes eliminar, esta asociado a otro registro');
+                    return;
+                }
                 $model = Responsible::class;
+                break;
+
+            case 'role':
+                $model = Role::class;
                 break;
             case 'users':
                 if (auth()->user()->uuid == $modelUuid) {
@@ -87,6 +116,14 @@ trait WithTableActions
             $this->showError('Error al intentar eliminar el registro.');
             return;
         }
+
+        if ($module == 'role') {
+            if (!$record || $record->users()->count() > 0) {
+                $this->showError('Rol no encontrado o tiene usuarios asociados');
+                return;
+            }
+        }
+
         $record->delete();
         $this->showSuccess('Registro eliminado correctamente');
     }

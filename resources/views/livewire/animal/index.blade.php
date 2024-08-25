@@ -28,7 +28,8 @@
                                             <i class="fas fa-edit"></i>
                                         </td>
                                         <td class="text-gray-500 hover:text-red-500 tooltip" title="Eliminar"
-                                            wire:click="delete('animalEspecies' ,'{{ $especie->uuid }}')">
+                                            wire:click="delete('animalEspecies','{{ $especie->uuid }}')"
+                                            wire:confirm.prompt="{{ $this->confirmQuestion }}">
                                             <i class="fas solid fa-trash-can"></i>
                                         </td>
 
@@ -107,14 +108,14 @@
 
                                                 <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
                                                     wire:click="$dispatch('openAnimalModal', {animalUuid:'{{ $animal->uuid }}'})"
-                                                    title="Editar usuario">
+                                                    title="Editar">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
 
                                                 <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
                                                     wire:click="delete('animals','{{ $animal->uuid }}')"
                                                     wire:confirm.prompt="{{ $this->confirmQuestion }}"
-                                                    title="Eliminar usuario">
+                                                    title="Eliminar">
                                                     <i class="fas solid fa-trash-can"></i>
                                                 </a>
                                             </td>

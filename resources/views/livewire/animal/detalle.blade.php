@@ -17,19 +17,17 @@
 
         <section class="w-full overflow-hidden dark:bg-gray-900">
             <div class="flex flex-col">
-                <!-- Cover Image -->
                 <img src="{{ asset('img_sistema/banner.jpg') }}" alt="User Cover"
                     class="w-full xl:h-[20rem] lg:h-[18rem] md:h-[16rem] sm:h-[14rem] xs:h-[11rem]" />
 
-                <!-- Profile Image -->
                 <div class="sm:w-[80%] xs:w-[90%] mx-auto flex">
                     <img src="{{ $animal->photo ?? '' ? Storage::url($animal->photo) : asset('img_sistema/animal.jpg') }}"
                         alt="User Profile"
-                        class="rounded-md lg:w-[12rem] lg:h-[12rem] md:w-[10rem] md:h-[10rem] sm:w-[8rem] sm:h-[8rem] xs:w-[7rem] xs:h-[7rem] outline outline-2 outline-offset-2 outline-blue-500 relative lg:bottom-[5rem] sm:bottom-[4rem] xs:bottom-[3rem]" />
+                        class="rounded-md lg:w-[12rem] lg:h-[12rem] md:w-[10rem] md:h-[10rem] sm:w-[8rem] sm:h-[8rem] xs:w-[7rem] xs:h-[7rem] outline outline-2 
+                        outline-offset-2 outline-blue-500 relative lg:bottom-[5rem] sm:bottom-[4rem] xs:bottom-[3rem]" />
 
-                    <!-- FullName -->
                     <h1
-                        class="w-full text-left my-4 sm:mx-4 xs:pl-4 text-gray-800 dark:text-white lg:text-4xl md:text-3xl sm:text-3xl xs:text-xl font-serif">
+                        class="w-full text-left my-4 sm:mx-4 xs:pl-4 text-gray-800 dark:text-white sm:text-3xl xs:text-xl">
                         Codigo: {{ $animal->code_animal ?? '' }}
                     </h1>
 
