@@ -10,6 +10,9 @@ export default defineConfig({
                 'resources/js/app.js',
                 "resources/js/vendors/toastify.js",
             ],
+            resolve: {
+                '$': 'jQuery',
+            },
             refresh: true,
         }),
     ],

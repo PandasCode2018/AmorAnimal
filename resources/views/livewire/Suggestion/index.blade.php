@@ -5,6 +5,13 @@
     <div class="mb-2  w-full">
         <div class="mt-5 grid grid-cols-12 gap-6">
             <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
+                <div class="col-span-12 lg:col-span-12 2xl:col-span-12 flex justify-end">
+                    <button
+                        class="flex items-center px-4 py-2 bg-white text-blue-300 font-semibold rounded-lg shadow-sm hover:shadow-lg hover:text-blue-400 focus:outline-none ">
+                        <i class="fas fa-question-circle mr-2"></i>
+                        Tutorial
+                    </button>
+                </div>
                 <div class="intro-y mt-8 flex justify-center items-center p-3 m-2">
                     <p class="font-sans text-justify text-sm  sm:text-lg text-cyan-800">
                         <strong> ¡Tu opinión es importante para nosotros!</strong>

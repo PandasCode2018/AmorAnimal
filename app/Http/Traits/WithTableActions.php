@@ -12,7 +12,6 @@ use App\Models\AnimalSpecies;
 use App\Http\Traits\WithMessages;
 use App\Models\Consultation;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rules\Exists;
 
 trait WithTableActions
 {

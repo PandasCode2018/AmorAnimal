@@ -2,6 +2,8 @@
 @import 'all.css';
 @import 'styles.css';
 @import 'select2/dist/css/select2.min.css';
+@import 'tutorila.css';
+
 
 /* Luego incluye las directivas de Tailwind CSS */
 @tailwind base;

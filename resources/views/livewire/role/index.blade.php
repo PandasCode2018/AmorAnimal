@@ -1,22 +1,29 @@
 @section('subhead')
     <title>Roles - {{ config('app.name') }}</title>
 @endsection
-<div class=" mx-2">
-    <div class="mb-2  w-full">
-        <div class="mt-5 grid  grid-cols-12 gap-6">
+<div class="mx-2">
+    <div class="mb-2  w-full tourRoles-0">
+        <div class="mt-5 grid  grid-cols-12 gap-6 ">
             <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
+                <div class="col-span-12 lg:col-span-12 2xl:col-span-12 flex justify-end">
+                    <button wire:click="$dispatch('tutorialRoles')"
+                        class="flex items-center px-4 py-2 bg-white text-blue-300 font-semibold rounded-lg shadow-sm hover:shadow-lg hover:text-blue-400 focus:outline-none ">
+                        <i class="fas fa-question-circle mr-2"></i>
+                        Tutorial
+                    </button>
+                </div>
                 <div class="intro-y mt-8 flex justify-center items-center">
-                    <h2 class="font-sans font-bold text-center text-2xl text-cyan-800">Listado de roles</h2>
+                    <h2 class="font-sans font-bold text-center text-2xl text-cyan-800 ">Listado de roles</h2>
                 </div>
                 <div
                     class="intro-y col-span-12 mt-2 flex flex-col sm:flex-row items-center justify-between border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400">
 
-                    <div class="relative w-full sm:w-56 text-slate-500 mb-4 sm:mb-0">
-                        <x-input id="search" titleInput="Filtro para buscar usuarios" wire:model.live="search"
+                    <div class="relative w-full sm:w-56 text-slate-500 mb-4 sm:mb-0 tourRoles-1">
+                        <x-input id="search" titleInput="Filtro para buscar" wire:model.live="search"
                             class="!box w-full sm:w-56 pr-10 tooltip" type="search" placeholder="Buscar..." />
                     </div>
 
-                    <div class="p-2 w-full sm:w-auto">
+                    <div class="p-2 w-full sm:w-auto tourRoles-2">
                         <x-custom.button wire:click="$dispatch('openRolModal')" title="Crear un nuevo usuario"
                             class="w-full sm:w-auto bg-blue-400 hover:bg-blue-500 text-white py-2 px-4 text-base sm:text-sm font-medium">
                             Nuevo Rol
@@ -44,13 +51,12 @@
 
                                             <td class="p-3">
                                                 <a wire:click="$dispatch('openRolModal', {roleId: '{{ $role->id }}'})"
-                                                    class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300"
+                                                    class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 tourRoles-3"
                                                     title="Ver información completa">
                                                     <i class="fas fa-edit"></i></a>
 
-                                                <a
-                                                wire:click="delete('role','{{ $role->uuid }}')"
-                                                class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
+                                                <a wire:click="delete('role','{{ $role->uuid }}')"
+                                                    class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500 tourRoles-4"
                                                     title="Eliminar">
                                                     <i class="fas solid fa-trash-can"></i>
                                                 </a>
