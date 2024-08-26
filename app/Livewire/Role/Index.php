@@ -2,17 +2,20 @@
 
 namespace App\Livewire\Role;
 
+use App\Http\Traits\withTours;
+use App\Models\Role;
+use Livewire\Component;
+use Livewire\Attributes\On;
+use Livewire\WithPagination;
 use App\Http\Traits\WithMessages;
 use App\Http\Traits\WithTableActions;
-use Livewire\Component;
-use App\Models\Role;
-use Livewire\WithPagination;
 
 class Index extends Component
 {
     use WithMessages;
     use WithPagination;
     use WithTableActions;
+    use withTours;
 
     public ?string $search = '';
     public $perPage = 8;
@@ -35,6 +38,17 @@ class Index extends Component
     public function updatedSearch()
     {
         $this->resetPage();
+    }
+
+    #[On('tutorialRoles')]
+    public function tutorial()
+    {
+        $steps = config('MessageTour.roles');
+        if (empty($steps)) {
+            $this->showWarning('Lo sentimos, error con los mensajes del tutorial, comuníquese soporte.');
+            return;
+        }
+        $this->showInicio($steps);
     }
     public function render()
     {

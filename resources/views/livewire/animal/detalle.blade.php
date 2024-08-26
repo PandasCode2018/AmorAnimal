@@ -44,7 +44,7 @@
                     </div>
                     <div class="border-b">
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Especie</dt>
-                        <dd class="text-lg font-semibold">{{ $animal->$animal->animalSpecies->name ?? '' }}</dd>
+                        <dd class="text-lg font-semibold">{{ $animal->animalSpecies->name ?? '' }}</dd>
                     </div>
                     <div class="border-b">
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Raza</dt>

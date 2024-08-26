@@ -4,6 +4,14 @@
             <div class="mb-2 w-full">
                 <div class="mt-5 grid grid-cols-12 gap-6">
                     <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
+                        <div class="col-span-12 lg:col-span-12 2xl:col-span-12 flex justify-start">
+                            <button
+                                class="flex items-center px-4 py-2 bg-white text-blue-300 font-semibold rounded-lg shadow-sm hover:shadow-lg hover:text-blue-400 focus:outline-none ">
+                                <i class="fas fa-question-circle mr-2"></i>
+                                Tutorial
+                            </button>
+                        </div>
+                        <br>
                         <div class="flex justify-between items-center py-3 px-4 border-b">
                             <h3 class="text-nowrap text-2xl text-gray-800 dark:text-gray-800">
                                 Listado tratamiento
@@ -64,7 +72,8 @@
                                                         </td>
                                                         <td class="p-3 text-center">
                                                             {{ $tratamiento->application_date }}</td>
-                                                        <td class="p-3">{{ $tratamiento->reinforcement_date ?? 'no aplica' }} </td>
+                                                        <td class="p-3">
+                                                            {{ $tratamiento->reinforcement_date ?? 'no aplica' }} </td>
                                                         <td class="p-3">{{ $tratamiento->dose }} </td>
                                                         <td class="p-3">{{ $tratamiento->frequency }} </td>
                                                         <td class="p-3">
