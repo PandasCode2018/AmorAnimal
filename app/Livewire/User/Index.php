@@ -2,10 +2,12 @@
 
 namespace App\Livewire\User;
 
-use Livewire\Component;
-use App\Http\Traits\WithMessages;
+use App\Http\Traits\withTours;
 use App\Models\User;
+use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use App\Http\Traits\WithMessages;
 use App\Http\Traits\WithTableActions;
 
 class Index extends Component
@@ -14,12 +16,13 @@ class Index extends Component
     use WithPagination;
     use WithTableActions;
     use WithMessages;
+    use withTours;
 
     public  $user;
 
     public ?string $search = '';
 
-    public $perPage = 8;
+    public $perPage = 6;
 
     protected $queryString = ['search'];
 
@@ -48,6 +51,17 @@ class Index extends Component
         $result = eval("return $numbers[0] $operator $numbers[1];");
 
         return "¿Estás seguro de eliminar este registro? \n Escribe la respuesta $numbers[0] $operator $numbers[1]|$result";
+    }
+
+    #[On('tutorialUsuarios')]
+    public function tutorial()
+    {
+        $steps = config('MessageTour.usuarios');
+        if (empty($steps)) {
+            $this->showWarning('Lo sentimos, error con los mensajes del tutorial, comuníquese soporte.');
+            return;
+        }
+        $this->showInicio($steps);
     }
 
     public function render()

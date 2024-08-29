@@ -1,23 +1,19 @@
 <div>
-    <x-modal wire:model='indexModal' maxWidth="4xl" id="manage-index-tratamiento-modal">
-        <div class="mx-2">
+    <x-modal wire:model='indexModal' maxWidth="3xx" id="manage-index-tratamiento-modal">
+        <div class="mx-2 bg-[#f3faf8]">
             <div class="mb-2 w-full">
                 <div class="mt-5 grid grid-cols-12 gap-6">
                     <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
-                        <div class="col-span-12 lg:col-span-12 2xl:col-span-12 flex justify-start">
+                        <div class="col-span-12 lg:col-span-12 2xl:col-span-12 flex justify-between">
                             <button
-                                class="flex items-center px-4 py-2 bg-white text-blue-300 font-semibold rounded-lg shadow-sm hover:shadow-lg hover:text-blue-400 focus:outline-none ">
-                                <i class="fas fa-question-circle mr-2"></i>
+                                class="flex items-center px-2 py-1 m-1 bg-white text-blue-300 font-semibold rounded-lg shadow-xs hover:shadow-lg hover:text-blue-400 focus:outline-none ">
+                                <i class="fas fa-question-circle"></i>
                                 Tutorial
                             </button>
-                        </div>
-                        <br>
-                        <div class="flex justify-between items-center py-3 px-4 border-b">
-                            <h3 class="text-nowrap text-2xl text-gray-800 dark:text-gray-800">
-                                Listado tratamiento
-                            </h3>
                             <button type="button" wire:click='closeModal'
-                                class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-300 hover:bg-gray-200 hover:scale-105 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400">
+                                class="p-3 m-3 size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100
+                                 text-gray-300 hover:bg-gray-200 hover:scale-105 focus:outline-none focus:bg-gray-200 disabled:opacity-50 
+                                 disabled:pointer-events-none dark:text-neutral-400">
 
                                 <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -27,20 +23,25 @@
                                 </svg>
                             </button>
                         </div>
+                        <div class="flex justify-center items-center py-3 px-4 border-b">
+                            <div class="intro-y flex justify-center items-center rounded-lg">
+                                <h2
+                                    class="font-serif font-semibold text-center text-lg text-cyan-900 mb-4 border-b-4 border-cyan-500 pb-2">
+                                    Listado de seguimientos
+                                </h2>
+                            </div>
+                        </div>
                         <div
                             class="intro-y col-span-12 mt-2 flex flex-col sm:flex-row items-center justify-between border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400">
 
-                            {{--    <div class="relative w-full sm:w-56 text-slate-500 mb-4 sm:mb-0">
-                                <x-input id="search" titleInput="Filtro para buscar" wire:model.live="search"
-                                    class="!box w-full sm:w-56 pr-10 tooltip" type="search" placeholder="Buscar..." />
-                            </div> --}}
-
                             <div class="p-2 w-full sm:w-auto">
-                                <x-custom.button wire:click="$dispatch('openTratamientoModal')"
-                                    title="Crear un nuevo usuario"
-                                    class="w-full sm:w-auto bg-blue-400 hover:bg-blue-500 text-white py-2 px-4 text-base sm:text-sm font-medium">
-                                    Nuevo tratamiento
-                                </x-custom.button>
+                                @can('Crear tratamientos')
+                                    <x-custom.button wire:click="$dispatch('openTratamientoModal')"
+                                        title="Crear un nuevo usuario"
+                                        class="w-full sm:w-auto bg-[#7a7cbf] hover:bg-[#6c6ea7] text-white py-2 px-4 text-base sm:text-sm font-medium">
+                                        Nuevo tratamiento
+                                    </x-custom.button>
+                                @endcan
                             </div>
                         </div>
                         <div class="p-2 w-full">
@@ -55,7 +56,6 @@
                                                 <th class="p-3 text-center">Refuerzo</th>
                                                 <th class="p-3 text-center">Dosis</th>
                                                 <th class="p-3 text-center">Frecuencia</th>
-                                                <th class="p-3 text-center">Interna o externa</th>
                                                 <th class="p-3 text-center">Duración</th>
                                                 <th class="p-3 text-center">Acciones</th>
                                             </tr>
@@ -76,27 +76,29 @@
                                                             {{ $tratamiento->reinforcement_date ?? 'no aplica' }} </td>
                                                         <td class="p-3">{{ $tratamiento->dose }} </td>
                                                         <td class="p-3">{{ $tratamiento->frequency }} </td>
-                                                        <td class="p-3">
-                                                            {{ $tratamiento->internal_or_external ? 'Interno' : 'Externo' }}
-                                                        </td>
                                                         <td class="p-3">{{ $tratamiento->treatment_duration }} </td>
 
                                                         <td class="p-3">
-                                                            <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
+                                                            <a wire:click="$dispatch('detalleTratamientoModal', {tratamientoUuid: '{{ $tratamiento->uuid }}'})"
+                                                                class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
                                                                 title="Ver consulta completa">
                                                                 <i class="fas fa-eye"></i>
                                                             </a>
-                                                            <a wire:click="$dispatch('openTratamientoModal',{tratamientoUuid:'{{ $tratamiento->uuid }}'})"
-                                                                class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
-                                                                title="Editar tratamiento">
-                                                                <i class="fas fa-edit"></i>
-                                                            </a>
-                                                            <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
-                                                                title="Eliminar tratamiento"
-                                                                wire:click="delete('treatments','{{ $tratamiento->uuid }}')"
-                                                                wire:confirm.prompt="{{ $this->confirmQuestion }}">
-                                                                <i class="fas solid fa-trash-can"></i>
-                                                            </a>
+                                                            @can('Editar tratamientos')
+                                                                <a wire:click="$dispatch('openTratamientoModal',{tratamientoUuid:'{{ $tratamiento->uuid }}'})"
+                                                                    class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
+                                                                    title="Editar tratamientos">
+                                                                    <i class="fas fa-edit"></i>
+                                                                </a>
+                                                            @endcan
+                                                            @can('Eliminar tratamientos')
+                                                                <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
+                                                                    title="Eliminar tratamiento"
+                                                                    wire:click="delete('treatments','{{ $tratamiento->uuid }}')"
+                                                                    wire:confirm.prompt="{{ $this->confirmQuestion }}">
+                                                                    <i class="fas solid fa-trash-can"></i>
+                                                                </a>
+                                                            @endcan
                                                         </td>
                                                     </tr>
                                                 @empty
@@ -118,4 +120,7 @@
 </div>
 @push('modals')
     <livewire:treatment.management />
+@endpush
+@push('modals')
+    <livewire:treatment.detalle />
 @endpush

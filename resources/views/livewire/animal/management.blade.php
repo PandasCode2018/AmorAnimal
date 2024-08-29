@@ -71,16 +71,16 @@
                                 type="text" />
                         </div>
                         <div>
-                            <x-custom.form-label class="form-label text-left w-full">Sexo
-                            </x-custom.form-label>
+                            <x-custom.form-label class="form-label text-left w-full">Sexo</x-custom.form-label>
                             <select wire:model="animal.sex" id="animal.sex"
-                                class ="select2 transition duration-200 ease-in-out w-full text-sm  border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent readonly:bg-slate-100 readonly:cursor-not-allowed readonly:dark:bg-darkmode-800/50 readonly:dark:border-transparent group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 ">
-                                <option value="" selected>Seleccione el sexo</option>
+                                class="transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md">
+                                <option value="">Seleccione el sexo</option>
                                 @foreach ($this->sexoAnimal as $sexo)
-                                    <option value="{{ $sexo }}">{{ $sexo }}</option>
+                                    <option class="" value="{{ strtolower($sexo) }}">{{ $sexo }}</option>
                                 @endforeach
                             </select>
                         </div>
+                        
                         <div>
                             <x-custom.input wire:model='animal.age' id="animal.age" label="Edad" type="text" />
                         </div>
@@ -94,7 +94,11 @@
                             <div class="flex justify-center">
                                 @if ($this->image)
                                     <img src="{{ $this->image->temporaryUrl() }}" alt="Image Preview"
-                                        class="mt-4 rounded shadow max-w-xs w-64 h-48">
+                                        class="mt-4 rounded shadow max-w-xs w-44 h-30">
+                                @else
+                                    <img src="{{ $this->imagenAnimalActaul ? Storage::url($this->imagenAnimalActaul) : asset('img_sistema/animal.jpg') }}"
+                                        alt="Image Preview"
+                                        class="mt-4 rounded shadow max-w-xs w-44 h-30">
                                 @endif
                             </div>
                         </div>
@@ -112,7 +116,7 @@
             </div>
             <x-custom.modal.footer>
                 <div class="text-right">
-                    <x-custom.button class="bg-green-300 hover:bg-green-500 " type="submit">
+                    <x-custom.button class="bg-green-300 hover:bg-green-500" type="submit">
                         {{ $animal->id ? 'Actualizar' : 'Guardar' }}
                     </x-custom.button>
                 </div>

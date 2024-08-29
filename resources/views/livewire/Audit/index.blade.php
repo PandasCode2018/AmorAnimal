@@ -1,19 +1,21 @@
 @section('subhead')
     <title>Auditoria - {{ config('app.name') }}</title>
 @endsection
-<div class=" mx-2">
+<div class=" mx-2 bg-[#f3faf8]">
     <div class="mb-2  w-full">
         <div class="mt-5 grid  grid-cols-12 gap-6">
             <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
                 <div class="col-span-12 lg:col-span-12 2xl:col-span-12 flex justify-end">
                     <button
-                        class="flex items-center px-4 py-2 bg-white text-blue-300 font-semibold rounded-lg shadow-sm hover:shadow-lg hover:text-blue-400 focus:outline-none ">
+                        class="flex items-center px-4 py-2 bg-white text-blue-300 font-semibold rounded-lg shadow-xs hover:shadow-lg hover:text-blue-400 focus:outline-none ">
                         <i class="fas fa-question-circle mr-2"></i>
                         Tutorial
                     </button>
                 </div>
-                <div class="intro-y mt-8 flex justify-center items-center">
-                    <h2 class="font-sans font-bold text-center text-xl text-cyan-800">Listado de acciones en el sistema
+                <div class="intro-y flex justify-center items-center shadow-sm rounded-lg">
+                    <h2
+                        class="font-serif font-semibold text-center text-3xl text-cyan-900 mb-4 border-b-4 border-cyan-500 pb-2">
+                        Listado de acciones en el sistema
                     </h2>
                 </div>
                 <div
@@ -36,8 +38,9 @@
                                         <th class="p-3 text-left">Acción</th>
                                         <th class="p-3 text-center">Módulo</th>
                                         <th class="p-3 text-center">Valores</th>
-                                        <th class="p-3 text-center">Campos</th>
-                                        <th class="p-3 text-center">Acciones</th>
+                                        @can('Ver auditorias')
+                                            <th class="p-3 text-center">Acciones</th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,20 +59,14 @@
                                             <td class="p-3">
                                                 {{ $audit->auditable?->name }}
                                             </td>
-                                            <td class="p-3">
-                                                {{ Str::limit(collect($audit->old_values)->keys()->implode(', '),20,'...') }}
-                                            </td>
-                                            <td class="p-3">
-                                                <a wire:click="$dispatch('openModalAudit', {audit: '{{ $audit->id }}'})"
-                                                    class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
-                                                    title="Ver información completa">
-                                                    <i class="fas fa-eye"></i></a>
-
-                                                <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
-                                                    title="Eliminar usuario">
-                                                    <i class="fas solid fa-trash-can"></i>
-                                                </a>
-                                            </td>
+                                            @can('Ver auditorias')
+                                                <td class="p-3">
+                                                    <a wire:click="$dispatch('openModalAudit', {audit: '{{ $audit->id }}'})"
+                                                        class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
+                                                        title="Ver información completa">
+                                                        <i class="fas fa-eye"></i></a>
+                                                </td>
+                                            @endcan
                                         </tr>
                                     @empty
                                         <td class="pt-5 text-center text-black dark:bg-darkmode-600 bg-transparent font-bold"

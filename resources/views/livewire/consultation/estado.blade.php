@@ -13,13 +13,13 @@
                     </svg>
                 </button>
             </div>
-            <div>
+            <div class="max-w-xs mx-auto p-2">
                 <div class="grid grid-cols-1 gap-3 p-2">
                     @if ($this->estados)
                         @foreach ($this->estados as $estado)
                             <x-custom.button
                                 wire:click="$dispatch('modificarEstadoActual',{estadoId:'{{ $estado->id }}'})"
-                                class="bg-{{ $estado->color }}-300 hover:bg-{{ $estado->color }}-500" type="submit">
+                                class=" text-sm p-1 bg-{{ $estado->color }}-300 hover:bg-{{ $estado->color }}-500" type="submit">
                                 {{ $estado->name_status }}
                             </x-custom.button>
                         @endforeach

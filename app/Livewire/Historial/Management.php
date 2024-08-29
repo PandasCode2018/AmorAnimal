@@ -72,7 +72,6 @@ class Management extends Component
         $this->historialModal = false;
     }
 
-
     #[On('generatePdf')]
     public function dischargePdf($animalId, $responsableId)
     {

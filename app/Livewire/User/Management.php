@@ -75,7 +75,7 @@ class Management extends Component
             'user.specialty' => 'nullable|string|max:100',
             'user.license_number' => 'nullable|string|max:100',
             'user.years_experience' => 'nullable|numeric|digits_between:1,2',
-            'userRolesName' =>  'required|string|min:1|in:' . $this->selectRoles->pluck('name')->implode(','),
+            'userRolesName' => 'required|string|min:1|exists:roles,name',
         ];
     }
 
@@ -124,7 +124,7 @@ class Management extends Component
         $this->resetErrorBag();
         if (Uuid::isValid($userUuid)) {
             $this->user = User::uuid($userUuid)->first();
-            $this->userRolesName = $this->user->roles->pluck('name')->toArray() ?? [];
+            $this->userRolesName = $this->user->roles->first()->name;
         }
 
         $this->userModal = true;
@@ -141,6 +141,3 @@ class Management extends Component
     }
 }
 
-/**
- * ajustar el buscador, cuando se hace una busqueda y se borra este no carga todos los registros 
- */

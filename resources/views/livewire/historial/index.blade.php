@@ -1,22 +1,25 @@
 @section('subhead')
     <title>Historial medico - {{ config('app.name') }}</title>
 @endsection
-<div class="mx-2">
+<div class="mx-2 bg-[#f3faf8]">
     <div class="mb-2 w-full">
         <div class="mt-5 grid grid-cols-12 gap-6">
             <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
                 <div class="col-span-12 lg:col-span-12 2xl:col-span-12 flex justify-end">
                     <button
-                        class="flex items-center px-4 py-2 bg-white text-blue-300 font-semibold rounded-lg shadow-sm hover:shadow-lg hover:text-blue-400 focus:outline-none ">
+                        class="flex items-center px-4 py-2 bg-white text-blue-300 font-semibold rounded-lg shadow-xs hover:shadow-lg hover:text-blue-400 focus:outline-none ">
                         <i class="fas fa-question-circle mr-2"></i>
                         Tutorial
                     </button>
                 </div>
-                <div class="intro-y mt-8 pl-5 flex justify-start">
-                    <h2 class="font-sans font-bold text-xl text-cyan-800">Historial de consultas</h2>
+                <div class="intro-y flex justify-center items-center shadow-sm rounded-lg">
+                    <h2
+                        class="font-serif font-semibold text-center text-3xl text-cyan-900 mb-4 border-b-4 border-cyan-500 pb-2">
+                        Historial de consultas
+                    </h2>
                 </div>
                 <div
-                    class="intro-y col-span-12 mt-2 flex justify-end border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 ">
+                    class="intro-y col-span-12 mt-2 flex justify-start border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 ">
 
                     <div class="relative w-56 text-slate-500">
                         <x-input id="search" titleInput="Filtro para búscar animales" wire:model.live="search"
@@ -32,8 +35,12 @@
                                         <th class="p-3 text-left">identificacion</th>
                                         <th class="p-3 text-left">Nombre</th>
                                         <th class="p-3 text-center">Responsable</th>
-                                        <th class="p-3 text-center">Ver</th>
-                                        <th class="p-3 text-center">Descargar</th>
+                                        @can('ver historial')
+                                            <th class="p-3 text-center">Ver</th>
+                                        @endcan
+                                        @can('descargar historial')
+                                            <th class="p-3 text-center">Descargar</th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -43,18 +50,23 @@
                                             <td class="p-3 text-left">{{ $animal->code_animal }}</td>
                                             <td class="p-3  text-left"> {{ $animal->name }}</td>
                                             <td class="p-3 text-center"> {{ $animal->responsible->name }}</td>
-                                            <td> <a wire:click="$dispatch('openModalHistorial',{animalId:{{ $animal->id }}, responsableId:{{ $animal->responsible_id }}})"
-                                                    class="bg-slate-200 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-200"
-                                                    title="Ver información completa">
-                                                    <i class="fas fa-eye text-blue-500 text-lg"></i>
-                                                </a></td>
-                                            <td>
-                                                <a wire:click="$dispatch('generatePdf',{animalId:{{ $animal->id }}, responsableId:{{ $animal->responsible_id }}})"
-                                                    class="bg-slate-200 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-300"
-                                                    title="Ver información completa">
-                                                    <i class="fa-regular fa-file-pdf m-1 text-lg text-red-500"></i>
-                                                </a>
-                                            </td>
+                                            @can('Ver historial')
+                                                <td> <a wire:click="$dispatch('openModalHistorial',{animalId:{{ $animal->id }}, responsableId:{{ $animal->responsible_id }}})"
+                                                        class="bg-slate-200 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-200"
+                                                        title="Ver información completa">
+                                                        <i class="fas fa-eye text-blue-500 text-lg"></i>
+                                                    </a>
+                                                </td>
+                                            @endcan
+                                            @can('Descargar historial')
+                                                <td>
+                                                    <a wire:click="$dispatch('generatePdf',{animalId:{{ $animal->id }}, responsableId:{{ $animal->responsible_id }}})"
+                                                        class="bg-slate-200 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-300"
+                                                        title="Ver información completa">
+                                                        <i class="fa-regular fa-file-pdf m-1 text-lg text-red-500"></i>
+                                                    </a>
+                                                </td>
+                                            @endcan
                                         </tr>
                                     @empty
                                         <td class="pt-5 text-center text-black dark:bg-darkmode-600 bg-transparent font-bold"

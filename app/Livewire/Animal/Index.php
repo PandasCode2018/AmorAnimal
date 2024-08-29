@@ -8,6 +8,7 @@ use Livewire\WithPagination;
 use App\Http\Traits\WithTableActions;
 use App\Http\Traits\WithMessages;
 use App\Models\AnimalSpecies;
+use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
@@ -24,22 +25,14 @@ class Index extends Component
 
     public function mount()
     {
-
-        $this->animalEspecies = AnimalSpecies::where('company_id', 98)->get();
+        $this->animalEspecies = AnimalSpecies::where('company_id', Auth::user()->company_id)->get();
     }
 
-    /*  public function getanimalEspeciesQueryProperty()
+    public function getanimalEspeciesQueryProperty()
     {
 
-        AnimalSpecies::filter();
+        return $this->animalEspecies =  AnimalSpecies::filter()->paginate($this->perPage);;
     }
-
-    public function getanimalEspeciesProperty()
-    {
-
-        return $this->animalEspecies->paginate($this->perPage);
-    } */
-
 
     public function getAnimalsQueryProperty()
     {

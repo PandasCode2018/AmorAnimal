@@ -64,12 +64,12 @@ class Estado extends Component
         try {
             $consulta->query_status_id = $estadoId;
             $consulta->save();
-            $this->showSuccess('El estado de la consulta se actualizó correctamente.');
         } catch (\Exception $e) {
             $this->showError('Ocurrió un error al actualizar el estado de la consulta. Por favor, inténtelo de nuevo.');
             return;
         }
 
+        $this->showSuccess('Estado actualizado correctamente.');
         $this->dispatch('consultation-index:refresh');
         $this->closeModal();
     }

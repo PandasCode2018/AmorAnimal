@@ -80,15 +80,6 @@
                                 @endforeach
                             </x-custom.input-select>
                         </div>
-
-                        <div class="w-full">
-                            <select name="" id="" class="select2"  data-control="select2">
-                                <option value="">uno</option>
-                                <option value="">dos</option>
-                                <option value="">trs</option>
-                                <option value="">cato</option>
-                            </select>
-                        </div>
                     </div>
                 </div>
                 @if ($errors->any())

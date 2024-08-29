@@ -7,11 +7,8 @@ use App\Models\Company;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Http\Traits\WithMessages;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\StoreProfileRequest;
 
 class Index extends Component
 {
@@ -28,15 +25,31 @@ class Index extends Component
     public $name;
     public $nameCompany;
     public $carpetaCompany;
+    public $passwordActual;
+    public $titulo;
+    public $email;
+    public $especialidad;
+    public $yearEsperiencia;
+    public $numberLicencia;
     protected $listeners = ['profile-index:refresh' => 'refresh'];
+    public $nit;
+    public $dateLicence;
 
     public function mount()
     {
         $this->user = User::find(Auth::id());
         $this->companyId = $this->user->company_id;
         $this->name = $this->user->name;
+        $this->titulo = $this->user->qualification;
+        $this->email = $this->user->email;
+        $this->especialidad = $this->user->specialty;
+        $this->yearEsperiencia = $this->user->years_experience;
+        $this->numberLicencia = $this->user->license_number;
         $this->company = Company::find($this->companyId);
+        $this->nit = $this->company->nit;
+        $this->dateLicence = $this->company->end_license;
         $this->carpetaCompany = $this->company->folder;
+        $this->passwordActual = $this->user->password;
     }
 
     public function viewContenedorCompany()
@@ -59,6 +72,7 @@ class Index extends Component
         'email' => 'Correo',
         'document_number' => 'Docuemento',
         'password' => 'Contraseña',
+        'newPassword' => 'Nueva Contraseña',
         'phone' => 'Telefono',
         'address' => 'Dirección',
         'qualification' => 'Titulo',
@@ -66,6 +80,7 @@ class Index extends Component
         'license_number' => 'Licencia',
         'years_experience' => 'Años de experiencia',
         'profile_photo_path' => 'Foto',
+        'name_company' => 'Empresa'
     ];
 
     public function getUserRules()
@@ -78,8 +93,8 @@ class Index extends Component
             'user.years_experience' => 'nullable',
             'user.license_number' => 'nullable',
             'user.address' => 'required|string|max:100',
-            'user.password' => 'nullable|string|min:8|max:12',
-            'user.newPassword' => 'nullable|string|min:8|max:12',
+            'user.password' => 'nullable|string|min:6|max:40',
+            'user.newPassword' => 'nullable|string|min:6|max:40',
             'user.phone' => 'required|numeric|digits_between:6,12',
             'user.document_number' => 'required|numeric|digits_between:8,22',
         ];
@@ -92,7 +107,7 @@ class Index extends Component
             'company.nit' => 'required',
             'company.email' => 'nullable|email|unique:companies,email,' . $this->company?->id,
             'company.address' => 'nullable|string',
-            'company.phone' => 'required|numeric|digits_between:6,12|unique:companies,phone,' . $this->company?->id,
+            'company.phone' => 'required|numeric|digits_between:6,12',
             'company.end_license' => 'required',
         ];
     }
@@ -117,6 +132,7 @@ class Index extends Component
     {
         $nameCarpeta = $this->carpetaCompany;
         $this->validate($this->getUserRules());
+
         try {
             $imagen = $this->imagenUser;
             if ($imagen && $imagen instanceof \Illuminate\Http\UploadedFile) {
@@ -132,10 +148,12 @@ class Index extends Component
                 }
                 $this->user->profile_photo_path = $rutaImagen;
             }
-
             $this->clearString($this->user);
-            if ($this->user->currentPassword) {
-                if (! Hash::check($this->user->currentPassword, $this->user->password)) {
+
+
+            if (!empty($this->user->newPassword) && !empty($this->user->password)) {
+
+                if ($this->passwordActual !== Hash::make($this->user->password)) {
                     $this->showError('La contraseña actual no coincide');
                     return;
                 }
@@ -145,11 +163,15 @@ class Index extends Component
                 }
             }
 
-            unset($this->user->currentPassword);
+            $this->user->email = $this->email;
+            $this->user->qualification = $this->titulo;
+            $this->user->specialty = $this->especialidad;
+            $this->user->years_experience = $this->yearEsperiencia;
+            $this->user->license_number = $this->numberLicencia;
             unset($this->user->newPassword);
             $this->user->save();
         } catch (\Throwable $th) {
-            $this->showError('Error actualizada los datos');
+            $this->showError($th->getMessage());
             return;
         }
 
@@ -183,6 +205,8 @@ class Index extends Component
             }
 
             $this->clearString($this->company);
+            $this->company->nit = $this->nit;
+            $this->company->end_license = $this->dateLicence;
             $this->company->save();
         } catch (\Throwable $th) {
             $this->showError('Error actualizada correctamente');

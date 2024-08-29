@@ -16,7 +16,7 @@ class Index extends Component
 
     public Consultation $consultations;
     public ?string $search = '';
-    public $perPage = 8;
+    public $perPage = 6;
     protected $queryString = ['search'];
     protected $listeners = ['consultation-index:refresh' => 'refresh'];
 

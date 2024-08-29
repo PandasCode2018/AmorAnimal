@@ -2,9 +2,9 @@
     <title>Perfil - {{ config('app.name') }}</title>
 @endsection
 
-<div class="mx-2">
+<div class="mx-2 bg-[#f3faf8]">
     <div class="mb-2 w-full">
-        <div class="intro-y mt-8 flex items-center shadow-inner">
+        <div class="intro-y mt-8 flex items-center">
             <h2 class="mr-auto text-lg font-medium">Configuración de Perfil</h2>
         </div>
         <div class="mt-5 grid grid-cols-12 gap-6">
@@ -48,10 +48,12 @@
                             </div>
                             <!-- Botón para Empresa -->
                             <div>
-                                <button wire:click='viewContenedorUser'
-                                    class="focus:outline-none border-green-300 cursor-pointer block appearance-none px-5 border border-1 font-bold text-slate-700 dark:text-slate-400 hover:dark:text-slate-500 hover:scale-105 shadow-[0px_3px_20px_#0000000b] rounded-md w-full py-2">
-                                    Empresa
-                                </button>
+                                @can('Editar company')
+                                    <button wire:click='viewContenedorUser'
+                                        class="focus:outline-none border-green-300 cursor-pointer block appearance-none px-5 border border-1 font-bold text-slate-700 dark:text-slate-400 hover:dark:text-slate-500 hover:scale-105 shadow-[0px_3px_20px_#0000000b] rounded-md w-full py-2">
+                                        Empresa
+                                    </button>
+                                @endcan
                             </div>
                         </li>
                     </div>
@@ -65,9 +67,9 @@
                         class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-0">
                         <h2 class="mr-auto text-base font-medium py-5">Información personal</h2>
                     </div>
-                    <div class="p-5 w-full">
+                    <div class="p-1 w-full">
                         <form wire:submit='updateUserProfile' wire:key="{{ uniqid() }}">
-                            <div class="p-5">
+                            <div class="p-3">
                                 <div class="grid grid-cols-1 gap-3 pb-3 sm:grid-cols-3">
                                     <div>
                                         <x-custom.input wire:model="user.name" title="Nombre completo" required
@@ -131,12 +133,12 @@
 
                                         <div class="flex justify-center">
                                             @if ($this->imagenUser)
-                                                <img src="{{ $this->imagenUser->temporaryUrl() }}"
-                                                    alt="Image Preview">
+                                                <img src="{{ $this->imagenUser->temporaryUrl() }}" alt="Image Preview"
+                                                    class="mt-4 rounded shadow max-w-xs w-44 h-30">
                                             @else
-                                                <img src="{{ Storage::url(Auth::user()->profile_photo_path) }}"
+                                                <img src="{{ Auth::user()->profile_photo_path ? Storage::url(Auth::user()->profile_photo_path) : asset('img_sistema/perfil.png') }}"
                                                     alt="Image Preview"
-                                                    class="mt-4 rounded shadow max-w-xs w-64 h-48">
+                                                    class="mt-4 rounded shadow max-w-xs w-44 h-30">
                                             @endif
                                         </div>
                                     </div>
@@ -221,11 +223,11 @@
                                         <div class="flex justify-center">
                                             @if ($this->imagenCompany)
                                                 <img src="{{ $imagenCompany->temporaryUrl() }}" alt="Image Preview"
-                                                    class="mt-4 rounded shadow max-w-xs w-64 h-48">
+                                                    class="mt-4 rounded shadow max-w-xs w-44 h-30">
                                             @else
-                                                <img src="{{ Storage::url(Auth::user()->company->logo) }}"
+                                                <img src="{{ Auth::user()->company->logo ? Storage::url(Auth::user()->company->logo) : asset('img_sistema/company.png') }}"
                                                     alt="Image Preview"
-                                                    class="mt-4 rounded shadow max-w-xs w-64 h-48">
+                                                    class="mt-4 rounded shadow max-w-xs w-44 h-30">
                                             @endif
                                         </div>
                                     </div>

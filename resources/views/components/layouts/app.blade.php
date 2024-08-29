@@ -27,7 +27,7 @@
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased overflow-auto">
+<body class="font-sans antialiased overflow-auto bg-[#e8f7f4]">
     <x-banner />
     <div class="mx-auto bg-grey-400" x-data="{
         openSidebar: true,
@@ -43,7 +43,7 @@
                     </div>
                 </main>
             </div>
-            <footer class="bg-nav-blue text-white p-2 border-t border-light-border text-center">
+            <footer class="bg-gradient-to-b from-[#57457c] to-[#36e4af] text-white p-2 border-t border-light-border text-center">
                 <p class="font-bold">&copy; 2024</p>
                 <div class="mx-auto font-bold pr-2">Desarrollado por <a href="#" target=" _blank">PandasCode</a>
                 </div>

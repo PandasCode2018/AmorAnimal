@@ -13,7 +13,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "laraveles/spanish": "^1.5",
-        "livewire/livewire": "^3.0",
+        "livewire/livewire": "^3.5",
         "mcamara/laravel-localization": "^2.0",
         "owen-it/laravel-auditing": "^13.6",
         "ramsey/uuid": "^4.7",

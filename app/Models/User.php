@@ -133,16 +133,11 @@ class User extends Authenticatable implements Auditable
         $search = trim($search);
 
         if (strlen($search) > 0) {
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
+            $query->where(function ($texto) use ($search) {
+                $texto->where('name', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%")
                     ->orWhere('phone', 'like', "%{$search}%")
-                    ->orWhereHas('company', function ($q) use ($search) {
-                        $q->where('name', 'like', "%{$search}%");
-                    })
-                    ->orWhereHas('roles', function ($q) use ($search) {
-                        $q->where('name', 'like', "%{$search}%");
-                    })
+                    ->orWhere('document_number', 'like', "%{$search}%")
                     ->orWhereRaw("IF(status = 1, 'activo', 'inactivo') like '%$search%'");
             });
         }

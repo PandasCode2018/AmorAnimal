@@ -24,15 +24,13 @@
                                 label="Medicamento" type="text" required />
                         </div>
                         <div>
-                            <x-custom.form-label class="form-label text-left w-full">Presentación *
-                            </x-custom.form-label>
-                            <select wire:model="treatment.medicine_presentation" id="treatment.medicine_presentation"
-                                class ="select2 transition duration-200 ease-in-out w-full text-sm  border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent readonly:bg-slate-100 readonly:cursor-not-allowed readonly:dark:bg-darkmode-800/50 readonly:dark:border-transparent group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 ">
+                            <x-custom.input-select title="Interno o externa" label="Presentación" required
+                                wire:model="treatment.medicine_presentation" id="treatment.medicine_presentation">
                                 <option value="" selected>Seleccione un opción</option>
                                 @foreach ($this->presentaciones as $presentacion)
                                     <option value="{{ $presentacion }}">{{ $presentacion }}</option>
                                 @endforeach
-                            </select>
+                                </x-custom-input-select>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 gap-3 pt-3 p-2 sm:grid-cols-2">
@@ -48,16 +46,13 @@
 
                     <div class="grid grid-cols-1 gap-3 pt-3 p-2 sm:grid-cols-2">
                         <div>
-                            <x-custom.form-label class="form-label text-left w-full">Interno o externa
-                            </x-custom.form-label>
-                            <select wire:model="treatment.internal_or_external" id="treatment.internal_or_external"
-                                class ="select2 transition duration-200 ease-in-out w-full text-sm  border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent readonly:bg-slate-100 readonly:cursor-not-allowed readonly:dark:bg-darkmode-800/50 readonly:dark:border-transparent group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 ">
+                            <x-custom.input-select title="Interno o externa" label="Interno o externa" required
+                                wire:model="treatment.internal_or_external" id="treatment.internal_or_external">
                                 <option value="" selected>Seleccione un opción</option>
                                 @foreach ($this->internaOexterna as $index => $tipo)
                                     <option value="{{ $index }}">{{ $tipo }}</option>
                                 @endforeach
-                            </select>
-
+                                </x-custom-input-select>
                         </div>
                         <div>
                             <x-custom.input wire:model='treatment.treatment_duration' id="treatment.treatment_duration"

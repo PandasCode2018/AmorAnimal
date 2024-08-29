@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Role;
 
+use App\Models\Role;
 use Livewire\Component;
 use Livewire\Attributes\On;
-use App\Http\Traits\WithMessages;
-use App\Models\Role;
-use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
+use Illuminate\Validation\Rule;
+use App\Http\Traits\WithMessages;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 
 class Management extends Component
@@ -18,11 +19,13 @@ class Management extends Component
 
     public $rolModal = false;
     public Role $role;
+    public $company_id;
     public $rolePermissions = [];
 
     public function mount()
     {
         $this->role = new Role();
+        $this->company_id = Auth::user()->company_id;
     }
 
     public function getPermissionsProperty()
@@ -33,8 +36,15 @@ class Management extends Component
     public function rules()
     {
         return [
-            //'role.name' => 'required|string|max:255|unique:roles,name,'.$this->role->id.',id,company_id,'.$this->role->company_id,
-            'role.name' => 'required|string|max:255',
+            'role.name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('roles', 'name')
+                    ->ignore($this->role->id)
+                    ->where('company_id', $this->company_id)
+                    ->where('guard_name', $this->role->guard_name),
+            ],
             'rolePermissions' => 'nullable|array|in:' . Permission::pluck('name')->implode(','), // solo permisos existentes
         ];
     }
@@ -52,17 +62,15 @@ class Management extends Component
 
     public function store()
     {
-
         $this->validate();
         $isEdit = (bool) $this->role->id;
-
         try {
             $this->clearString();
-            $this->role->company_id = Auth::user()->company_id;
+            $this->role->company_id = $this->company_id;
             $this->role->save();
             $this->role->syncPermissions($this->rolePermissions);
         } catch (\Throwable $th) {
-            $this->showError('Error creando el rol');
+            $this->showError('Error creando el rol, comuníquese con soporte');
             return;
         }
 
