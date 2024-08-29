@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->string('module', 30)->nullable(false);
             $table->longText('message')->nullable(false);
+            $table->boolean('revised')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -10,6 +10,7 @@
         'xl' => 'sm:max-w-xl',
         '2xl' => 'sm:max-w-2xl',
         '3xl' => 'sm:max-w-[56rem]',
+        '3xx' => 'sm:max-w-[70rem]',
         '4xl' => '4xl:max-w-[85rem]',
         '5xl' => '5xl:max-w-[90rem]',
     ][$maxWidth ?? '2xl'];

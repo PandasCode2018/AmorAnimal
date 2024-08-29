@@ -42,8 +42,8 @@ return [
         ],
         [
             'element' => 'dashboard-7',
-            'title' => 'sin  saber todavia',
-            'text' => 'Toca cambiar esto.',
+            'title' => 'Tiempo de licencia',
+            'text' => 'Información importante sobre tu licencia.',
         ],
         [
             'element' => 'dashboard-8',
@@ -51,14 +51,46 @@ return [
             'text' => 'Este elnace te lleva al moduelo de sugerencias donde podras enviar mensajes con imagnes, sobre problemas que tengas, funcionalidades que crees que esten mal, mejoras qu ete gustaria que tenga el sistema.',
         ],
     ],
-    'usuarios' => [
+    'usuarios' =>
+    [
         [
             'element' => 'tourUsuarios-0',
-            'title' => '¡Bienvenido al modulos de usuarios! ',
-            'text' => 'Este módulo te permite crear roles y asignarles permisos para que los usuarios que tengan el rol asignado puedan. Acceder a ciertas funcionalidades dentro  de la plataforma.',
+            'title' => '¡Bienvenido al modulo de usuarios! ',
+            'text' => 'Este módulo te permite crear usuarios y asignarles un rol; con esto podrán acceder a ciertas funcionalidades dentro de la plataforma.',
+        ],
+        [
+            'element' => 'tourUsuarios-1',
+            'title' => 'Buscardor',
+            'text' => 'Esta acción permite la búsqueda de usuarios por nombre, documento, correo.',
+        ],
+        [
+            'element' => 'tourUsuarios-2',
+            'title' => 'Agregar',
+            'text' => 'Esta acción permite desplegar el formulario para la creación de usuario.',
+        ],
+        [
+            'element' => 'tourUsuarios-3',
+            'title' => 'Estado',
+            'text' => 'Esta acción permite el cambio de estado de los usuarios, si está inactivo, no podrá ingresar a la plataforma.',
+        ],
+        [
+            'element' => 'tourUsuarios-4',
+            'title' => 'Detalle',
+            'text' => 'Esta acción permite ver el detalle de toda la información del usuario.',
+        ],
+        [
+            'element' => 'tourUsuarios-5',
+            'title' => 'Editar',
+            'text' => 'Esta acción permite desplegar la modal, para editar la información del usuario.',
+        ],
+        [
+            'element' => 'tourUsuarios-6',
+            'title' => 'Eliminar',
+            'text' => 'Esta acción permite la eliminación del usuario, siempre que no esté asignado a otro registro.',
         ],
     ],
-    'roles' => [
+    'roles' =>
+    [
         [
             'element' => 'tourRoles-0',
             'title' => '¡Bienvenido al modulos de roles! ',

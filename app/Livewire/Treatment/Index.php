@@ -2,19 +2,21 @@
 
 namespace App\Livewire\Treatment;
 
-use App\Models\Consultation;
-use App\Models\Treatment;
 use Livewire\Component;
+use App\Models\Treatment;
 use Livewire\Attributes\On;
+use App\Models\Consultation;
 use Livewire\WithPagination;
+use App\Http\Traits\WithTableActions;
 
 class Index extends Component
 {
     use WithPagination;
+    use WithTableActions;
 
     public $indexModal = false;
     public ?string $search = '';
-    public $perPage = 8;
+    public $perPage = 6;
     public $valor;
     protected $queryString = ['search'];
     protected $listeners = ['treatment-index:refresh' => 'refresh'];

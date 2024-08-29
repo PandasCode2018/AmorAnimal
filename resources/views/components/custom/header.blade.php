@@ -1,9 +1,8 @@
-<header class="bg-nav-blue h-16  border-b border-light-border">
+<header class="bg-gradient-to-b from-[#57457c] to-[#36e4af]  h-16 border-b border-light-border">
     <div class="flex justify-between items-center h-full px-4">
         <!-- Sección del Logo y el Menú -->
         <div class="p-1 inline-flex items-center">
             <i class="fas fa-bars text-white text-2xl pr-2 cursor-pointer" x-on:click="openSidebar= !openSidebar"></i>
-            {{--  <h1 class="text-white text-2xl font-bold">Logo</h1> --}}
         </div>
 
         <!-- Sección del Perfil -->
@@ -24,18 +23,6 @@
                         <div class="block px-4 py-2 text-xs text-gray-400">
                             {{ __('Configuración') }}
                         </div>
-                        {{--   <x-dropdown-link href="{{ route('profile.show') }}">
-                            {{ __(Auth::user()->name) }}
-                        </x-dropdown-link> --}}
-                        {{--  <x-dropdown-link href="{{ route('profile.show') }}">
-                            {{ __(Auth::user()->company->name_company) }}
-                        </x-dropdown-link> --}}
-                        {{--  <x-dropdown-link href="{{ route('consultation.index') }}">
-                            {{ __('Manuales') }}
-                        </x-dropdown-link> --}}
-                        <x-dropdown-link href="{{ route('Suggestions.index') }}">
-                            {{ __('Soporte') }}
-                        </x-dropdown-link>
                         @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                             <x-dropdown-link href="{{ route('api-tokens.index') }}">
                                 {{ __('API Tokens') }}

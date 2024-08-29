@@ -19,7 +19,7 @@ class Index extends Component
 
     public $responsibles;
     public ?string $search = '';
-    public $perPage = 5;
+    public $perPage = 6;
     protected $queryString = ['search'];
 
     protected $listeners = ['responsible-index:refresh' => 'refresh'];

@@ -16,7 +16,7 @@
             <div class="flex flex-col">
                 <!-- Profile Image -->
                 <div class="sm:w-[80%] xs:w-[90%] mx-auto flex flex-col items-center">
-                    <img src="{{ $user->profile_photo_path ?? '' ? Storage::url($user->profile_photo_path) : asset('img_sistema/user.jpg') }}"
+                    <img src="{{ $user->profile_photo_path ?? '' ? Storage::url($user->profile_photo_path) : asset('img_sistema/perfil.png') }}"
                         alt="User Profile"
                         class="rounded-md lg:w-[12rem] lg:h-[12rem] md:w-[10rem] md:h-[10rem] sm:w-[8rem] sm:h-[8rem] xs:w-[7rem] xs:h-[7rem]" />
 

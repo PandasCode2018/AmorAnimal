@@ -21,7 +21,7 @@ Route::redirect('/', '/login');
 // Grupo de  rutas para páginas públicas (sin autenticación)
 Route::middleware('guest')->name('public.')->group(function () {
     Route::get('/companies', [CompanyController::class, 'index'])->name('company.form');
-    Route::post('/companies', [CompanyController::class, 'store'])->name('company.store');    
+    Route::post('/companies', [CompanyController::class, 'store'])->name('company.store');
 });
 
 
@@ -32,25 +32,25 @@ Route::middleware(['auth'])->group(function () {
     Route::name('dashboard.')->group(function () {
         Route::get('/dashboard', \App\Livewire\Dashboard\Index::class)->name('index');
     });
-    Route::name('users.')->group(function () {
+    Route::middleware('can:Ver usuarios')->name('users.')->group(function () {
         Route::get('/users', \App\Livewire\User\Index::class)->name('index');
     });
-    Route::name('roles.')->group(function () {
+    Route::middleware('can:Ver roles')->name('roles.')->group(function () {
         Route::get('/roles', \App\Livewire\Role\Index::class)->name('index');
     });
-    Route::name('audits.')->group(function () {
+    Route::middleware('can:Ver auditorias')->name('audits.')->group(function () {
         Route::get('/audits', \App\Livewire\Audit\Index::class)->name('index');
     });
-    Route::name('responsible.')->group(function () {
+    Route::middleware('can:Ver responsables')->name('responsible.')->group(function () {
         Route::get('/responsible', \App\Livewire\Responsible\Index::class)->name('index');
     });
-    Route::name('animal.')->group(function () {
+    Route::middleware('can:Ver animales')->name('animal.')->group(function () {
         Route::get('/animal', \App\Livewire\Animal\Index::class)->name('index');
     });
-    Route::name('consultation.')->group(function () {
+    Route::middleware('can:Ver consultas')->name('consultation.')->group(function () {
         Route::get('/consultation', \App\Livewire\Consultation\Index::class)->name('index');
     });
-    Route::name('historial.')->group(function () {
+    Route::middleware('can:Ver historial')->name('historial.')->group(function () {
         Route::get('/historial', \App\Livewire\Historial\Index::class)->name('index');
     });
     Route::name('profiles.')->group(function () {

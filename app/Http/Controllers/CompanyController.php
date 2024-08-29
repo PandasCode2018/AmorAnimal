@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use Carbon\Carbon;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Company;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use App\Http\Requests\StoreCompanyRequest;
 
@@ -38,6 +39,7 @@ class CompanyController extends Controller
         $request->merge([
             'end_license' => $terminacionLicencia,
             'bool_termino_codiciones' => ACTIVO,
+            'status' => ACTIVO,
 
         ]);
         DB::beginTransaction();
@@ -51,6 +53,7 @@ class CompanyController extends Controller
                 'bool_termino_codiciones' => $request->bool_termino_codiciones,
                 'end_license' => $request->end_license,
                 'folder' => $request->nit,
+                'status' => $request->status,
             ]);
             if (!$newCompany) {
                 throw new Exception('No se pudo crear la empresa');
@@ -64,11 +67,12 @@ class CompanyController extends Controller
             $userId = $user->id;
             $this->generarRolPermisos($companyId, $userId);
             DB::commit();
-            return redirect()->route('login')->with('success', 'Organización creada exitosamente.');
+            return redirect()->back()->with('success', 'Organización creada exitosamente. Su correo es <strong>' . $user->email . '</strong> y su clave es <strong>password</strong>. Puede cambiar estos datos una vez inicie sesión.');
+            #Iniciar sesión automáticamente
+            //Auth::login($user);
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th->getMessage(), $th->getTraceAsString());
-            //return redirect()->back()->with('error', 'Error en la creación de la organización, comuníquese con nuestra línea de atención.');
+            return redirect()->back()->with('error', 'Error en la creación de la organización, comuníquese con nuestra línea de atención.');
         }
     }
 
@@ -98,7 +102,11 @@ class CompanyController extends Controller
             throw new Exception('Error en la asignación de permisos , comuniquese con nuestro liena de atencion');
         }
         try {
-            $role = Role::create(['name' => 'Arca', 'guard_name' => 'web', 'company_id' => $companyId]);
+            $role = new Role();
+            $role->name = 'Arca';
+            $role->guard_name = 'web';
+            $role->company_id = $companyId;
+            $role->save();
             $permissions = Permission::all();
             $role->syncPermissions($permissions);
             $user = User::findOrFail($userId);
@@ -108,7 +116,6 @@ class CompanyController extends Controller
         }
     }
 
-
     public function createUser($companyId, $companyName, $companyNit)
     {
         if (is_null($companyId) || is_null($companyName) || is_null($companyNit)) {
@@ -117,19 +124,21 @@ class CompanyController extends Controller
         $microtimePart = substr(microtime(false), 2, 4);
         $email = $companyName . $companyId . $microtimePart . '@amorAnimal.com';
         try {
-            $newUser = User::create([
-                'company_id' => $companyId,
-                'name' => 'Noe',
-                'email' => $email,
-                'document_number' => $companyNit,
-                'password' => bcrypt('password'),
-                'bool_doctor' => ACTIVO
-            ]);
 
-            if (!$newUser) {
+            $user = new User();
+            $user->company_id = $companyId;
+            $user->name = 'Noe';
+            $user->email = $email;
+            $user->document_number = $companyNit;
+            $user->password = Hash::make('password');
+            $user->bool_doctor = ACTIVO;
+            $user->status = ACTIVO;
+            $user->save();
+
+            if (!$user) {
                 throw new Exception('No se pudo crear el usuario');
             }
-            return $newUser;
+            return $user;
         } catch (\Throwable $th) {
             throw new Exception('Ocurrió un error en el usuario: ' . $th->getMessage());
         }

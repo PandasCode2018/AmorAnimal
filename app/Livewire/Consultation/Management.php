@@ -91,10 +91,6 @@ class Management extends Component
             $this->consultations->user_id = $this->userId;
             $this->consultations->animal_id = $this->animalId;
 
-            // validar que el id del animal no tenga una conculta activa para asi agrgar otra OPCION2
-            // desactivar el boton de agregar consulta en el listado de animales si tiene una consulta activa OPCION1 
-
-            //dd($this->consultations);
             $this->consultations->save();
         } catch (\Throwable $th) {
             $this->showError('Error creando el animal');
@@ -115,12 +111,14 @@ class Management extends Component
     {
         $this->consultations = new Consultation();
         $this->resetErrorBag();
-        if (Uuid::isValid($consultaUuid) && empty($animalId)) {
+        if (Uuid::isValid($consultaUuid)) {
             $this->consultations = Consultation::uuid($consultaUuid)->first();
             $this->animalId = $this->consultations->animal_id;
         }
-        $this->boolOcultar = $animalId;
-        $this->animalId = $animalId;
+        if ($animalId) {
+            $this->boolOcultar = $animalId;
+            $this->animalId = $animalId;
+        }
         $this->consultaModal = true;
     }
 

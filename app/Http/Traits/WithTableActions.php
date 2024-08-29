@@ -11,6 +11,7 @@ use App\Models\Responsible;
 use App\Models\AnimalSpecies;
 use App\Http\Traits\WithMessages;
 use App\Models\Consultation;
+use App\Models\Treatment;
 use Illuminate\Support\Facades\Gate;
 
 trait WithTableActions
@@ -19,10 +20,10 @@ trait WithTableActions
     use WithMessages;
     public function changeStatus($module, $modelUuid)
     {
-        if (Gate::denies('edit ' . $module)) {
+        /* if (Gate::denies('edit ' . $module)) {
             $this->showError('No tienes permisos para realizar esta acción');
             return;
-        }
+        } */
 
         $model = null;
         switch ($module) {
@@ -63,6 +64,7 @@ trait WithTableActions
             case 'companies':
                 $model = Company::class;
                 break;
+
             case 'animalEspecies':
 
                 $especie = AnimalSpecies::where('uuid', $modelUuid)->first();
@@ -93,6 +95,10 @@ trait WithTableActions
                 $model = Responsible::class;
                 break;
 
+            case 'treatments':
+                $model = Treatment::class;
+                break;
+
             case 'role':
                 $model = Role::class;
                 break;
@@ -101,6 +107,7 @@ trait WithTableActions
                     $this->showError('No puedes eliminar tu propio usuario');
                     return;
                 }
+
                 $model = User::class;
                 break;
 
@@ -109,21 +116,24 @@ trait WithTableActions
                 return;
         }
 
-        $record = $model::uuid($modelUuid)->first();
-
-        if (!$record) {
-            $this->showError('Error al intentar eliminar el registro.');
-            return;
-        }
 
         if ($module == 'role') {
-            if (!$record || $record->users()->count() > 0) {
-                $this->showError('Rol no encontrado o tiene usuarios asociados');
+            $rol = Role::where('id', $modelUuid)->first();
+            if (!$rol || $rol->users()->count() > 0) {
+                $this->showWarning('Rol no encontrado o tiene usuarios asociados');
                 return;
             }
+            $rol->delete();
+        } else {
+            $record = $model::uuid($modelUuid)->first();
+
+            if (!$record) {
+                $this->showError('Error al intentar eliminar el registro.');
+                return;
+            }
+            $record->delete();
         }
 
-        $record->delete();
         $this->showSuccess('Registro eliminado correctamente');
     }
 }

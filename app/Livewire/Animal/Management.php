@@ -24,7 +24,7 @@ class Management extends Component
     public $selectResponsable;
     public $selectEspecies;
     public $userId;
-    public $imagePreview;
+    public $imagenAnimalActaul;
     public $image;
     public $prueba;
     public $sexoAnimal = ['Macho', 'Hembra', 'Hermafroditismo', 'Dioico', 'Monoico'];
@@ -131,6 +131,7 @@ class Management extends Component
         $this->animal = new Animal();
         if (Uuid::isValid($animalUuid)) {
             $this->animal = Animal::uuid($animalUuid)->first();
+            $this->imagenAnimalActaul = $this->animal->photo ?? null;
         }
         $this->animalModal = true;
     }

@@ -1,14 +1,14 @@
 /* Estilo para el modal de Shepherd.js */
 .shepherd-modal {
     background-color: #1E3A8A; /* Azul oscuro */
-    color: #FFFFFF; /* Texto blanco */
+    color: #3B82F6; /* Texto blanco */
     border-radius: 0.375rem; /* Bordes redondeados */
 }
 
 /* Estilo del encabezado */
 .shepherd-header {
     background-color: #3B82F6; /* Azul más suave para el encabezado */
-    color: #FFFFFF; /* Texto blanco en el encabezado */
+    color: #3B82F6; /* Texto blanco en el encabezado */
     font-weight: bold;
 }
 

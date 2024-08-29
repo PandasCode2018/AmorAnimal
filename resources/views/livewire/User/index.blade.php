@@ -1,35 +1,39 @@
 @section('subhead')
     <title>Usuarios - {{ config('app.name') }}</title>
 @endsection
-<div class=" mx-2">
+<div class="mx-2 bg-[#f3faf8]">
     <div class="mb-2 w-full">
         <div class="mt-5 grid grid-cols-12 gap-6">
-            <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
+            <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl tourUsuarios-0">
                 <div class="col-span-12 lg:col-span-12 2xl:col-span-12 flex justify-end">
-                    <button
-                        class="flex items-center px-4 py-2 bg-white text-blue-300 font-semibold rounded-lg shadow-sm hover:shadow-lg hover:text-blue-400 focus:outline-none ">
+                    <button wire:click="$dispatch('tutorialUsuarios')"
+                        class="flex items-center px-4 py-2 bg-white text-blue-300 font-semibold rounded-lg shadow-xs hover:shadow-lg hover:text-blue-400 focus:outline-none ">
                         <i class="fas fa-question-circle mr-2"></i>
                         Tutorial
                     </button>
                 </div>
-                <div class="intro-y mt-8 flex justify-center items-center">
-                    <h2 class="font-sans font-bold text-center text-2xl text-cyan-800">Listado de usuarios</h2>
+                <div class="intro-y flex justify-center items-center shadow-sm rounded-lg">
+                    <h2
+                        class="font-serif font-semibold text-center text-3xl text-cyan-900 mb-4 border-b-4 border-cyan-500 pb-2">
+                        Listado de usuarios
+                    </h2>
                 </div>
-
                 <div
                     class="intro-y col-span-12 mt-2 flex flex-col sm:flex-row items-center justify-between border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400">
 
-                    <div class="relative w-full sm:w-56 text-slate-500 mb-4 sm:mb-0">
+                    <div class="relative w-full sm:w-56 text-slate-500 mb-4 sm:mb-0 tourUsuarios-1">
                         <x-input id="search" titleInput="Filtro para buscar usuarios" wire:model.live="search"
                             class="!box w-full sm:w-56 pr-10 tooltip" type="search" placeholder="Buscar..." />
                     </div>
 
-                    <div class="p-2 w-full sm:w-auto">
-                        <x-custom.button wire:click="$dispatch('openUserModal')" title="Crear un nuevo usuario"
-                            class="w-full sm:w-auto bg-blue-400 hover:bg-blue-500 text-white py-2 px-4 text-base sm:text-sm font-medium">
-                            Nuevo Registro
-                        </x-custom.button>
-                    </div>
+                    @can('Crear usuarios')
+                        <div class="p-2 w-full sm:w-auto tourUsuarios-2">
+                            <x-custom.button wire:click="$dispatch('openUserModal')" title="Crear un nuevo usuario"
+                                class="w-full sm:w-auto bg-[#7a7cbf] hover:bg-[#6c6ea7] text-white py-2 px-4 text-base sm:text-sm font-medium">
+                                Nuevo Registro
+                            </x-custom.button>
+                        </div>
+                    @endcan
                 </div>
                 <div class="p-2 w-full">
                     <div class="flex-auto block p-3">
@@ -41,7 +45,9 @@
                                         <th class="p-3 text-left">Correo</th>
                                         <th class="p-3 text-center">Documento</th>
                                         <th class="p-3 text-center">Teléfono</th>
-                                        <th class="p-3 text-center">Estado</th>
+                                        @can('Editar usuario')
+                                            <th class="p-3 text-center">Estado</th>
+                                        @endcan
                                         <th class="p-3 text-center">Acciones</th>
                                     </tr>
                                 </thead>
@@ -53,35 +59,40 @@
                                             <td class="p-3 text-left"> {{ $user->email }}</td>
                                             <td class="p-3">{{ $user->document_number }} </td>
                                             <td class="p-3">{{ $user->phone }} </td>
-                                            <td class="p-3">
-                                                <i wire:click="changeStatus('users', '{{ $user->uuid }}')"
-                                                    class="fa-solid fa-power-off {{ $user->status == 1 ? 'text-green-500' : 'text-red-500' }}"
-                                                    title="  {{ $user->status == 1 ? 'Activo' : 'Inactivo' }}"></i>
-                                                <span
-                                                    class="{{ $user->status == 1 ? 'text-green-500' : 'text-red-500' }}">
+                                            @can('Editar usuarios')
+                                                <td class="p-3 tourUsuarios-3">
+                                                    <i wire:click="changeStatus('users', '{{ $user->uuid }}')"
+                                                        class="fa-solid fa-power-off {{ $user->status == 1 ? 'text-green-500' : 'text-red-500' }}"
+                                                        title="  {{ $user->status == 1 ? 'Activo' : 'Inactivo' }}"></i>
+                                                    <span
+                                                        class="{{ $user->status == 1 ? 'text-green-500' : 'text-red-500' }}">
 
-                                                </span>
-                                            </td>
+                                                    </span>
+                                                </td>
+                                            @endcan
                                             <td class="p-3">
                                                 <a wire:click="$dispatch('detalleUsertoModal', {userUuid: '{{ $user->uuid }}'})"
-                                                    class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
+                                                    class="tourUsuarios-4 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
                                                     title="Ver información completa">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-
-                                                <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
-                                                    title="Editar usuario"
-                                                    wire:click="$dispatch('openUserModal', {userUuid: '{{ $user->uuid }}'})">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                @if (auth()->id() !== $user->id)
-                                                    <a wire:click="delete('users','{{ $user->uuid }}')"
-                                                        wire:confirm.prompt="{{ $this->confirmQuestion }}"
-                                                        class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
-                                                        title="Eliminar usuario">
-                                                        <i class="fas solid fa-trash-can"></i>
+                                                @can('Editar usuarios')
+                                                    <a class="tourUsuarios-5 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
+                                                        title="Editar"
+                                                        wire:click="$dispatch('openUserModal', {userUuid: '{{ $user->uuid }}'})">
+                                                        <i class="fas fa-edit"></i>
                                                     </a>
-                                                @endif
+                                                @endcan
+                                                @can('Eliminar usuarios')
+                                                    @if (auth()->id() !== $user->id)
+                                                        <a wire:click="delete('users','{{ $user->uuid }}')"
+                                                            wire:confirm.prompt="{{ $this->confirmQuestion }}"
+                                                            class="tourUsuarios-6 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
+                                                            title="Eliminar">
+                                                            <i class="fas solid fa-trash-can"></i>
+                                                        </a>
+                                                    @endif
+                                                @endcan
                                             </td>
                                         </tr>
                                     @empty

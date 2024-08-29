@@ -17,7 +17,6 @@ class Audit extends ModelsAudit
 
             $user = Auth::user();
             $model->company_id = $user ? $user->company_id : null;
-            // $model->company_id = Auth::user()->company_id ?? null;
         });
     }
 

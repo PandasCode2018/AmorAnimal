@@ -60,7 +60,7 @@ class Management extends Component
             'treatment.reinforcement_date' => 'nullable|date|after_or_equal:today',
             'treatment.dose' => 'required|string|max:30',
             'treatment.frequency' => 'nullable|string|max:30',
-            'treatment.internal_or_external' => 'nullable',
+            'treatment.internal_or_external' => 'required',
             'treatment.treatment_duration' => 'nullable|string|max:30',
             'treatment.note' => 'nullable',
         ];
@@ -80,7 +80,6 @@ class Management extends Component
 
     public function store()
     {
-
         if (is_null($this->idConsulta) || empty($this->idConsulta)) {
             $this->showError('Error creando el tratamiento');
             return;
@@ -103,9 +102,9 @@ class Management extends Component
         } else {
             $this->showSuccess('Tratamiento creado correctamente');
         }
-        $this->resetErrorBag();
+       
         $this->closeModal();
-        $this->dispatch('treatment-index:refresh');
+        $this->dispatch('Treatment-index:refresh');
         $this->treatment = new Treatment();
     }
 

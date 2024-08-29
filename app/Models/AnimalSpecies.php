@@ -31,11 +31,10 @@ class AnimalSpecies extends Model implements Auditable
 
     public static function filter()
     {
-        $datos = static::query()
+        return static::query()
             ->where('company_id', auth()->user()->company_id)
+            ->where('status', ACTIVO )
             ->orderByDesc('id');
-            dd($datos->toSql());
-            dd($datos->getBindings());
     }
 
     public static function select()

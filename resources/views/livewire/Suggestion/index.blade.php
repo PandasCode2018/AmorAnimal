@@ -1,13 +1,13 @@
 @section('subhead')
     <title>Sugerencias - {{ config('app.name') }}</title>
 @endsection
-<div class=" mx-2">
+<div class="mx-2 bg-[#f3faf8]">
     <div class="mb-2  w-full">
         <div class="mt-5 grid grid-cols-12 gap-6">
             <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
                 <div class="col-span-12 lg:col-span-12 2xl:col-span-12 flex justify-end">
                     <button
-                        class="flex items-center px-4 py-2 bg-white text-blue-300 font-semibold rounded-lg shadow-sm hover:shadow-lg hover:text-blue-400 focus:outline-none ">
+                        class="flex items-center px-4 py-2 bg-white text-blue-300 font-semibold rounded-lg shadow-xs hover:shadow-lg hover:text-blue-400 focus:outline-none ">
                         <i class="fas fa-question-circle mr-2"></i>
                         Tutorial
                     </button>

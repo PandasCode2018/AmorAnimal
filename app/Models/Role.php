@@ -9,7 +9,7 @@ class Role extends ModelsRole
 {
 
     protected $fillable = ['name', 'guard_name', 'company_id'];
-
+    
     public function company()
     {
         return $this->belongsTo(Company::class);

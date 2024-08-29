@@ -30,7 +30,7 @@ class Management extends Component
     public function rules()
     {
 
-        return ['animalSpaecie.name' => 'required| string| max:20'];
+        return ['animalSpaecie.name' => 'required|string|max:20|unique:animal_species,name,' . $this->animalSpaecie->id];
     }
 
     protected $validationAttributes = ['animalSpaecie.name' => 'Nombre'];
@@ -39,6 +39,7 @@ class Management extends Component
     #[On('openEspecieModal')]
     public function openModal($especieUuId = '')
     {
+        $this->resetErrorBag();
         $this->animalSpaecie = new AnimalSpecies();
         if (Uuid::isValid($especieUuId)) {
             $this->animalSpaecie = AnimalSpecies::uuid($especieUuId)->first();
@@ -69,11 +70,11 @@ class Management extends Component
         } else {
             $this->showSuccess('Nombre de la especie  fue creado correctamente');
         }
-        
+
         $this->resetErrorBag();
         $this->closeModal();
         $this->dispatch('animal-index:refresh');
-        $this->especieModal = new AnimalSpecies();
+        $this->animalSpaecie = new AnimalSpecies();
     }
 
     public function render()

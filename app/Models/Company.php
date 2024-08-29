@@ -9,9 +9,6 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-
-// ! ACTUALMENTE AL REGISTRAR UNA EMPRESA NO DA UN ERROR Y AL PARCER ES POR EL LA LIBRERIA AUDITABLE SI LO RETIRAMOS FUNCIONA 
-// ! SE DEBE BUSCAR LA FORMA DE QUE EL AUDI NO HAGA CASO CUANDO EL USUAIRO NO ESTA AUTENTICADO, SE DEBE HACER LO MISMO CON EL MODELO DE USER
 class Company extends Model implements Auditable
 {
     use HasFactory;
@@ -31,23 +28,23 @@ class Company extends Model implements Auditable
         'bool_termino_codiciones',
         'folder',
     ];
-
-   /*  protected static function boot()
+/* 
+    protected static function boot()
     {
         parent::boot();
 
         static::creating(function ($model) {
+            // Asignar un valor temporal o nulo
+            $model->company_id = null;
+        });
+
+        static::created(function ($model) {
+            // Actualizar el valor de company_id si es necesario
             if (Auth::check()) {
                 $model->company_id = Auth::user()->company_id;
-            } else {
-                $model->disableAuditing();
+                $model->save();
             }
         });
-    }
-
-    public function shouldBeAudited()
-    {
-        return Auth::check();
     } */
 
 
