@@ -9,9 +9,10 @@ use App\Models\Animal;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Models\Consultation;
-use App\Http\Traits\WithMessages;
 use App\Models\query_status;
+use App\Http\Traits\WithMessages;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class Management extends Component
 {
@@ -70,7 +71,7 @@ class Management extends Component
 
     public function store()
     {
-
+        abort_unless(Gate::any(['Crear consultations', 'Editar consultations']), 403);
         $this->validate();
 
         $dateTime = new DateTime($this->consultations->date_time_query);
@@ -90,7 +91,7 @@ class Management extends Component
 
             $this->consultations->save();
         } catch (\Throwable $th) {
-            $this->showError('Error creando el animal');
+            $this->showError('Error creando el registro, comuníquese con  soporte.');
             return;
         }
         if ($isEdit) {

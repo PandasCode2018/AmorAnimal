@@ -12,6 +12,7 @@ use Illuminate\Validation\Rule;
 use App\Http\Traits\WithMessages;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class Management extends Component
 {
@@ -43,6 +44,7 @@ class Management extends Component
         'license_number' => 'Licencia',
         'years_experience' => 'Años de experiencia',
         'userRolesName' => 'Rol',
+        'bool_doctor' => 'Doctor',
     ];
 
     private function clearString()
@@ -76,11 +78,13 @@ class Management extends Component
             'user.license_number' => 'nullable|string|max:100',
             'user.years_experience' => 'nullable|numeric|digits_between:1,2',
             'userRolesName' => 'required|string|min:1|exists:roles,name',
+            'user.bool_doctor' => 'nullable|boolean',
         ];
     }
 
     public function store()
     {
+        abort_unless(Gate::any(['Crear users', 'Editar users']), 403);
         $this->validate();
         $isEdit = (bool) $this->user->id;
 
@@ -92,15 +96,13 @@ class Management extends Component
                 $this->user->password = bcrypt($this->user->password);
             }
 
-
             unset($this->user->rolesName);
+            $this->user->bool_doctor = $this->user->bool_doctor ? 1 : 0;
             $this->user->company_id = $this->userCompanyId;
             $this->user->save();
             $this->user->syncRoles($this->userRolesName);
-            //UserService::rolesChanged($this->user, $rolesName);
         } catch (\Throwable $th) {
-            $this->showError($th->getMessage());
-            //$this->showError('Error creando el usuario');
+            $this->showError('Error creando el registro, comuníquese con  soporte.');
             return;
         }
 
@@ -140,4 +142,3 @@ class Management extends Component
         return view('livewire.user.management');
     }
 }
-

@@ -81,6 +81,17 @@
                             </x-custom.input-select>
                         </div>
                     </div>
+                    <div class="grid grid-cols-1 gap-3 p-2 sm:grid-cols-3">
+                        <div class="flex items-center mt-2">
+                            <input wire:model="user.bool_doctor" type="checkbox" id="user.bool_doctor"
+                                name="user.bool_doctor" @if ($user->bool_doctor) checked @endif
+                                class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <label for="user.bool_doctor"
+                                class="ml-3 text-sm font-semibold text-gray-700 cursor-pointer hover:text-blue-600 transition-colors duration-200 ease-in-out">
+                                ¿Es doctor?
+                            </label>
+                        </div>
+                    </div>
                 </div>
                 @if ($errors->any())
                     <div class="alert alert-danger">

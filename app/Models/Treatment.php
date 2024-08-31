@@ -56,6 +56,6 @@ class Treatment extends Model implements Auditable
         $query->where('company_id', auth()->user()->company_id)
             ->where('consultation_id', $consultaid);
 
-        return $query->with('company', 'consultation', 'user')->orderByDesc('treatments.id');
+        return $query->with('company', 'consultation')->orderByDesc('treatments.id');
     }
 }

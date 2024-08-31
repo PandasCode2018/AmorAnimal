@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Treatment;
 
+use App\Http\Traits\WithMessages;
 use App\Http\Traits\withTours;
 use Livewire\Component;
 use App\Models\Treatment;
@@ -15,6 +16,7 @@ class Index extends Component
     use WithPagination;
     use WithTableActions;
     use withTours;
+    use WithMessages;
 
     public $indexModal = false;
     public ?string $search = '';
@@ -26,20 +28,30 @@ class Index extends Component
     public $consultaId;
     public $treatment;
 
-    public function treatment($idConsulta)
+    public function getTreatmentQueryProperty()
     {
-        return Treatment::where('company_id', auth()->user()->company_id)
-            ->where('consultation_id', $idConsulta)
-            ->with(['company', 'consultation', 'user'])
-            ->orderByDesc('id')
-            ->get();
+        return Treatment::filter('', $this->consultaId);
+    }
+
+    public function getTreatmentProperty()
+    {
+        return $this->treatmentQuery->get();
+    }
+
+    #[On('loadTreatmentData')]
+    public function loadTreatmentData()
+    {
+        $this->treatment = $this->getTreatmentProperty();
     }
 
     #[On('indexTratamientoModal')]
     public function openModal($idConsulta)
     {
+        if (empty($idConsulta || is_null($idConsulta))) {
+            $this->showError('Error capturando el id de la consulta, comuníquese con  soporte.');
+        }
         $this->consultaId = $idConsulta;
-        $this->treatment = $this->treatment($idConsulta);
+        $this->loadTreatmentData();
         $this->indexModal = true;
         $this->dispatch('consultaIdSet', $this->consultaId);
     }
@@ -69,6 +81,7 @@ class Index extends Component
         }
         $this->showInicio($steps);
     }
+
     public function closeModal()
     {
         $this->indexModal = false;

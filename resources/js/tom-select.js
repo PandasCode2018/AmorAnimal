@@ -2,9 +2,9 @@
 import TomSelect from 'tom-select';
 
 document.addEventListener('DOMContentLoaded', function () {
-    //document.addEventListener('livewire:load', function () {
+    document.addEventListener('livewire:load', function () {
 
-        //alert('hhh');
+        alert('hhh');
         new TomSelect(".tom-select", {
             create: true,
             sortField: {
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 direction: "asc"
             }
         });
-    //});
+    });
 
 });
 

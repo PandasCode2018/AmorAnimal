@@ -7,7 +7,7 @@
             <div class="col-span-12 flex flex-col-reverse lg:col-span-3 lg:block 2xl:col-span-3 shadow-2xl ">
                 <div class="intro-y box mt-6 p-5">
                     <div class="p-2 w-full sm:w-auto">
-                        @can('Crear animal_species')
+                        @can('Crear especies')
                             <x-custom.button wire:click="$dispatch('openEspecieModal')" title="Agregar nuevo registro"
                                 class="tourAnimales-8 w-full sm:w-auto bg-[#7a7cbf] hover:bg-[#6c6ea7] text-white py-2 px-4 text-base sm:text-sm font-medium">
                                 Nuevo especie
@@ -24,13 +24,13 @@
                                             <div class="mr-3 h-2 w-2 rounded-full bg-secondary"></div>
                                             {{ $especie->name }}
                                         </td>
-                                        @can('Editar animal_species')
+                                        @can('Editar especies')
                                             <td class="tourAnimales-9 text-gray-500 hover:text-yellow-500 tooltip" title="Editar"
                                                 wire:click="$dispatch('openEspecieModal', {especieUuId: '{{ $especie->uuid }}' })">
                                                 <i class="fas fa-edit"></i>
                                             </td>
                                         @endcan
-                                        @can('Eliminar animal_species')
+                                        @can('Eliminar especies')
                                             <td class="tourAnimales-10 text-gray-500 hover:text-red-500 tooltip" title="Eliminar"
                                                 wire:click="delete('animalEspecies','{{ $especie->uuid }}')"
                                                 wire:confirm.prompt="{{ $this->confirmQuestion }}">

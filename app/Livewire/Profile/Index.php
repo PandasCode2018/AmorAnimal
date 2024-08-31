@@ -8,6 +8,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Http\Traits\WithMessages;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class Index extends Component
@@ -158,7 +159,7 @@ class Index extends Component
             $this->user->license_number = $this->numberLicencia;
             $this->user->save();
         } catch (\Throwable $th) {
-            $this->showError($th->getMessage());
+            $this->showError('Error creando el registro, comuníquese con  soporte.');
             return;
         }
 
@@ -171,6 +172,7 @@ class Index extends Component
 
     public function updateCompanyPerfile()
     {
+        Gate::authorize('Editar company');
         $nameCarpeta =   $this->carpetaCompany;
         $this->validate($this->getCompanyRules());
         try {
@@ -196,7 +198,7 @@ class Index extends Component
             $this->company->end_license = $this->dateLicence;
             $this->company->save();
         } catch (\Throwable $th) {
-            $this->showError('Error actualizada correctamente');
+            $this->showError('Error creando el registro, comuníquese con  soporte.');
             return;
         }
 
