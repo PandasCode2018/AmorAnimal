@@ -2,13 +2,16 @@
 
 namespace App\Livewire\Audit;
 
+use App\Http\Traits\withTours;
 use App\Models\Audit;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 
 class Index extends Component
 {
     use WithPagination;
+    use withTours;
 
     public ?string $search = '';
 
@@ -33,6 +36,16 @@ class Index extends Component
         $this->resetPage();
     }
 
+    #[On('tutorialAuditoria')]
+    public function tutorial()
+    {
+        $steps = config('MessageTour.auditoria');
+        if (empty($steps)) {
+            $this->showWarning('Lo sentimos, error con los mensajes del tutorial, comuníquese soporte.');
+            return;
+        }
+        $this->showInicio($steps);
+    }
     public function render()
     {
         return view('livewire.audit.index');

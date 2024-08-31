@@ -1,8 +1,8 @@
 @section('subhead')
     <title>Roles - {{ config('app.name') }}</title>
 @endsection
-<div class="mx-2 bg-[#f3faf8]">
-    <div class="mb-2  w-full tourRoles-0">
+<div class="mx-2 bg-[#f3faf8] tourRoles-0">
+    <div class="mb-2  w-full">
         <div class="mt-5 grid  grid-cols-12 gap-6 ">
             <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
                 <div class="col-span-12 lg:col-span-12 2xl:col-span-12 flex justify-end">
@@ -44,9 +44,12 @@
                                     <tr class="font-semibold text-secondary-dark border p-3">
                                         <th class="p-3 text-left">Indice</th>
                                         <th class="p-3 text-left">Nombre</th>
-                                        @canany(['eliminar roles', 'editar roles'])
-                                            <th class="p-3 text-center">Acciones</th>
-                                        @endcanany
+                                        @can('Editar roles')
+                                            <th class="p-3 text-center">Editar</th>
+                                        @endcan
+                                        @can('Eliminar roles')
+                                            <th class="p-3 text-center">Eliminar</th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -64,6 +67,8 @@
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                 @endcan
+                                            </td>
+                                            <td class="p-3">
                                                 @can('Eliminar usuarios')
                                                     <a wire:click="delete('role',{{ $role->id }})"
                                                         wire:confirm.prompt="{{ $this->confirmQuestion }}"

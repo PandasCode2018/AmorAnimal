@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Suggestion;
 
+use App\Http\Traits\withTours;
 use Livewire\Component;
 use App\Models\suggestion;
+use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
 use App\Http\Traits\WithMessages;
 use App\Models\Evidencesuggestion;
@@ -14,6 +16,7 @@ class Index extends Component
 
     use WithFileUploads;
     use WithMessages;
+    use withTours;
 
     public $modulos = ['Inicio', 'Usuario', 'Roles', 'Responsables', 'Animales', 'Consulta', 'Historia', 'Auditoria'];
     public $imagen;
@@ -89,6 +92,18 @@ class Index extends Component
         $this->dispatch('sugerencia-index:refresh');
         $this->imagen = '';
         $this->sugerencias = new Suggestion();
+    }
+
+
+    #[On('tutorialSugerencias')]
+    public function tutorial()
+    {
+        $steps = config('MessageTour.sugerencias');
+        if (empty($steps)) {
+            $this->showWarning('Lo sentimos, error con los mensajes del tutorial, comuníquese soporte.');
+            return;
+        }
+        $this->showInicio($steps);
     }
 
     public function render()

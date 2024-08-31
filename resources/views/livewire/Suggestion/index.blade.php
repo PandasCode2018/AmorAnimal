@@ -1,12 +1,13 @@
 @section('subhead')
     <title>Sugerencias - {{ config('app.name') }}</title>
 @endsection
-<div class="mx-2 bg-[#f3faf8]">
+<div class="mx-2 bg-[#f3faf8] tourSugerencia-0">
     <div class="mb-2  w-full">
         <div class="mt-5 grid grid-cols-12 gap-6">
             <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
                 <div class="col-span-12 lg:col-span-12 2xl:col-span-12 flex justify-end">
                     <button
+                    wire:click="$dispatch('tutorialSugerencias')"
                         class="flex items-center px-4 py-2 bg-white text-blue-300 font-semibold rounded-lg shadow-xs hover:shadow-lg hover:text-blue-400 focus:outline-none ">
                         <i class="fas fa-question-circle mr-2"></i>
                         Tutorial
@@ -30,7 +31,9 @@
                                     <div class="flex flex-wrap -mx-3 mb-5">
                                         <div class="w-full sm:w-full px-3 mb-6">
                                             <div>
-                                                <x-custom.input-select wire:model='sugerencias.module'
+                                                <x-custom.input-select 
+                                                    class="tourSugerencia-1"
+                                                    wire:model='sugerencias.module'
                                                     id="sugerencias.module" label="Modulos" required>
                                                     <option value="" selected>Seleccione un modulo</option>
                                                     @foreach ($this->modulos as $modulo)
@@ -42,7 +45,7 @@
                                         <div>
                                             <label class="p-2">Mensaje*</label>
                                             <textarea wire:model="sugerencias.message" required id="sugerencias.message"
-                                                class="w-full
+                                                class="tourSugerencia-2 w-full
                                                 transition duration-200 ease-in-out text-sm  border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-2 
                                                 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 
                                                  dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 disabled:bg-slate-100
@@ -57,7 +60,7 @@
                                     <div class="grid grid-cols-1 gap-3 p-2">
                                         <div>
                                             <input type="file" wire:model="imagen" multiple
-                                                class=" items-center p-4 gap-3 rounded-3xl border border-gray-300 border-dashed bg-gray-50 cursor-pointer 
+                                                class="tourSugerencia-3 items-center p-4 gap-3 rounded-3xl border border-gray-300 border-dashed bg-gray-50 cursor-pointer 
                                                 space-y-2 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm 
                                                 file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
                                             <div class="flex justify-center">

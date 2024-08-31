@@ -2,7 +2,7 @@
 @import 'all.css';
 @import 'styles.css';
 @import 'select2/dist/css/select2.min.css';
-@import 'tutorila.css';
+@import '/node_modules/tom-select/dist/css/tom-select.default.css';
 
 
 /* Luego incluye las directivas de Tailwind CSS */

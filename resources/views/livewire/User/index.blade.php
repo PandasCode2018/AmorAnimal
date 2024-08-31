@@ -1,10 +1,10 @@
 @section('subhead')
     <title>Usuarios - {{ config('app.name') }}</title>
 @endsection
-<div class="mx-2 bg-[#f3faf8]">
+<div class="mx-2 bg-[#f3faf8] tourUsuarios-0">
     <div class="mb-2 w-full">
         <div class="mt-5 grid grid-cols-12 gap-6">
-            <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl tourUsuarios-0">
+            <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
                 <div class="col-span-12 lg:col-span-12 2xl:col-span-12 flex justify-end">
                     <button wire:click="$dispatch('tutorialUsuarios')"
                         class="flex items-center px-4 py-2 bg-white text-blue-300 font-semibold rounded-lg shadow-xs hover:shadow-lg hover:text-blue-400 focus:outline-none ">
@@ -45,7 +45,7 @@
                                         <th class="p-3 text-left">Correo</th>
                                         <th class="p-3 text-center">Documento</th>
                                         <th class="p-3 text-center">Teléfono</th>
-                                        @can('Editar usuario')
+                                        @can('Editar usuarios')
                                             <th class="p-3 text-center">Estado</th>
                                         @endcan
                                         <th class="p-3 text-center">Acciones</th>

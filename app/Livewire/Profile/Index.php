@@ -25,7 +25,6 @@ class Index extends Component
     public $name;
     public $nameCompany;
     public $carpetaCompany;
-    public $passwordActual;
     public $titulo;
     public $email;
     public $especialidad;
@@ -49,7 +48,6 @@ class Index extends Component
         $this->nit = $this->company->nit;
         $this->dateLicence = $this->company->end_license;
         $this->carpetaCompany = $this->company->folder;
-        $this->passwordActual = $this->user->password;
     }
 
     public function viewContenedorCompany()
@@ -72,7 +70,6 @@ class Index extends Component
         'email' => 'Correo',
         'document_number' => 'Docuemento',
         'password' => 'Contraseña',
-        'newPassword' => 'Nueva Contraseña',
         'phone' => 'Telefono',
         'address' => 'Dirección',
         'qualification' => 'Titulo',
@@ -94,7 +91,6 @@ class Index extends Component
             'user.license_number' => 'nullable',
             'user.address' => 'required|string|max:100',
             'user.password' => 'nullable|string|min:6|max:40',
-            'user.newPassword' => 'nullable|string|min:6|max:40',
             'user.phone' => 'required|numeric|digits_between:6,12',
             'user.document_number' => 'required|numeric|digits_between:8,22',
         ];
@@ -150,25 +146,16 @@ class Index extends Component
             }
             $this->clearString($this->user);
 
-
-            if (!empty($this->user->newPassword) && !empty($this->user->password)) {
-
-                if ($this->passwordActual !== Hash::make($this->user->password)) {
-                    $this->showError('La contraseña actual no coincide');
-                    return;
-                }
-
-                if ($this->user->newPassword) {
-                    $this->user->password = Hash::make($this->user->newPassword);
-                }
+            if ($this->user->password) {
+                $this->user->password = bcrypt($this->user->password);
             }
+
 
             $this->user->email = $this->email;
             $this->user->qualification = $this->titulo;
             $this->user->specialty = $this->especialidad;
             $this->user->years_experience = $this->yearEsperiencia;
             $this->user->license_number = $this->numberLicencia;
-            unset($this->user->newPassword);
             $this->user->save();
         } catch (\Throwable $th) {
             $this->showError($th->getMessage());

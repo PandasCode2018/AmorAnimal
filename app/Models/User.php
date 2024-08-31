@@ -17,8 +17,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable implements Auditable
 {
 
-    // ! ACTUALMENTE AL REGISTRAR UNA EMPRESA NO DA UN ERROR Y AL PARCER ES POR EL LA LIBRERIA AUDITABLE SI LO RETIRAMOS FUNCIONA 
-    // ! SE DEBE BUSCAR LA FORMA DE QUE EL AUDI NO HAGA CASO CUANDO EL USUAIRO NO ESTA AUTENTICADO, SE DEBE HACER LO MISMO CON EL MODELO DE USER
 
     use HasApiTokens;
     use HasFactory;

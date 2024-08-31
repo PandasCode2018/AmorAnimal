@@ -72,8 +72,8 @@
                             </div>
                         @endif
                         <div>
-                            <x-custom.input-select class="select2" id="userRolesName" name="userRolesName" wire:model="userRolesName"
-                                label="Rol" required>
+                            <x-custom.input-select class="tom-select" id="userRolesName" name="userRolesName"
+                                wire:model="userRolesName" label="Rol" required>
                                 <option value="" selected>Seleccione un rol</option>
                                 @foreach ($this->selectRoles as $rol)
                                     <option value="{{ $rol->name }}">{{ $rol->name }}</option>

@@ -11,6 +11,9 @@ Livewire.on('tutorial', (event) => {
             },
             classes: 'shepherd-theme-dark',
             scrollTo: { behavior: "smooth", block: "center" },
+            showCancelLink: true, // Muestra el enlace de cancelación
+            showCloseButton: true, // Muestra el botón de cerrar
+            keyboardNavigation: true // Permite la navegación con teclado
         }
     });
 
