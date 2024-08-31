@@ -9,6 +9,7 @@
     @yield('subhead')
 
     <!-- Fonts -->
+    <link rel="shortcut icon" href="{{ asset('img_sistema/panda-code.ico') }}" type="image/x-icon" sizes="96x96">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
@@ -43,17 +44,27 @@
                     </div>
                 </main>
             </div>
-            <footer class="bg-gradient-to-b from-[#57457c] to-[#36e4af] text-white p-2 border-t border-light-border text-center">
+            <footer
+                class="bg-gradient-to-b from-[#57457c] to-[#36e4af] text-white p-2 border-t border-light-border text-center">
                 <p class="font-bold">&copy; 2024</p>
-                <div class="mx-auto font-bold pr-2">Desarrollado por <a href="#" target=" _blank">PandasCode</a>
+                <div class="mx-auto font-bold pr-2">Desarrollado por <a href="https://pandascode.com/"
+                        target="_blank">PandasCode</a>
                 </div>
             </footer>
         </div>
     </div>
+
+    <!-- Botón de WhatsApp -->
+    <a href="https://wa.me/1234567890" target="_blank"
+        class="hidden sm:flex whatsapp-button fixed bottom-4 right-4 bg-green-500 hover:bg-green-600 text-white rounded-full w-16 h-16  items-center justify-center shadow-lg">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+
+
     @stack('modals')
     @yield('scripts')
     @livewireScripts
-
 </body>
+
 
 </html>

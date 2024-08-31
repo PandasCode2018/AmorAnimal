@@ -104,7 +104,7 @@ class Management extends Component
         }
        
         $this->closeModal();
-        $this->dispatch('Treatment-index:refresh');
+        $this->dispatch('treatment-index:refresh');
         $this->treatment = new Treatment();
     }
 

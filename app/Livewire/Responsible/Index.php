@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Responsible;
 
-use App\Models\Responsible;
+use App\Http\Traits\withTours;
 use Livewire\Component;
+use App\Models\Responsible;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
-use App\Http\Traits\WithTableActions;
 use App\Http\Traits\WithMessages;
+use App\Http\Traits\WithTableActions;
 
 
 class Index extends Component
@@ -15,6 +17,7 @@ class Index extends Component
     use WithPagination;
     use WithTableActions;
     use WithMessages;
+    use withTours;
 
 
     public $responsibles;
@@ -49,6 +52,17 @@ class Index extends Component
     public function updatedSearch()
     {
         $this->resetPage();
+    }
+
+    #[On('tutorialResponsables')]
+    public function tutorial()
+    {
+        $steps = config('MessageTour.responsables');
+        if (empty($steps)) {
+            $this->showWarning('Lo sentimos, error con los mensajes del tutorial, comuníquese soporte.');
+            return;
+        }
+        $this->showInicio($steps);
     }
     public function render()
     {

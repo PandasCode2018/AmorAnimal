@@ -27,6 +27,7 @@ class Company extends Model implements Auditable
         'end_license',
         'bool_termino_codiciones',
         'folder',
+        'boolFundacion'
     ];
 /* 
     protected static function boot()

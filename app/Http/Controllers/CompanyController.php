@@ -130,7 +130,7 @@ class CompanyController extends Controller
             $user->name = 'Noe';
             $user->email = $email;
             $user->document_number = $companyNit;
-            $user->password = Hash::make('password');
+            $user->password = bcrypt('password');
             $user->bool_doctor = ACTIVO;
             $user->status = ACTIVO;
             $user->save();

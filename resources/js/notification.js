@@ -41,6 +41,7 @@ Livewire.on('notification', (event) => {
                 <div class="mt-1 text-slate-500">
                     ${message ? message : 'La acción se ha realizado correctamente'}
                 </div>
+                <div class="toast-progress-bar"></div>
             </div>
         </div>`;
 
@@ -50,7 +51,7 @@ Livewire.on('notification', (event) => {
     //    crear el toastify
     Toastify({
         node: $(div).find('#success-notification-content').clone()[0],
-        duration: timer ? timer : 5000,
+        duration: timer ? timer : 3000,
         newWindow: true,
         close: true,
         gravity: "top",

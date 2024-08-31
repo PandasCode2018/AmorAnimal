@@ -1,11 +1,12 @@
 <div>
     <x-modal wire:model='indexModal' maxWidth="3xx" id="manage-index-tratamiento-modal">
-        <div class="mx-2 bg-[#f3faf8]">
+        <div class="mx-2 bg-[#f3faf8] tourTratamiento-0">
             <div class="mb-2 w-full">
                 <div class="mt-5 grid grid-cols-12 gap-6">
                     <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
                         <div class="col-span-12 lg:col-span-12 2xl:col-span-12 flex justify-between">
                             <button
+                            wire:click="$dispatch('tutorialTratamiento')"
                                 class="flex items-center px-2 py-1 m-1 bg-white text-blue-300 font-semibold rounded-lg shadow-xs hover:shadow-lg hover:text-blue-400 focus:outline-none ">
                                 <i class="fas fa-question-circle"></i>
                                 Tutorial
@@ -38,7 +39,7 @@
                                 @can('Crear tratamientos')
                                     <x-custom.button wire:click="$dispatch('openTratamientoModal')"
                                         title="Crear un nuevo usuario"
-                                        class="w-full sm:w-auto bg-[#7a7cbf] hover:bg-[#6c6ea7] text-white py-2 px-4 text-base sm:text-sm font-medium">
+                                        class="tourTratamiento-1 w-full sm:w-auto bg-[#7a7cbf] hover:bg-[#6c6ea7] text-white py-2 px-4 text-base sm:text-sm font-medium">
                                         Nuevo tratamiento
                                     </x-custom.button>
                                 @endcan
@@ -46,7 +47,7 @@
                         </div>
                         <div class="p-2 w-full">
                             <div class="flex-auto block p-3">
-                                <div class="overflow-x-auto">
+                                <div class="overflow-x-auto max-h-96 ">
                                     <table class="w-full my-0 align-middle text-dark border-neutral-200">
                                         <thead class="align-bottom">
                                             <tr class="font-semibold text-secondary-dark border p-3">
@@ -61,8 +62,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if ($this->datos)
-                                                @forelse ($this->datos as $tratamiento)
+                                            @if ($this->treatment)
+                                                @forelse ($this->treatment as $tratamiento)
                                                     <tr
                                                         class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all
                                                          duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
@@ -80,19 +81,19 @@
 
                                                         <td class="p-3">
                                                             <a wire:click="$dispatch('detalleTratamientoModal', {tratamientoUuid: '{{ $tratamiento->uuid }}'})"
-                                                                class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
+                                                                class="tourTratamiento-2 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
                                                                 title="Ver consulta completa">
                                                                 <i class="fas fa-eye"></i>
                                                             </a>
                                                             @can('Editar tratamientos')
                                                                 <a wire:click="$dispatch('openTratamientoModal',{tratamientoUuid:'{{ $tratamiento->uuid }}'})"
-                                                                    class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
+                                                                    class="tourTratamiento-3 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
                                                                     title="Editar tratamientos">
                                                                     <i class="fas fa-edit"></i>
                                                                 </a>
                                                             @endcan
                                                             @can('Eliminar tratamientos')
-                                                                <a class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
+                                                                <a class="tourTratamiento-4 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
                                                                     title="Eliminar tratamiento"
                                                                     wire:click="delete('treatments','{{ $tratamiento->uuid }}')"
                                                                     wire:confirm.prompt="{{ $this->confirmQuestion }}">
@@ -109,6 +110,7 @@
                                             @endif
                                         </tbody>
                                     </table>
+                                    {{-- {{ $this->treatment->links() }}  --}}
                                 </div>
                             </div>
                         </div>

@@ -3,5 +3,5 @@ window.$ = $;
 window.jQuery = $;
 import './bootstrap';
 import './notification';
-import './select2';
+import './tom-select';
 import './tutorial';

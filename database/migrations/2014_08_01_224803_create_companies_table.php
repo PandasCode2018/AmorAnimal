@@ -24,6 +24,7 @@ return new class extends Migration
             $table->date('end_license')->nullable(false);
             $table->integer('bool_termino_codiciones')->nullable(false);
             $table->string('folder', 200)->nullable(true);
+            $table->boolean('boolFundacion')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

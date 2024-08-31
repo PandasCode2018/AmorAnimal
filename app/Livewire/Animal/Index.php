@@ -2,19 +2,22 @@
 
 namespace App\Livewire\Animal;
 
+use App\Http\Traits\withTours;
 use App\Models\Animal;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
-use App\Http\Traits\WithTableActions;
-use App\Http\Traits\WithMessages;
 use App\Models\AnimalSpecies;
+use App\Http\Traits\WithMessages;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Traits\WithTableActions;
 
 class Index extends Component
 {
     use WithPagination;
     use WithTableActions;
     use WithMessages;
+    use withTours;
 
     public $Animals;
     public $animalEspecies;
@@ -58,6 +61,17 @@ class Index extends Component
         $result = eval("return $numbers[0] $operator $numbers[1];");
 
         return "¿Estás seguro de eliminar este registro? \n Escribe la respuesta $numbers[0] $operator $numbers[1]|$result";
+    }
+
+    #[On('tutorialAnimales')]
+    public function tutorial()
+    {
+        $steps = config('MessageTour.animales');
+        if (empty($steps)) {
+            $this->showWarning('Lo sentimos, error con los mensajes del tutorial, comuníquese soporte.');
+            return;
+        }
+        $this->showInicio($steps);
     }
 
     public function render()

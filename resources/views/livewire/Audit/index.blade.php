@@ -1,12 +1,12 @@
 @section('subhead')
     <title>Auditoria - {{ config('app.name') }}</title>
 @endsection
-<div class=" mx-2 bg-[#f3faf8]">
+<div class=" mx-2 bg-[#f3faf8] tourAuditoria-0">
     <div class="mb-2  w-full">
         <div class="mt-5 grid  grid-cols-12 gap-6">
             <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
                 <div class="col-span-12 lg:col-span-12 2xl:col-span-12 flex justify-end">
-                    <button
+                    <button wire:click="$dispatch('tutorialAuditoria')"
                         class="flex items-center px-4 py-2 bg-white text-blue-300 font-semibold rounded-lg shadow-xs hover:shadow-lg hover:text-blue-400 focus:outline-none ">
                         <i class="fas fa-question-circle mr-2"></i>
                         Tutorial
@@ -21,7 +21,7 @@
                 <div
                     class="intro-y col-span-12 mt-2 flex items-center justify-between  border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 ">
 
-                    <div class="relative w-56 text-slate-500">
+                    <div class=" tourAuditoria-1 relative w-56 text-slate-500">
                         <x-input id="search" titleInput="Filtro para búscar usuarios" wire:model.live="search"
                             class="!box w-56 pr-10 tooltip" type="search" placeholder="Búscar..." />
                     </div>
@@ -39,7 +39,7 @@
                                         <th class="p-3 text-center">Módulo</th>
                                         <th class="p-3 text-center">Valores</th>
                                         @can('Ver auditorias')
-                                            <th class="p-3 text-center">Acciones</th>
+                                            <th class="p-3 text-center">Detalle</th>
                                         @endcan
                                     </tr>
                                 </thead>
@@ -62,7 +62,7 @@
                                             @can('Ver auditorias')
                                                 <td class="p-3">
                                                     <a wire:click="$dispatch('openModalAudit', {audit: '{{ $audit->id }}'})"
-                                                        class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
+                                                        class="tourAuditoria-2 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
                                                         title="Ver información completa">
                                                         <i class="fas fa-eye"></i></a>
                                                 </td>

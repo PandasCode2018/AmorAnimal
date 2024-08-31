@@ -84,7 +84,7 @@
                                             id="user.address" label="Direccion" type="text" maxlength="100" />
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-1 gap-3 pt-3 pb-3 sm:grid-cols-4">
+                                <div class="grid grid-cols-1 gap-3 pt-3 pb-3 sm:grid-cols-3">
                                     <div>
                                         <x-custom.input wire:model="user.document_number" title="Documento" required
                                             id="user.document_number" label="Documento" type="number"
@@ -93,11 +93,6 @@
                                     <div>
                                         <x-custom.input wire:model="user.password" title="Contraseña" id="user.password"
                                             label="Contraseña actual" type="password" maxlength="100" />
-                                    </div>
-                                    <div>
-                                        <x-custom.input wire:model="user.newPassword" title="Contraseña nueva"
-                                            id="user.newPassword" label="Nueva contraseña" type="password"
-                                            maxlength="100" />
                                     </div>
                                     <div>
                                         <x-custom.input wire:model="user.phone" title="Teléfono" required

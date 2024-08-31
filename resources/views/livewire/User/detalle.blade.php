@@ -12,7 +12,7 @@
                 </svg>
             </button>
         </div>
-        <section class="w-full overflow-hidden dark:bg-gray-900">
+        <section class="w-full overflow-hidden bg-white text-slate-900">
             <div class="flex flex-col">
                 <!-- Profile Image -->
                 <div class="sm:w-[80%] xs:w-[90%] mx-auto flex flex-col items-center">
@@ -22,20 +22,20 @@
 
                     <!-- FullName -->
                     <h1
-                        class="w-full text-center mt-4 sm:mx-4 text-gray-800 dark:text-white lg:text-4xl md:text-3xl sm:text-3xl xs:text-xl font-serif">
+                        class="w-full text-center mt-4 sm:mx-4  lg:text-4xl md:text-3xl sm:text-3xl xs:text-xl font-serif">
                         {{ $user->name ?? '' }}
                     </h1>
                 </div>
 
 
                 <dl
-                    class="col-span-12 lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-4 p-4 m-4 text-gray-900  dark:text-white ">
+                    class="col-span-12 lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-4 p-4 m-4">
                     <div class="border-b">
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Correo</dt>
                         <dd class="text-lg font-semibold">{{ $user->email ?? '' }}</dd>
                     </div>
                     <div class="border-b">
-                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Docuemnto</dt>
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Documento</dt>
                         <dd class="text-lg font-semibold">{{ $user->document_number ?? '' }}</dd>
                     </div>
                     <div class="border-b">
