@@ -27,7 +27,6 @@ return new class extends Migration
             $table->string('blood_type', 50)->nullable();
             $table->string('microchip_code', 100)->nullable();
             $table->string('photo', 245)->nullable();
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });

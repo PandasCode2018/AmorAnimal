@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('address', 100)->nullable();
             $table->string('document_number', 15)->nullable(false)->unique();
             $table->string('password')->nullable(false);
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -141,7 +141,7 @@
                                                 </div>
                                             </div>
                                             <div
-                                                class=" dashboard-6 p-4 bg-white shadow-lg border rounded-xl text-gray-800 space-y-2 w-full dashboard-7">
+                                                class=" dashboard-6 p-4 bg-white shadow-sm border rounded text-gray-800 space-y-2 w-full dashboard-7">
                                                 <div class="flex justify-between">
                                                     <div class="text-gray-400 text-xs">PandasCode</div>
                                                 </div>

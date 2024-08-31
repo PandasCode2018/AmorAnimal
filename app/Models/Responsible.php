@@ -23,7 +23,6 @@ class Responsible extends Model implements Auditable
         'address',
         'document_number',
         'password',
-        'user_id'
     ];
 
 
@@ -31,12 +30,6 @@ class Responsible extends Model implements Auditable
     {
 
         return $this->belongsTo(Company::class);
-    }
-
-    public function user()
-    {
-
-        return $this->belongsTo(User::class);
     }
 
     public function Animals()

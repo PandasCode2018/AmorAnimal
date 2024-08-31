@@ -9,6 +9,7 @@
         <li class="w-full h-full py-3 px-2 border-b  border-slate-200 dashboard-7">
             <a href="{{ route('profiles.index') }}"
                 class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold capitalize">
+                <i class="fa-solid fa-gear mr-2"></i>
                 {{ Auth::user()->name }}
             </a>
         </li>
@@ -34,7 +35,7 @@
                 </a>
             </li>
         @endcan
-        @can('Ver usuarios')
+        @can('Ver users')
             <li class="w-full h-full py-3 px-2 border-b border-slate-200 hover:bg-[#81e0c4]">
                 <a href="{{ route('users.index') }}"
                     class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
@@ -43,7 +44,7 @@
                 </a>
             </li>
         @endcan
-        @can('Ver responsables')
+        @can('Ver responsibles')
             <li class="w-full h-full py-3 px-2 border-b border-slate-200 hover:bg-[#81e0c4]">
                 <a href="{{ route('responsible.index') }}"
                     class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
@@ -52,7 +53,7 @@
                 </a>
             </li>
         @endcan
-        @can('Ver animales')
+        @can('Ver animals')
             <li class="w-full h-full py-3 px-2 border-b border-slate-200 hover:bg-[#81e0c4]">
                 <a href="{{ route('animal.index') }}"
                     class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
@@ -61,7 +62,7 @@
                 </a>
             </li>
         @endcan
-        @can('Ver consultas')
+        @can('Ver consultations')
             <li class="w-full h-full py-3 px-2 border-b border-slate-200 hover:bg-[#81e0c4]">
                 <a href="{{ route('consultation.index') }}"
                     class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">
@@ -79,7 +80,7 @@
                 </a>
             </li>
         @endcan
-        @can('Ver auditorias')
+        @can('Ver audits')
             <li class="w-full h-full py-3 px-2 border-b border-slate-200 hover:bg-[#81e0c4]">
                 <a href="{{ route('audits.index') }}"
                     class="flex items-center font-sans font-hairline text-sm text-nav-item no-underline pl-2 text-white font-bold">

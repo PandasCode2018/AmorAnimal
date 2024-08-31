@@ -30,7 +30,6 @@ class Treatment extends Model implements Auditable
         'internal_or_external',
         'treatment_duration',
         'note',
-        'user_id',
     ];
 
 
@@ -45,12 +44,6 @@ class Treatment extends Model implements Auditable
 
         return $this->belongsTo(Consultation::class);
     }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
 
     public static function filter($search, $consultaid)
     {

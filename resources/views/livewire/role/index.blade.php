@@ -69,7 +69,7 @@
                                                 @endcan
                                             </td>
                                             <td class="p-3">
-                                                @can('Eliminar usuarios')
+                                                @can('Eliminar roles')
                                                     <a wire:click="delete('role',{{ $role->id }})"
                                                         wire:confirm.prompt="{{ $this->confirmQuestion }}"
                                                         class="bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500 tourRoles-4"

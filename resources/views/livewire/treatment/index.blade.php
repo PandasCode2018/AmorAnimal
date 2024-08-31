@@ -36,7 +36,7 @@
                             class="intro-y col-span-12 mt-2 flex flex-col sm:flex-row items-center justify-between border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400">
 
                             <div class="p-2 w-full sm:w-auto">
-                                @can('Crear tratamientos')
+                                @can('Crear treatments')
                                     <x-custom.button wire:click="$dispatch('openTratamientoModal')"
                                         title="Crear un nuevo usuario"
                                         class="tourTratamiento-1 w-full sm:w-auto bg-[#7a7cbf] hover:bg-[#6c6ea7] text-white py-2 px-4 text-base sm:text-sm font-medium">
@@ -85,14 +85,14 @@
                                                                 title="Ver consulta completa">
                                                                 <i class="fas fa-eye"></i>
                                                             </a>
-                                                            @can('Editar tratamientos')
+                                                            @can('Editar treatments')
                                                                 <a wire:click="$dispatch('openTratamientoModal',{tratamientoUuid:'{{ $tratamiento->uuid }}'})"
                                                                     class="tourTratamiento-3 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
                                                                     title="Editar tratamientos">
                                                                     <i class="fas fa-edit"></i>
                                                                 </a>
                                                             @endcan
-                                                            @can('Eliminar tratamientos')
+                                                            @can('Eliminar treatments')
                                                                 <a class="tourTratamiento-4 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
                                                                     title="Eliminar tratamiento"
                                                                     wire:click="delete('treatments','{{ $tratamiento->uuid }}')"

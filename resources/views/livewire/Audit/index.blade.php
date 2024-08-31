@@ -38,7 +38,7 @@
                                         <th class="p-3 text-left">Acción</th>
                                         <th class="p-3 text-center">Módulo</th>
                                         <th class="p-3 text-center">Valores</th>
-                                        @can('Ver auditorias')
+                                        @can('Ver audits')
                                             <th class="p-3 text-center">Detalle</th>
                                         @endcan
                                     </tr>
@@ -59,7 +59,7 @@
                                             <td class="p-3">
                                                 {{ $audit->auditable?->name }}
                                             </td>
-                                            @can('Ver auditorias')
+                                            @can('Ver audits')
                                                 <td class="p-3">
                                                     <a wire:click="$dispatch('openModalAudit', {audit: '{{ $audit->id }}'})"
                                                         class="tourAuditoria-2 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"

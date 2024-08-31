@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('company_id')->nullable()->constrained('companies')->onDelete('set null');
             $table->string('name', 100)->nullable(false)->unique();
             $table->boolean('status')->default(true);
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });

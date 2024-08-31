@@ -29,7 +29,6 @@ class Index extends Component
         $this->totalAnimales = Animal::where('company_id', $companyUser)->count() ?? 'Error';
 
         $this->totalConsultasHoy = Consultation::where('company_id', $companyUser)
-            ->where('user_id', Auth::id())
             ->whereDate('date_time_query', \Carbon\Carbon::today())
             ->count() ?? 'Error';
 

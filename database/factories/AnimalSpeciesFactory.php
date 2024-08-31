@@ -22,7 +22,6 @@ class AnimalSpeciesFactory extends Factory
             'company_id' => Company ::inRandomOrder()->first()->id,
             'name' => $this->faker->name,
             'status' => $this->faker->randomElement([0,1]),
-            'user_id' => User::inRandomOrder()->first()->id,
         ];
     }
 }

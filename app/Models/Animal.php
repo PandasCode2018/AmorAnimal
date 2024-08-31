@@ -29,7 +29,6 @@ class Animal extends Model implements Auditable
         'blood_type',
         'microchip_code',
         'photo',
-        'user_id',
     ];
 
 
@@ -48,12 +47,6 @@ class Animal extends Model implements Auditable
     {
 
         return $this->belongsTo(AnimalSpecies::class);
-    }
-
-    public function user()
-    {
-
-        return $this->belongsTo(User::class);
     }
 
     public function consultations()

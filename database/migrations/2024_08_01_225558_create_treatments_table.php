@@ -25,7 +25,6 @@ return new class extends Migration
             $table->boolean('internal_or_external')->nullable();
             $table->string('treatment_duration')->nullable(true);
             $table->longText('note')->nullable();
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });
