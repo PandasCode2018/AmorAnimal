@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 use Illuminate\Validation\Rule;
 use App\Http\Traits\WithMessages;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Spatie\Permission\Models\Permission;
 
 class Management extends Component
@@ -62,6 +63,8 @@ class Management extends Component
 
     public function store()
     {
+
+        abort_unless(Gate::any(['Crear roles', 'Editar roles']), 403);
         $this->validate();
         $isEdit = (bool) $this->role->id;
         try {
@@ -70,7 +73,7 @@ class Management extends Component
             $this->role->save();
             $this->role->syncPermissions($this->rolePermissions);
         } catch (\Throwable $th) {
-            $this->showError('Error creando el rol, comuníquese con soporte');
+            $this->showError('Error creando el registro, comuníquese con  soporte.');
             return;
         }
 

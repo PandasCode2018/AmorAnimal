@@ -20,21 +20,20 @@ class Index extends Component
     use withTours;
 
     public $Animals;
-    public $animalEspecies;
+    public $AnimalEspecies;
     public ?string $search = '';
     public $perPage = 6;
     protected $queryString = ['search'];
-    protected $listeners = ['animal-index:refresh' => 'refresh'];
+    protected $listeners = ['animal-index:refresh' => 'refresh'];     
 
-    public function mount()
+    public function getAnimalEspeciesQueryProperty()
     {
-        $this->animalEspecies = AnimalSpecies::where('company_id', Auth::user()->company_id)->get();
+        return AnimalSpecies::filter();
     }
-
-    public function getanimalEspeciesQueryProperty()
+    public function getAnimalEspeciesProperty()
     {
 
-        return $this->animalEspecies =  AnimalSpecies::filter()->paginate($this->perPage);;
+        return $this->animalEspeciesQuery->get();
     }
 
     public function getAnimalsQueryProperty()

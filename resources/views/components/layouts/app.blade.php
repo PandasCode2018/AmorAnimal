@@ -21,7 +21,7 @@
 
     {{-- Toastify --}}
     @vite('resources/js/vendors/toastify.js')
-    @vite('resources/js/pages/notification.js')
+    {{--  @vite('resources/js/pages/notification.js') --}}
     @vite('resources/css/vendors/toastify.css')
 
     <!-- Styles -->
@@ -55,11 +55,11 @@
     </div>
 
     <!-- Botón de WhatsApp -->
-    <a href="https://wa.me/1234567890" target="_blank"
-        class="hidden sm:flex whatsapp-button fixed bottom-4 right-4 bg-green-500 hover:bg-green-600 text-white rounded-full w-16 h-16  items-center justify-center shadow-lg">
+    <a href="https://wa.me/573234030976?text=Hola%2C%20me%20comunico%20por%20la%20plataforma%20Amor%20Animal."
+        target="_blank"
+        class="hidden sm:flex whatsapp-button fixed bottom-4 right-4 bg-green-500 hover:bg-green-600 text-white rounded-full w-16 h-16 items-center justify-center shadow-lg">
         <i class="fab fa-whatsapp text-3xl"></i>
     </a>
-
 
     @stack('modals')
     @yield('scripts')

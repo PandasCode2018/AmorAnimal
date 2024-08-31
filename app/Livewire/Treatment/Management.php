@@ -8,6 +8,7 @@ use App\Models\Treatment;
 use Livewire\Attributes\On;
 use App\Http\Traits\WithMessages;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class Management extends Component
 {
@@ -78,8 +79,9 @@ class Management extends Component
 
     public function store()
     {
+        abort_unless(Gate::any(['Crear treatments', 'Editar treatments']), 403);
         if (is_null($this->idConsulta) || empty($this->idConsulta)) {
-            $this->showError('Error creando el tratamiento');
+            $this->showError('Error creando el registro, comuníquese con  soporte.');
             return;
         }
 
@@ -90,7 +92,7 @@ class Management extends Component
             $this->treatment->company_id = $this->companyId;
             $this->treatment->save();
         } catch (\Throwable $th) {
-            $this->showError('Error creando el tratamiento');
+            $this->showError('Error creando el registro, comuníquese con  soporte.');
             return;
         }
 
@@ -102,6 +104,7 @@ class Management extends Component
        
         $this->closeModal();
         $this->dispatch('treatment-index:refresh');
+        $this->dispatch('loadTreatmentData');
         $this->treatment = new Treatment();
     }
 

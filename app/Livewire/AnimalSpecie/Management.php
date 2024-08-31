@@ -8,6 +8,7 @@ use Livewire\Attributes\On;
 use App\Models\AnimalSpecies;
 use App\Http\Traits\WithMessages;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class Management extends Component
 {
@@ -51,14 +52,15 @@ class Management extends Component
     }
 
     public function  store()
-    {
+    {       
+        abort_unless(Gate::any(['Crear especies', 'Editar especies']), 403);
         $this->validate();
         $isEdit = (bool) $this->animalSpaecie->id;
         try {
             $this->animalSpaecie->company_id = $this->companyId;
             $this->animalSpaecie->save();
         } catch (\Throwable $th) {
-            $this->showError('Error creando el nombre de la especie, comuníquese con  soporte.');
+            $this->showError('Error creando el registro, comuníquese con  soporte.');
             return;
         }
 

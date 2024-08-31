@@ -9,6 +9,7 @@ use Livewire\Attributes\On;
 use App\Models\Consultation;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Traits\WithMessages;
+use Illuminate\Support\Facades\Gate;
 
 class Management extends Component
 {
@@ -75,6 +76,7 @@ class Management extends Component
     #[On('generatePdf')]
     public function dischargePdf($animalId, $responsableId)
     {
+        Gate::authorize('Descargar historial');
 
         if ($this->isSetAndNotEmpty($animalId) || $this->isSetAndNotEmpty($responsableId)) {
             $this->showError('Error obteniendo datos, comuníquese con el administrador.');

@@ -23,7 +23,7 @@ trait WithTableActions
         if (Gate::denies('Editar ' . $module)) {
             $this->showError('No tienes permisos para realizar esta acción');
             return;
-        } 
+        }
 
         $model = null;
         switch ($module) {
@@ -54,10 +54,6 @@ trait WithTableActions
 
     public function delete($module, $modelUuid)
     {
-        if (Gate::denies('Eliminar ' . $module)) {
-            $this->showError('No tienes permisos para realizar esta acción');
-            return;
-        }
 
         $model = null;
         switch ($module) {
@@ -97,6 +93,7 @@ trait WithTableActions
 
             case 'treatments':
                 $model = Treatment::class;
+                $this->dispatch('loadTreatmentData');
                 break;
 
             case 'role':

@@ -51,10 +51,12 @@
                                                             class="pl-2">{{ Auth::user()->name }}</span>
                                                     </div>
                                                     <div class="mt-4">
-                                                        <button type="button"
+                                                        <a target="_blank"
+                                                            href="https://wa.me/573234030976?text=Hola%2C%20me%20comunico%20por%20la%20plataforma%20Amor%20Animal."
+                                                            type="button"
                                                             class="inline-flex items-center justify-center py-2 px-4 rounded-full bg-white text-gray-800 hover:bg-gray-200 text-sm font-semibold transition">
                                                             Escríbenos si tienes algún problema.
-                                                        </button>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -134,10 +136,12 @@
                                                     Escríbenos si tienes algún problema.
                                                 </div>
                                                 <div class="mt-5">
-                                                    <button type="button"
+                                                    <a target="_blank"
+                                                        href="https://wa.me/573234030976?text=Hola%2C%20me%20comunico%20por%20la%20plataforma%20Amor%20Animal."
+                                                        type="button"
                                                         class="inline-flex items-center justify-center py-2 px-3 rounded-xl bg-white text-gray-800 hover:text-green-500 text-sm font-semibold transition">
                                                         whatsapp
-                                                    </button>
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div

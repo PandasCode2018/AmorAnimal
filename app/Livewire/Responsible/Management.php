@@ -2,13 +2,14 @@
 
 namespace App\Livewire\Responsible;
 
-use Livewire\Component;
-use Livewire\Attributes\On;
-use App\Models\Responsible;
-use Livewire\WithFileUploads;
 use Ramsey\Uuid\Uuid;
-use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
+use App\Models\Responsible;
+use Livewire\Attributes\On;
+use Livewire\WithFileUploads;
 use App\Http\Traits\WithMessages;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class Management extends Component
 {
@@ -59,6 +60,7 @@ class Management extends Component
     }
     public function store()
     {
+        abort_unless(Gate::any(['Crear responsibles', 'Editar responsibles']), 403);
         $this->validate();
         $isEdit = (bool) $this->responsible->id;
         
@@ -73,7 +75,7 @@ class Management extends Component
             $this->responsible->company_id = $this->companyId;
             $this->responsible->save();
         } catch (\Throwable $th) {
-            $this->showError('Error creando el responsable');
+            $this->showError('Error creando el registro, comuníquese con  soporte.');
             return;
         }
 

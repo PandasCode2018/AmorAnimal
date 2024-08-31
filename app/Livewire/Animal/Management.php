@@ -4,14 +4,15 @@ namespace App\Livewire\Animal;
 
 use Ramsey\Uuid\Uuid;
 use App\Models\Animal;
-use App\Models\AnimalSpecies;
-use App\Models\Responsible;
+use App\Models\Company;
 use Livewire\Component;
+use App\Models\Responsible;
 use Livewire\Attributes\On;
-use Illuminate\Support\Facades\Auth;
+use App\Models\AnimalSpecies;
 use Livewire\WithFileUploads;
 use App\Http\Traits\WithMessages;
-use App\Models\Company;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class Management extends Component
 {
@@ -93,7 +94,7 @@ class Management extends Component
 
     public function store()
     {
-
+        abort_unless(Gate::any(['Crear animals', 'Editar animals']), 403);
         $this->validate();
         $isEdit = (bool) $this->animal->id;
         $file = $this->image;
@@ -107,7 +108,7 @@ class Management extends Component
             $this->animal->company_id = $this->companyId;
             $this->animal->save();
         } catch (\Throwable $th) {
-            $this->showError('Error creando el animal');
+            $this->showError('Error creando el registro, comuníquese con  soporte.');
             return;
         }
 
@@ -158,7 +159,3 @@ class Management extends Component
         return view('livewire.animal.management');
     }
 }
-
-/**
- * crear delete, sis e elimana un animal se eliminar toda su informacion asociada
- */

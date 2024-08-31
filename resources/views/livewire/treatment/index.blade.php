@@ -5,8 +5,7 @@
                 <div class="mt-5 grid grid-cols-12 gap-6">
                     <div class="col-span-12 lg:col-span-12 2xl:col-span-12 shadow-2xl">
                         <div class="col-span-12 lg:col-span-12 2xl:col-span-12 flex justify-between">
-                            <button
-                            wire:click="$dispatch('tutorialTratamiento')"
+                            <button wire:click="$dispatch('tutorialTratamiento')"
                                 class="flex items-center px-2 py-1 m-1 bg-white text-blue-300 font-semibold rounded-lg shadow-xs hover:shadow-lg hover:text-blue-400 focus:outline-none ">
                                 <i class="fas fa-question-circle"></i>
                                 Tutorial
@@ -62,7 +61,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if ($this->treatment)
+                                            @if ($this->consultaId)
                                                 @forelse ($this->treatment as $tratamiento)
                                                     <tr
                                                         class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all
@@ -110,7 +109,6 @@
                                             @endif
                                         </tbody>
                                     </table>
-                                    {{-- {{ $this->treatment->links() }}  --}}
                                 </div>
                             </div>
                         </div>
