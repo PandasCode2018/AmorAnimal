@@ -34,7 +34,6 @@ class AnimalFactory extends Factory
             'blood_type' => $this->faker->randomElement(['A', 'B', 'AB', 'O']),
             'microchip_code' => $this->faker->unique()->bothify('MC-###-###'),
             'photo' => $this->faker->imageUrl(640, 480, 'animals', true, 'Faker'),
-            'user_id' => User::inRandomOrder()->first()->id,
         ];
     }
 }

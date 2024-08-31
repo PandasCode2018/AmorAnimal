@@ -27,7 +27,6 @@ class ResponsibleFactory extends Factory
             'address' => $this->faker->address,
             'document_number' => $this->faker->unique()->numerify('#########'),
             'password' => Hash::make('password'), // You can replace 'password' with any default password
-            'user_id' => User::inRandomOrder()->first()->id,
         ];
     }
 }

@@ -21,7 +21,6 @@ return new class extends Migration
             $table->longText('reason')->nullable(true);
             $table->longText('note')->nullable(true);
             $table->dateTime('date_time_query')->nullable(false);
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });

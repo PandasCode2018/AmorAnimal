@@ -20,7 +20,6 @@ class AnimalSpecies extends Model implements Auditable
         'company_id',
         'name',
         'status',
-        'user_id',
     ];
 
     public function animals()

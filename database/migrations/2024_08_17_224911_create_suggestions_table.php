@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->uniqid()->nullable(false);
             $table->foreignId('company_id')->nullable()->constrained('companies')->onDelete('set null');
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->string('user_id')->nullable(true);
             $table->string('module', 30)->nullable(false);
             $table->longText('message')->nullable(false);
             $table->boolean('revised')->default(0);

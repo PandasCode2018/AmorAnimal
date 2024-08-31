@@ -23,7 +23,6 @@ class Management extends Component
     public $companyId;
     public $selectResponsable;
     public $selectEspecies;
-    public $userId;
     public $imagenAnimalActaul;
     public $image;
     public $prueba;
@@ -33,7 +32,6 @@ class Management extends Component
     public function mount()
     {
         $this->animal = new Animal();
-        $this->userId = Auth::id();
         $this->companyId = Auth::user()->company_id;
         $this->company = Company::find($this->companyId);
         $this->selectResponsable = Responsible::select();
@@ -107,7 +105,6 @@ class Management extends Component
             $this->clearString();
 
             $this->animal->company_id = $this->companyId;
-            $this->animal->user_id = $this->userId;
             $this->animal->save();
         } catch (\Throwable $th) {
             $this->showError('Error creando el animal');

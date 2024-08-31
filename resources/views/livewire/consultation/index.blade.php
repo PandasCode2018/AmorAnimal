@@ -39,10 +39,10 @@
                                         <th class="p-3 text-left">Doctor</th>
                                         <th class="p-3 text-center">Fecha</th>
                                         <th class="p-3 text-center">Hora</th>
-                                        @can('Editar consultas')
+                                        @can('Editar consultations')
                                             <th class="p-3 text-center">Estado</th>
                                         @endcan
-                                        @canany(['Editar consultas', 'ver tratamientos'])
+                                        @canany(['Editar consultations', 'ver treatments'])
                                             <th class="p-3 text-center">Acciones</th>
                                         @endcanany
                                     </tr>
@@ -60,7 +60,7 @@
                                             <td class="p-3 text-center">
                                                 {{ \Carbon\Carbon::parse($consulta->date_time_query)->format('h:i A') }}
                                             </td>
-                                            @can('Editar consultas')
+                                            @can('Editar consultations')
                                                 <td class="p-3 tourConsulta-2">
                                                     <a wire:click="$dispatch('openEstatusModal',{statusIdActual: {{ $consulta->queryStatus->id }}, orden: '{{ $consulta->queryStatus->orden }}', consultaUuid: '{{ $consulta->uuid }}'})"
                                                         title="Cambio de estado">
@@ -72,14 +72,14 @@
                                             @endcan
                                             <td class="p-3">
                                                 @if ($consulta->queryStatus->orden != 1)
-                                                    @can('Ver tratamientos')
+                                                    @can('Ver treatments')
                                                         <a wire:click="$dispatch('indexTratamientoModal',{idConsulta: '{{ $consulta->id }}'})"
                                                             class="tourConsulta-3 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-green-500"
                                                             title="Agregar Tratamiento medico">
                                                             <i class="fas fa-syringe"></i>
                                                         </a>
                                                     @endcan
-                                                    @can('Editar consultas')
+                                                    @can('Editar consultations')
                                                         <a wire:click="$dispatch('openConsultaModal', {consultaUuid:'{{ $consulta->uuid }}'})"
                                                             class="tourConsulta-4 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
                                                             title="Editar consulta">

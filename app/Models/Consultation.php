@@ -23,7 +23,6 @@ class Consultation extends Model implements Auditable
         'reason',
         'note',
         'date_time_query',
-        'user_id'
     ];
 
 
@@ -43,11 +42,6 @@ class Consultation extends Model implements Auditable
     {
 
         return $this->belongsTo(Query_status::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
     public function doctor()
     {
@@ -73,9 +67,6 @@ class Consultation extends Model implements Auditable
                     ->orWhereHas('responsible', function ($infoResponsable) use ($search) {
                         $infoResponsable->where('name', 'like', "%{$search}%")
                             ->orWhere('document_number', 'like', "%{$search}%");
-                    })
-                    ->orWhereHas('user', function ($infoUser) use ($search) {
-                        $infoUser->where('name', 'like', "%{$search}%");
                     });
             });
         }
@@ -84,6 +75,6 @@ class Consultation extends Model implements Auditable
                 ->whereNotIn('query_status_id', [3, 4]);
         }
 
-        return $query->with('company', 'animal', 'user', 'queryStatus', 'treatments', 'doctor')->orderByDesc('consultations.id');
+        return $query->with('company', 'animal','queryStatus', 'treatments', 'doctor')->orderByDesc('consultations.id');
     }
 }

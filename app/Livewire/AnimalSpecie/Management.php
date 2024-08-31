@@ -17,13 +17,11 @@ class Management extends Component
 
     public $especieModal = false;
     public AnimalSpecies $animalSpaecie;
-    public $userId;
     public $companyId;
 
     public function mount()
     {
         $this->animalSpaecie = new AnimalSpecies();
-        $this->userId = Auth::id();
         $this->companyId = Auth::user()->company_id;
     }
 
@@ -58,7 +56,6 @@ class Management extends Component
         $isEdit = (bool) $this->animalSpaecie->id;
         try {
             $this->animalSpaecie->company_id = $this->companyId;
-            $this->animalSpaecie->user_id = $this->userId;
             $this->animalSpaecie->save();
         } catch (\Throwable $th) {
             $this->showError('Error creando el nombre de la especie, comuníquese con  soporte.');

@@ -17,13 +17,11 @@ class Management extends Component
     public $responsibleModal = false;
     public Responsible $responsible;
     public $companyId;
-    public $userId;
 
     public function mount()
     {
         $this->responsible = new Responsible();
         $this->companyId = Auth::user()->company_id;
-        $this->userId = Auth::id();
     }
     protected $validationAttributes = [
         'name' => 'Nombre',
@@ -73,7 +71,6 @@ class Management extends Component
             }
             unset($this->responsible->currentPassword);
             $this->responsible->company_id = $this->companyId;
-            $this->responsible->user_id = $this->userId;
             $this->responsible->save();
         } catch (\Throwable $th) {
             $this->showError('Error creando el responsable');

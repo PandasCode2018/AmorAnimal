@@ -32,22 +32,22 @@ Route::middleware(['auth'])->group(function () {
     Route::name('dashboard.')->group(function () {
         Route::get('/dashboard', \App\Livewire\Dashboard\Index::class)->name('index');
     });
-    Route::middleware('can:Ver usuarios')->name('users.')->group(function () {
+    Route::middleware('can:Ver users')->name('users.')->group(function () {
         Route::get('/users', \App\Livewire\User\Index::class)->name('index');
     });
     Route::middleware('can:Ver roles')->name('roles.')->group(function () {
         Route::get('/roles', \App\Livewire\Role\Index::class)->name('index');
     });
-    Route::middleware('can:Ver auditorias')->name('audits.')->group(function () {
+    Route::middleware('can:Ver audits')->name('audits.')->group(function () {
         Route::get('/audits', \App\Livewire\Audit\Index::class)->name('index');
     });
-    Route::middleware('can:Ver responsables')->name('responsible.')->group(function () {
+    Route::middleware('can:Ver responsibles')->name('responsible.')->group(function () {
         Route::get('/responsible', \App\Livewire\Responsible\Index::class)->name('index');
     });
-    Route::middleware('can:Ver animales')->name('animal.')->group(function () {
+    Route::middleware('can:Ver animals')->name('animal.')->group(function () {
         Route::get('/animal', \App\Livewire\Animal\Index::class)->name('index');
     });
-    Route::middleware('can:Ver consultas')->name('consultation.')->group(function () {
+    Route::middleware('can:Ver consultations')->name('consultation.')->group(function () {
         Route::get('/consultation', \App\Livewire\Consultation\Index::class)->name('index');
     });
     Route::middleware('can:Ver historial')->name('historial.')->group(function () {

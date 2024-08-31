@@ -25,7 +25,6 @@ class Management extends Component
     public $estadoConsulta;
     public $idConsultaActual;
     public $companyId;
-    public $userId;
     public $selectedUuid;
     public  $estadoInicial = 1;
     public $animalId;
@@ -39,7 +38,6 @@ class Management extends Component
         $this->animales = Animal::select();
         $this->estadoConsulta = query_status::select();
         $this->companyId = Auth::user()->company_id;
-        $this->userId = Auth::id();
     }
 
     protected $validationAttributes = [
@@ -88,7 +86,6 @@ class Management extends Component
             }
 
             $this->consultations->company_id = $this->companyId;
-            $this->consultations->user_id = $this->userId;
             $this->consultations->animal_id = $this->animalId;
 
             $this->consultations->save();

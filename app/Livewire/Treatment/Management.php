@@ -17,7 +17,6 @@ class Management extends Component
     public Treatment $treatment;
     public $tratamientoModal = false;
     public $companyId;
-    public $userId;
     public $idConsulta;
     public $internaOexterna = ['0' => 'Interna', '1' => 'Externa'];
     public $presentaciones = [
@@ -33,7 +32,6 @@ class Management extends Component
     public function mount()
     {
         $this->treatment = new Treatment();
-        $this->userId = Auth::id();
         $this->companyId = Auth::user()->company_id;
     }
 
@@ -90,7 +88,6 @@ class Management extends Component
         try {
             $this->treatment->consultation_id =  $this->idConsulta;
             $this->treatment->company_id = $this->companyId;
-            $this->treatment->user_id = $this->userId;
             $this->treatment->save();
         } catch (\Throwable $th) {
             $this->showError('Error creando el tratamiento');

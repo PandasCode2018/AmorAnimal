@@ -7,7 +7,7 @@
             <div class="col-span-12 flex flex-col-reverse lg:col-span-3 lg:block 2xl:col-span-3 shadow-2xl ">
                 <div class="intro-y box mt-6 p-5">
                     <div class="p-2 w-full sm:w-auto">
-                        @can('Crear especies')
+                        @can('Crear animal_species')
                             <x-custom.button wire:click="$dispatch('openEspecieModal')" title="Agregar nuevo registro"
                                 class="tourAnimales-8 w-full sm:w-auto bg-[#7a7cbf] hover:bg-[#6c6ea7] text-white py-2 px-4 text-base sm:text-sm font-medium">
                                 Nuevo especie
@@ -24,13 +24,13 @@
                                             <div class="mr-3 h-2 w-2 rounded-full bg-secondary"></div>
                                             {{ $especie->name }}
                                         </td>
-                                        @can('Editar especies')
+                                        @can('Editar animal_species')
                                             <td class="tourAnimales-9 text-gray-500 hover:text-yellow-500 tooltip" title="Editar"
                                                 wire:click="$dispatch('openEspecieModal', {especieUuId: '{{ $especie->uuid }}' })">
                                                 <i class="fas fa-edit"></i>
                                             </td>
                                         @endcan
-                                        @can('Eliminar especies')
+                                        @can('Eliminar animal_species')
                                             <td class="tourAnimales-10 text-gray-500 hover:text-red-500 tooltip" title="Eliminar"
                                                 wire:click="delete('animalEspecies','{{ $especie->uuid }}')"
                                                 wire:confirm.prompt="{{ $this->confirmQuestion }}">
@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="p-2 w-full sm:w-auto">
-                        @can('Crear animales')
+                        @can('Crear animals')
                             <x-custom.button wire:click="$dispatch('openAnimalModal')" title="Crear un nuevo usuario"
                                 class="tourAnimales-3 w-full sm:w-auto bg-[#7a7cbf] hover:bg-[#6c6ea7] text-white py-2 px-4 text-base sm:text-sm font-medium">
                                 Nuevo Animal
@@ -115,21 +115,21 @@
                                                     title="Ver información completa">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                @can('Crear consultas')
+                                                @can('Crear consultations')
                                                     <a wire:click="$dispatch('openConsultaModal',{animalId:'{{ $animal->id }}'})"
                                                         class="tourAnimales-5 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-500"
                                                         title="Agregar Consulta">
                                                         <i class="fa-solid fa-stethoscope"></i>
                                                     </a>
                                                 @endcan
-                                                @can('Editar animales')
+                                                @can('Editar animals')
                                                     <a class="tourAnimales-6 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
                                                         wire:click="$dispatch('openAnimalModal', {animalUuid:'{{ $animal->uuid }}'})"
                                                         title="Editar">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                 @endcan
-                                                @can('Eliminar animales')
+                                                @can('Eliminar animals')
                                                     <a class="tourAnimales-7 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
                                                         wire:click="delete('animals','{{ $animal->uuid }}')"
                                                         wire:confirm.prompt="{{ $this->confirmQuestion }}"

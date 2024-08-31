@@ -14,6 +14,6 @@ class ResponsibleSeeder extends Seeder
      */
     public function run(): void
     {
-        Responsible::factory(50)->create();
+        Responsible::factory(1)->create();
     }
 }

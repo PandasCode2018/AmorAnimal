@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="p-2 w-full sm:w-auto">
-                        @can('Crear responsables')
+                        @can('Crear responsibles')
                             <x-custom.button wire:click="$dispatch('openResponsibleModal')" title="Crear un nuevo usuario"
                                 class="tourResponsables-1 w-full sm:w-auto bg-[#7a7cbf] hover:bg-[#6c6ea7] text-white py-2 px-4 text-base sm:text-sm font-medium">
                                 Nuevo Responsable
@@ -49,7 +49,7 @@
                                         <th class="p-3 text-center">Teléfono</th>
                                         <th class="p-3 text-center">Documento</th>
                                         <th class="p-3 text-center">Dirección</th>
-                                        @canany(['Eliminar responsables', 'Editar responsables'])
+                                        @canany(['Eliminar responsibles', 'Editar responsibles'])
                                             <th class="p-3 text-center">Acciones</th>
                                         @endcanany
                                     </tr>
@@ -64,14 +64,14 @@
                                             <td class="p-3">{{ $Responsible->document_number }} </td>
                                             <td class="p-3">{{ $Responsible->address }} </td>
                                             <td class="p-3">
-                                                @can('Editar responsables')
+                                                @can('Editar responsibles')
                                                     <a class="tourResponsables-4 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
                                                         title="Editar"
                                                         wire:click="$dispatch('openResponsibleModal', {responbibleUuid:'{{ $Responsible->uuid }}'})">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                 @endcan
-                                                @can('Eliminar responsables')
+                                                @can('Eliminar responsibles')
                                                     <a class="tourResponsables-3 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
                                                         title="Eliminar"
                                                         wire:click="delete('responsibles','{{ $Responsible->uuid }}')"

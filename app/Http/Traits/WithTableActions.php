@@ -20,10 +20,10 @@ trait WithTableActions
     use WithMessages;
     public function changeStatus($module, $modelUuid)
     {
-        /* if (Gate::denies('edit ' . $module)) {
+        if (Gate::denies('Editar ' . $module)) {
             $this->showError('No tienes permisos para realizar esta acción');
             return;
-        } */
+        } 
 
         $model = null;
         switch ($module) {
@@ -54,10 +54,10 @@ trait WithTableActions
 
     public function delete($module, $modelUuid)
     {
-        /* if (Gate::denies('edit ' . $module)) {
+        if (Gate::denies('Eliminar ' . $module)) {
             $this->showError('No tienes permisos para realizar esta acción');
             return;
-        } */
+        }
 
         $model = null;
         switch ($module) {
@@ -103,6 +103,13 @@ trait WithTableActions
                 $model = Role::class;
                 break;
             case 'users':
+
+                $userDoctor = User::where('uuid', $modelUuid)->first();
+                if ($userDoctor && Consultation::where('doctor_id', $userDoctor->id)->Exists()) {
+                    $this->showWarning('No puedes eliminar, el usuario es doctor y está asociado a una consulta');
+                    return;
+                }
+
                 if (auth()->user()->uuid == $modelUuid) {
                     $this->showError('No puedes eliminar tu propio usuario');
                     return;
