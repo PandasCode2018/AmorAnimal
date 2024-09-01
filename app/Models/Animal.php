@@ -55,6 +55,11 @@ class Animal extends Model implements Auditable
         return $this->hasMany(Consultation::class);
     }
 
+    public function Photes()
+    {
+        return $this->hasMany(PhoteAnimals::class);
+    }
+
 
     public static function filter($search)
     {
@@ -81,7 +86,7 @@ class Animal extends Model implements Auditable
             });
         }
         $query->where('company_id', auth()->user()->company_id);
-        return $query->with('responsible', 'AnimalSpecies', 'consultations')->orderByDesc('animals.id');
+        return $query->with('responsible', 'AnimalSpecies', 'consultations', 'Photes')->orderByDesc('animals.id');
     }
 
     public static function select()

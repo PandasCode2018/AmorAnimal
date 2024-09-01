@@ -14,26 +14,26 @@
                 </svg>
             </button>
         </div>
-
         <section class="w-full overflow-hidden bg-white text-slate-900">
             <div class="flex flex-col">
                 <img src="{{ asset('img_sistema/banner.jpg') }}" alt="User Cover"
                     class="w-full xl:h-[20rem] lg:h-[18rem] md:h-[16rem] sm:h-[14rem] xs:h-[11rem]" />
-
                 <div class="sm:w-[80%] xs:w-[90%] mx-auto flex">
-                    <img src="{{ $animal->photo ?? '' ? Storage::url($animal->photo) : asset('img_sistema/animal.jpg') }}"
-                        alt="User Profile"
-                        class="rounded-md lg:w-[12rem] lg:h-[8rem] md:w-[10rem] md:h-[10rem] sm:w-[8rem] sm:h-[8rem] xs:w-[7rem] xs:h-[7rem] outline outline-1 
-                        outline-offset-2 outline-blue-500 relative lg:bottom-[5rem] sm:bottom-[4rem] xs:bottom-[3rem]" />
-
-                    <h1
-                        class="w-full text-left my-4 sm:mx-4 xs:pl-4 sm:text-3xl xs:text-xl">
+                    @if ($animal && $animal->photes->isNotEmpty())
+                        <img src="{{ Storage::url($animal->photes->first()->photeAnimal) }}" alt="Animal Image"
+                            class="rounded-md lg:w-[12rem] lg:h-[8rem] md:w-[10rem] md:h-[10rem] sm:w-[8rem] sm:h-[8rem] xs:w-[7rem] xs:h-[7rem] outline outline-1 
+                        outline-offset-2 outline-blue-500 relative lg:bottom-[5rem] sm:bottom-[4rem] xs:bottom-[3rem]">
+                    @else
+                        <img src="{{ asset('img_sistema/animal.jpg') }}" alt="Default Animal Image"
+                            class="rounded-md lg:w-[12rem] lg:h-[8rem] md:w-[10rem] md:h-[10rem] sm:w-[8rem] sm:h-[8rem] xs:w-[7rem] xs:h-[7rem] outline outline-1 
+                        outline-offset-2 outline-blue-500 relative lg:bottom-[5rem] sm:bottom-[4rem] xs:bottom-[3rem]">
+                    @endif
+                    <h1 class="w-full text-left my-4 sm:mx-4 xs:pl-4 sm:text-3xl xs:text-xl">
                         Codigo: {{ $animal->code_animal ?? '' }}
                     </h1>
 
                 </div>
-                <dl
-                    class="col-span-12 lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-4 p-4 m-4">
+                <dl class="col-span-12 lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-4 p-4 m-4">
                     <div class="border-b">
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Responsable</dt>
                         <dd class="text-lg font-semibold">{{ $animal->responsible->name ?? '' }}</dd>
