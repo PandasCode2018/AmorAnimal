@@ -61,6 +61,22 @@
         <i class="fab fa-whatsapp text-3xl"></i>
     </a>
 
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YNW50WQ3RG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-YNW50WQ3RG');
+    </script>
+
+
+
     @stack('modals')
     @yield('scripts')
     @livewireScripts

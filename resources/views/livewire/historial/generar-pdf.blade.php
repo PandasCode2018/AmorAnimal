@@ -99,7 +99,7 @@
                     @foreach ($informacionConsultas as $consulta)
                         <tr>
                             <td>{{ $consulta->date_time_query }}</td>
-                            <td>{{ $consulta->user->name }}</td>
+                            <td>{{ $consulta->doctor->name }}</td>
                             <td>{{ $consulta->reason }}</td>
                             <td>{{ $consulta->queryStatus->name_status }}</td>
                         </tr>

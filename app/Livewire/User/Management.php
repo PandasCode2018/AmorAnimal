@@ -139,6 +139,6 @@ class Management extends Component
 
     public function render()
     {
-        return view('livewire.user.management');
+        return view('livewire.User.management');
     }
 }

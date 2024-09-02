@@ -120,7 +120,7 @@
                             @foreach ($this->informacionConsultas as $consulta)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $consulta->date_time_query }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $consulta->user->name }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $consulta->doctor->name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $consulta->reason }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         {{ $consulta->queryStatus->name_status }}

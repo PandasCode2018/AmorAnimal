@@ -9,7 +9,7 @@ use App\Models\Animal;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Models\Consultation;
-use App\Models\query_status;
+use App\Models\Query_status;
 use App\Http\Traits\WithMessages;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -37,7 +37,7 @@ class Management extends Component
         $this->consultations = new Consultation();
         $this->doctores = User::select();
         $this->animales = Animal::select();
-        $this->estadoConsulta = query_status::select();
+        $this->estadoConsulta = Query_status::select();
         $this->companyId = Auth::user()->company_id;
     }
 

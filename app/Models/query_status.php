@@ -31,7 +31,7 @@ class Query_status extends Model implements Auditable
 
     public static function select()
     {
-        return  static::query()
+        return static::query()
             ->whereNull('deleted_at')
             ->select('id', 'name_status')
             ->get();

@@ -38,6 +38,6 @@ class Detalle extends Component
     }
     public function render()
     {
-        return view('livewire.user.detalle');
+        return view('livewire.User.detalle');
     }
 }
