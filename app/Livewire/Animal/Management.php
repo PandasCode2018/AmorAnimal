@@ -11,6 +11,7 @@ use Livewire\Attributes\On;
 use App\Models\AnimalSpecies;
 use Livewire\WithFileUploads;
 use App\Http\Traits\WithMessages;
+use App\Models\PhoteAnimals;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -24,12 +25,13 @@ class Management extends Component
     public $companyId;
     public $selectResponsable;
     public $selectEspecies;
-    public $imagenAnimalActaul;
+    public $imagenAnimalActaul = [];
     public $image;
     public $prueba;
     public $sexoAnimal = ['Macho', 'Hembra', 'Hermafroditismo', 'Dioico', 'Monoico'];
     public $animalId;
     public $carpetaCompany;
+    public $photeAnimal;
     public function mount()
     {
         $this->animal = new Animal();
@@ -37,6 +39,7 @@ class Management extends Component
         $this->company = Company::find($this->companyId);
         $this->selectResponsable = Responsible::select();
         $this->selectEspecies = AnimalSpecies::select();
+        $this->photeAnimal = new PhoteAnimals();
         $this->carpetaCompany = $this->company->folder;
     }
 
@@ -82,13 +85,19 @@ class Management extends Component
         }
     }
 
-    public function saveFile($file)
+    public function saveFile(array $files, int $animalId): void
     {
-        $nameCarpeta =   $this->carpetaCompany;
-        if ($file && $file instanceof \Illuminate\Http\UploadedFile) {
-            $imageName = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs("empresas/{$nameCarpeta}" . '/animales/', $imageName, 'public');
-            $this->animal->photo = "empresas/{$nameCarpeta}" . '/animales/' . $imageName;
+        $nameCarpeta = $this->carpetaCompany;
+        $rutaBase = "empresas/{$nameCarpeta}/animales/";
+        foreach ($files as $file) {
+            if ($file instanceof \Illuminate\Http\UploadedFile) {
+                $imageName = uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->storeAs($rutaBase, $imageName, 'public');
+                $this->photeAnimal->create([
+                    'photeAnimal' => $rutaBase . $imageName,
+                    'animal_id' => $animalId,
+                ]);
+            }
         }
     }
 
@@ -97,9 +106,8 @@ class Management extends Component
         abort_unless(Gate::any(['Crear animals', 'Editar animals']), 403);
         $this->validate();
         $isEdit = (bool) $this->animal->id;
-        $file = $this->image;
+        $files = is_array($this->image) ? $this->image : [$this->image];
         try {
-            $this->saveFile($file);
             if (!$isEdit) {
                 $this->animal->code_animal = $this->generateCode($this->animal->name);
             }
@@ -107,6 +115,8 @@ class Management extends Component
 
             $this->animal->company_id = $this->companyId;
             $this->animal->save();
+            $animalId  = $this->animal->id;
+            $this->saveFile($files, $animalId);
         } catch (\Throwable $th) {
             $this->showError('Error creando el registro, comuníquese con  soporte.');
             return;
@@ -129,7 +139,7 @@ class Management extends Component
         $this->animal = new Animal();
         if (Uuid::isValid($animalUuid)) {
             $this->animal = Animal::uuid($animalUuid)->first();
-            $this->imagenAnimalActaul = $this->animal->photo ?? null;
+            $this->imagenAnimalActaul = $this->photeAnimal::where('animal_id',$this->animal->id)->get();
         }
         $this->animalModal = true;
     }
@@ -137,7 +147,7 @@ class Management extends Component
     public function closeModal()
     {
         $this->animalModal = false;
-        $this->image = '';
+        $this->image = [];
     }
 
     public function generateCode($name): string

@@ -48,6 +48,6 @@ class Index extends Component
     }
     public function render()
     {
-        return view('livewire.audit.index');
+        return view('livewire.Audit.index');
     }
 }

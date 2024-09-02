@@ -80,7 +80,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        
+
                         <div>
                             <x-custom.input wire:model='animal.age' id="animal.age" label="Edad" type="text" />
                         </div>
@@ -88,17 +88,23 @@
 
                     <div class="grid grid-cols-1 gap-3 p-2">
                         <div>
-                            <input type="file" wire:model="image"
+                            <input type="file" wire:model="image" multiple
                                 class=" items-center p-4 gap-3 rounded-3xl border border-gray-300 border-dashed bg-gray-50 cursor-pointer space-y-2 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
 
                             <div class="flex justify-center">
+
                                 @if ($this->image)
-                                    <img src="{{ $this->image->temporaryUrl() }}" alt="Image Preview"
-                                        class="mt-4 rounded shadow max-w-xs w-44 h-30">
-                                @else
-                                    <img src="{{ $this->imagenAnimalActaul ? Storage::url($this->imagenAnimalActaul) : asset('img_sistema/animal.jpg') }}"
-                                        alt="Image Preview"
-                                        class="mt-4 rounded shadow max-w-xs w-44 h-30">
+                                    @foreach ($this->image as $image)
+                                        <img src="{{ $image->temporaryUrl() }}" alt="Image Preview"
+                                            class="mt-4 rounded shadow max-w-xs w-44 h-30">
+                                    @endforeach
+                                @endif
+                                @if ($this->imagenAnimalActaul)
+                                    @foreach ($this->imagenAnimalActaul as $imagenAnimal)
+                                        <p>
+                                            <img src="{{ $imagenAnimal->photeAnimal ? Storage::url($imagenAnimal->photeAnimal) : asset('img_sistema/animal.jpg') }}"
+                                                alt="Image Preview" class="mt-4 rounded shadow max-w-xs w-44 h-30">
+                                    @endforeach
                                 @endif
                             </div>
                         </div>

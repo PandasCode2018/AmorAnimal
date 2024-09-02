@@ -49,7 +49,7 @@ class Index extends Component
         ];
     }
 
-    public function procesarGuardar($sugerenciaId)
+    public function procesarGuardarImagenes($sugerenciaId)
     {
         $imagenes = $this->imagen;
         $this->validate(['imagen.*' => "nullable|image|max:2048"]);
@@ -82,7 +82,7 @@ class Index extends Component
             $this->sugerencias->user_id = $this->userId;
             $this->sugerencias->save();
             $sugerenciaId = $this->sugerencias->id;
-            $this->procesarGuardar($sugerenciaId);
+            $this->procesarGuardarImagenes($sugerenciaId);
         } catch (\Throwable $th) {
             $this->showError('Error enviando la sugerencia');
             return;

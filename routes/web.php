@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
 
@@ -24,6 +25,17 @@ Route::middleware('guest')->name('public.')->group(function () {
     Route::post('/companies', [CompanyController::class, 'store'])->name('company.store');
 });
 
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/limpiar', function () {
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+        Artisan::call('cache:clear');
+        return response()->json([
+            'message' => 'Caché de rutas, configuración y caché general limpiada con éxito'
+        ]);
+    });
+});
 
 # Grupo de rutas privadas y protegidas
 Route::middleware(['auth'])->group(function () {
@@ -54,9 +66,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/historial', \App\Livewire\Historial\Index::class)->name('index');
     });
     Route::name('profiles.')->group(function () {
-        Route::get('/profile', \App\Livewire\Profile\index::class)->name('index');
+        Route::get('/profile', \App\Livewire\Profile\Index::class)->name('index');
     });
     Route::name('Suggestions.')->group(function () {
-        Route::get('/Suggestion', \App\Livewire\Suggestion\index::class)->name('index');
+        Route::get('/Suggestion', \App\Livewire\Suggestion\Index::class)->name('index');
     });
 });

@@ -4,7 +4,7 @@
             <div class="p-5">
                 <div class="flex justify-between items-center py-3 px-4 border-b">
                     <h3 class="text-nowrap text-lg text-gray-800 dark:text-gray-800">
-                        {{ $animalSpaecie->id ? 'Actualizar especie' : 'Crear especie' }}
+                        {{ $animalSpaecie->id ? 'Actualizar categoría' : 'Crear categoría' }}
                     </h3>
                     <button type="button" wire:click='closeModal'
                         class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-300 hover:bg-gray-200 hover:scale-105 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400">
@@ -44,6 +44,6 @@
                 </div>
             </x-custom.modal.footer>
         </form>
-        <x-custom.cargando message="Creando Usuario ..." tarejt="store" />
+        <x-custom.cargando message="Creando ..." tarejt="store" />
     </x-modal>
 </div>

@@ -32,6 +32,6 @@ class Management extends Component
 
     public function render()
     {
-        return view('livewire.audit.management');
+        return view('livewire.Audit.management');
     }
 }

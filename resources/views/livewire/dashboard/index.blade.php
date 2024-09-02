@@ -47,7 +47,7 @@
                                                 <div
                                                     class="dashboard-1 p-6 bg-gradient-to-r from-green-400 to-blue-500 shadow-lg rounded-xl text-white">
                                                     <div class="font-bold text-lg leading-none capitalize">
-                                                        Buenos días, <br><span
+                                                        Bienvenido, <br><span
                                                             class="pl-2">{{ Auth::user()->name }}</span>
                                                     </div>
                                                     <div class="mt-4">
