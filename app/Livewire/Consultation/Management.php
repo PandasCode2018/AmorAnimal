@@ -30,6 +30,7 @@ class Management extends Component
     public  $estadoInicial = 1;
     public $animalId;
     public $boolOcultar;
+    public $tipoConsultas = ['Vacunación', 'Desparacitación', 'Estético', 'Tratamiento', 'Otro'];
 
 
     public function mount()
@@ -43,6 +44,7 @@ class Management extends Component
 
     protected $validationAttributes = [
         'doctor_id' => 'Doctor',
+        'name' => 'Tipo de cunsulta',
         'reason' => 'Motivo de la consulta',
         'note' => 'Observaciones',
         'date_time_query' => 'Fecha',
@@ -52,6 +54,7 @@ class Management extends Component
     {
         return [
             'consultations.doctor_id' => 'required|exists:users,id',
+            'consultations.name' => 'required|string|max:100',
             'consultations.reason' => 'nullable|string',
             'consultations.note' => 'nullable|string',
             'consultations.date_time_query' => $this->consultations->id ? 'required|date' : 'required|date|after_or_equal:today'
@@ -61,6 +64,7 @@ class Management extends Component
     private function clearString()
     {
         $fillable = $this->consultations->getFillable();
+
         foreach ($fillable as $field) {
             $this->consultations->$field = is_string($this->consultations->$field) ? mb_strtolower(trim($this->consultations->$field)) : $this->consultations->$field;
             if (empty($this->consultations->$field)) {

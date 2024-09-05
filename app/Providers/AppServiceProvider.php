@@ -24,10 +24,18 @@ class AppServiceProvider extends ServiceProvider
         define('ESPERA', 1);
         define('ATENCION', 2);
         define('FINALIZADA', 3);
+        define('POSTERGADO', 4);
 
         #Globales
         define('ACTIVO', 1);
         define('INACTIVO', 0);
         define('YMD', 'Y-m-d');
+
+        #Tipo de consulta
+        define('VACUNACION', 0);
+        define('DESPARACITAACION', 1);
+        define('ESTETICO', 2);
+        define('TRATAMIENTO', 3);
+        define('OTRO', 4);
     }
 }

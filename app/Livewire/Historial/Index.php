@@ -7,7 +7,6 @@ use App\Models\Animal;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Traits\WithMessages;
 use App\Http\Traits\WithTableActions;
 
@@ -27,8 +26,6 @@ class Index extends Component
     protected $queryString = ['search'];
     protected $listeners = ['historial-index:refresh' => 'refresh'];
 
-
-   
 
     public function getAnimalsQueryProperty()
     {

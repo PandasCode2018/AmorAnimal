@@ -1,6 +1,6 @@
 <div>
     <x-modal wire:model='historialModal' maxWidth="3xl" id="manage-historial-modal">
-        <div class="p-5 bg-gray-100 max-h-[900px]  overflow-y-auto">
+        <div class="p-5 bg-gray-100 max-h-[900px] overflow-y-auto">
             <div class="flex justify-between items-center py-3 px-4 border-b">
                 <h3 class="text-nowrap text-2xl text-gray-800 dark:text-gray-800">
                     Historial
@@ -25,9 +25,6 @@
                         <h2 class="text-2xl font-semibold mb-4">{{ $animal->name }}</h2>
                         <hr class="mt-2 mb-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {{--  <div>
-                                <img src="{{ Storage::url($animal->photo) }}" alt="" class="h-20 w-20">
-                            </div> --}}
                             <div>
                                 <label class="font-semibold">Especie:</label>
                                 <p class="text-gray-700">{{ $animal->animalSpecies->name }}</p>
@@ -55,7 +52,7 @@
                         </div>
                     </div>
                 @empty
-                    <p>Error consulta la informacion del animal</p>
+                    <p>Error consulta la información del animal</p>
                 @endforelse
             @endif
 
@@ -68,7 +65,7 @@
                         <hr class="mt-2 mb-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="font-semibold">Docuemnto:</label>
+                                <label class="font-semibold">Documento:</label>
                                 <p class="text-gray-700">{{ $responsable->document_number }}</p>
                             </div>
                             <div>
@@ -86,7 +83,7 @@
                         </div>
                     </div>
                 @empty
-                    <p>Error consulta la informacion del responsable</p>
+                    <p>Error consulta la información del responsable</p>
                 @endforelse
             @endif
 
@@ -122,8 +119,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $consulta->date_time_query }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $consulta->doctor->name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $consulta->reason }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        {{ $consulta->queryStatus->name_status }}
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $consulta->queryStatus->name_status }}
                                     </td>
                                 </tr>
 
@@ -135,63 +131,145 @@
                                             <p class="text-gray-700">{{ $consulta->note }}</p>
                                         </div>
                                     </td>
+                                </tr>
 
-                                    <!-- Tratamientos de la consulta -->
-                                    @foreach ($consulta->treatments as $tratamiento)
+                                <!-- Tratamientos de la consulta -->
+                                @foreach ($consulta->treatments as $tratamiento)
+                                    <tr>
+                                        <td colspan="4" class="px-6 py-4 bg-gray-50">
+                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                <div>
+                                                    <label class="font-semibold">Aplicado:</label>
+                                                    <p class="text-gray-700">{{ $tratamiento->aplicado ? 'Si' : 'No' }}</p>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Nombre del Medicamento:</label>
+                                                    <p class="text-gray-700">{{ $tratamiento->drug_name }}</p>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Presentación:</label>
+                                                    <p class="text-gray-700">{{ $tratamiento->medicine_presentation }}
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Fecha de Aplicación:</label>
+                                                    <p class="text-gray-700">{{ $tratamiento->application_date }}</p>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Fecha de Refuerzo:</label>
+                                                    <p class="text-gray-700">{{ $tratamiento->reinforcement_date }}</p>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Dosis:</label>
+                                                    <p class="text-gray-700">{{ $tratamiento->dose }}</p>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Frecuencia:</label>
+                                                    <p class="text-gray-700">{{ $tratamiento->frequency }}</p>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Interno o Externo:</label>
+                                                    <p class="text-gray-700">
+                                                        {{ $tratamiento->internal_or_external == 1 ? 'Interno' : 'Externo' }}
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <label class="font-semibold">Duración del Tratamiento:</label>
+                                                    <p class="text-gray-700">{{ $tratamiento->treatment_duration }}</p>
+                                                </div>
+                                                <div class="col-span-2">
+                                                    <label class="font-semibold">Notas del tratamiento:</label>
+                                                    <p class="text-gray-700">{{ $tratamiento->note }}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                                <!-- Triage Information -->
                                 <tr>
                                     <td colspan="4" class="px-6 py-4 bg-gray-50">
+                                        <h3 class="text-xl font-semibold mb-4">Triage</h3>
                                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                             <div>
-                                                <label class="font-semibold">Nombre del Medicamento:</label>
-                                                <p class="text-gray-700">{{ $tratamiento->drug_name }}</p>
-                                            </div>
-                                            <div>
-                                                <label class="font-semibold">Presentación:</label>
-                                                <p class="text-gray-700">{{ $tratamiento->medicine_presentation }}
+                                                <label class="font-semibold">Condición Corporal:</label>
+                                                <p class="text-gray-700">{{ $consulta->triage->condicion_corporal ?? null }}
                                                 </p>
                                             </div>
                                             <div>
-                                                <label class="font-semibold">Fecha de Aplicación:</label>
-                                                <p class="text-gray-700">{{ $tratamiento->application_date }}</p>
+                                                <label class="font-semibold">Temperatura Corporal:</label>
+                                                <p class="text-gray-700">{{ $consulta->triage->temperatura_corporal ?? null }} °C
+                                                </p>
                                             </div>
                                             <div>
-                                                <label class="font-semibold">Fecha de Refuerzo:</label>
-                                                <p class="text-gray-700">{{ $tratamiento->reinforcement_date }}</p>
-                                            </div>
-                                            <div>
-                                                <label class="font-semibold">Dosis:</label>
-                                                <p class="text-gray-700">{{ $tratamiento->dose }}</p>
-                                            </div>
-                                            <div>
-                                                <label class="font-semibold">Frecuencia:</label>
-                                                <p class="text-gray-700">{{ $tratamiento->frequency }}</p>
-                                            </div>
-                                            <div>
-                                                <label class="font-semibold">Interno o Externo:</label>
+                                                <label class="font-semibold">Frecuencia Respiratoria:</label>
                                                 <p class="text-gray-700">
-                                                    {{ $tratamiento->internal_or_external == 1 ? 'Interno' : 'Externo' }}
+                                                    {{ $consulta->triage->frecuencia_respiratoria ?? null }} (R/min)</p>
+                                            </div>
+                                            <div>
+                                                <label class="font-semibold">Relleno Capilar:</label>
+                                                <p class="text-gray-700">{{ $consulta->triage->relleno_capilar ?? null }}</p>
+                                            </div>
+                                            <div>
+                                                <label class="font-semibold">Mucosa:</label>
+                                                <p class="text-gray-700">{{ $consulta->triage->mucosa ?? null }}</p>
+                                            </div>
+                                            <div>
+                                                <label class="font-semibold">Frecuencia Cardiaca:</label>
+                                                <p class="text-gray-700">{{ $consulta->triage->frecuencia_cardiaca ?? null }} Lmp
                                                 </p>
                                             </div>
                                             <div>
-                                                <label class="font-semibold">Duración del Tratamiento:</label>
-                                                <p class="text-gray-700">{{ $tratamiento->treatment_duration }}</p>
+                                                <label class="font-semibold">Pulso:</label>
+                                                <p class="text-gray-700">{{ $consulta->triage->pulso ?? null }}</p>
                                             </div>
-                                            <div class="col-span-2">
-                                                <label class="font-semibold">Notas del tratamiento:</label>
-                                                <p class="text-gray-700">{{ $tratamiento->note }}</p>
+                                            <div>
+                                                <label class="font-semibold">Número de Partos:</label>
+                                                <p class="text-gray-700">{{ $consulta->triage->numero_pardos ?? null }}</p>
+                                            </div>
+                                            <div>
+                                                <label class="font-semibold">Esterilizado:</label>
+                                                <p class="text-gray-700">
+                                                    {{ $consulta->triage->esterilizado ?? null ? 'Sí' : 'No' }}</p>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="grid grid-cols-1 sm:grid-cols-1 gap-4">
+                                            <div>
+                                                <label class="font-semibold">Última Desparacitación:</label>
+                                                <p class="text-gray-700">
+                                                    {{ $consulta->triage->ultima_desparacitacion ?? null }}</p>
+                                            </div>
+                                            <div>
+                                                <label class="font-semibold">Cirugías Previas:</label>
+                                                <p class="text-gray-700">{{ $consulta->triage->cirugias_previas ?? null }}</p>
+                                            </div>
+                                            <div>
+                                                <label class="font-semibold">Esquema Vacunal:</label>
+                                                <p class="text-gray-700">{{ $consulta->triage->esquema_vacunal ?? null }}</p>
+                                            </div>
+                                            <div>
+                                                <label class="font-semibold">Tratamiento Reciente:</label>
+                                                <p class="text-gray-700">{{ $consulta->triage->tratamiento_reciente ?? null }}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label class="font-semibold">Enfermedades Previas:</label>
+                                                <p class="text-gray-700">{{ $consulta->triage->enfermedades_previas ?? null }}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label class="font-semibold">Dieta:</label>
+                                                <p class="text-gray-700">{{ $consulta->triage->dieta ?? null }}</p>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
                             @endforeach
-            @endforeach
-            </tbody>
-            </table>
+                        </tbody>
+                    </table>
+                </div>
+            @endif
         </div>
-    @else
-        <p>No hay consultas médicas disponibles.</p>
-        @endif
-
-</div>
-</x-modal>
+    </x-modal>
 </div>

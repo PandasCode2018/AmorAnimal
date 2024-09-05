@@ -55,8 +55,7 @@
                                                 <th class="p-3 text-center">Aplicación</th>
                                                 <th class="p-3 text-center">Refuerzo</th>
                                                 <th class="p-3 text-center">Dosis</th>
-                                                <th class="p-3 text-center">Frecuencia</th>
-                                                <th class="p-3 text-center">Duración</th>
+                                                <th class="p-3 text-center">Aplicada</th>
                                                 <th class="p-3 text-center">Acciones</th>
                                             </tr>
                                         </thead>
@@ -73,10 +72,20 @@
                                                         <td class="p-3 text-center">
                                                             {{ $tratamiento->application_date }}</td>
                                                         <td class="p-3">
-                                                            {{ $tratamiento->reinforcement_date ?? 'no aplica' }} </td>
+                                                            {{ $tratamiento->reinforcement_date ?? 'No aplica' }} </td>
                                                         <td class="p-3">{{ $tratamiento->dose }} </td>
-                                                        <td class="p-3">{{ $tratamiento->frequency }} </td>
-                                                        <td class="p-3">{{ $tratamiento->treatment_duration }} </td>
+                                                        <td class="p-3">
+                                                            @if (!$tratamiento->aplicado)
+                                                                <a wire:click="$dispatch('aplicarTratamiento', {tratamientoUuid: '{{ $tratamiento->uuid }}', aplicada: false})"
+                                                                    title="Marcar como aplicado"
+                                                                    class="bg-slate-400  text-white cursor-pointer rounded p-1 mx-1  hover:bg-green-500">
+                                                                    <i class="fa-regular fa-square-check text-lg"></i>
+                                                                </a>
+                                                            @else
+                                                                <p class="text-green-500 font-semibold">Aplicada</p>
+                                                            @endif
+                                                        </td>
+
 
                                                         <td class="p-3">
                                                             <a wire:click="$dispatch('detalleTratamientoModal', {tratamientoUuid: '{{ $tratamiento->uuid }}'})"
@@ -84,21 +93,24 @@
                                                                 title="Ver consulta completa">
                                                                 <i class="fas fa-eye"></i>
                                                             </a>
-                                                            @can('Editar treatments')
-                                                                <a wire:click="$dispatch('openTratamientoModal',{tratamientoUuid:'{{ $tratamiento->uuid }}'})"
-                                                                    class="tourTratamiento-3 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
-                                                                    title="Editar tratamientos">
-                                                                    <i class="fas fa-edit"></i>
-                                                                </a>
-                                                            @endcan
-                                                            @can('Eliminar treatments')
-                                                                <a class="tourTratamiento-4 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
-                                                                    title="Eliminar tratamiento"
-                                                                    wire:click="delete('treatments','{{ $tratamiento->uuid }}')"
-                                                                    wire:confirm.prompt="{{ $this->confirmQuestion }}">
-                                                                    <i class="fas solid fa-trash-can"></i>
-                                                                </a>
-                                                            @endcan
+                                                            @if (!$tratamiento->aplicado)
+                                                                @can('Editar treatments')
+                                                                    <a wire:click="$dispatch('openTratamientoModal', {tratamientoUuid: '{{ $tratamiento->uuid }}'})"
+                                                                        class="tourTratamiento-3 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:scale-110"
+                                                                        title="Editar tratamientos">
+                                                                        <i class="fas fa-edit"></i>
+                                                                    </a>
+                                                                @endcan
+                                                                @can('Eliminar treatments')
+                                                                    <a class="tourTratamiento-4 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-red-500"
+                                                                        title="Eliminar tratamiento"
+                                                                        wire:click="delete('treatments', '{{ $tratamiento->uuid }}')"
+                                                                        wire:confirm.prompt="{{ $this->confirmQuestion }}">
+                                                                        <i class="fas fa-trash-can"></i>
+                                                                    </a>
+                                                                @endcan
+                                                            @endif
+
                                                         </td>
                                                     </tr>
                                                 @empty

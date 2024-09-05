@@ -29,25 +29,6 @@ class Company extends Model implements Auditable
         'folder',
         'boolFundacion'
     ];
-/* 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            // Asignar un valor temporal o nulo
-            $model->company_id = null;
-        });
-
-        static::created(function ($model) {
-            // Actualizar el valor de company_id si es necesario
-            if (Auth::check()) {
-                $model->company_id = Auth::user()->company_id;
-                $model->save();
-            }
-        });
-    } */
-
 
     public function users()
     {

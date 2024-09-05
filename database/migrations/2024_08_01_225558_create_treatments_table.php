@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('dose', 50)->nullable();
             $table->string('frequency', 200)->nullable();
             $table->boolean('internal_or_external')->nullable();
-            $table->string('treatment_duration')->nullable(true);
+            $table->boolean('aplicado')->default(0);
             $table->longText('note')->nullable();
             $table->timestamps();
             $table->softDeletes();

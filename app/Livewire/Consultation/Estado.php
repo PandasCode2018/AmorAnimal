@@ -37,9 +37,14 @@ class Estado extends Component
         switch ($orden) {
             case ESPERA:
                 $excluirEstados[] = FINALIZADA;
+                $excluirEstados[] = POSTERGADO;
                 break;
             case ATENCION:
                 $excluirEstados[] = ATENCION;
+                break;
+            case POSTERGADO:
+                $excluirEstados[] = ATENCION;
+                $excluirEstados[] = POSTERGADO;
                 break;
         }
         $queryEstado->whereNotIn('orden', $excluirEstados);

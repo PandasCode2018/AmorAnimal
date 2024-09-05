@@ -52,7 +52,10 @@
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Dureación</dt>
                         <dd class="text-lg font-semibold">{{ $treatment->treatment_duration ?? '' }}</dd>
                     </div>
-
+                    <div class="border-b">
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Tipo tratamiento</dt>
+                        <dd class="text-lg font-semibold">{{ $treatment->tipo_tratamiento ?? '' }}</dd>
+                    </div>
                 </dl>
                 <div class="col-span-12 lg:col-span-12 grid grid-cols-1 md:grid-cols-1 gap-1 p-3 m-2 text-gray-900 ">
                     <div class="border-b">
