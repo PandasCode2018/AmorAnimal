@@ -22,8 +22,8 @@ return [
         ],
         [
             'element' => 'dashboard-3',
-            'title' => 'Consultas para hoy',
-            'text' => 'Muestra el numero total de consultas que esta registradas para el dia de hoy.',
+            'title' => 'Consultas  postergadas',
+            'text' => 'Son las consultas que están postergadas porque siguen un cuadro de varios pasos.',
         ],
         [
             'element' => 'dashboard-4',
@@ -214,8 +214,30 @@ return [
         ],
         [
             'element' => 'tourConsulta-2',
-            'title' => 'Estado',
-            'text' => 'Este botón te permite cambiar el estado de una consulta. Si está en espera solo puede pasar a cancelado o atención, si esta en estado de atención solo puede pasar a finalizada o cancelada. <br> Las consultas en estado de cancelada y finalizada no estarán en el listado.',
+            'title' => 'Estados',
+            'text' => '<div class="p-4">
+    <p class="text-gray-700 mb-4">
+        Este botón te permite cambiar el estado de una consulta. Si está en espera, solo puede pasar a cancelado o a atención. Si está en estado de atención, solo puede pasar a finalizada o cancelada. Las consultas en estado de cancelada y finalizada no estarán en el listado.
+    </p>
+    <ul class="list-disc ml-6 mt-4 space-y-2 text-gray-800">
+        <li>
+            <strong class="text-indigo-600">Espera:</strong> No se pueden realizar acciones a las consultas médicas hasta que pasen a estado de atención.
+        </li>
+        <li>
+            <strong class="text-indigo-600">Atención:</strong> Puedes realizar acciones a las consultas médicas.
+        </li>
+        <li>
+            <strong class="text-indigo-600">Postergado:</strong> Permite tener las consultas en un estado de espera, opciones para tratamientos largos como vacunación o desparasitación.
+        </li>
+        <li>
+            <strong class="text-indigo-600">Finalizada:</strong> Este estado marca una consulta médica como terminada. Los tratamientos agregados deben estar aplicados o eliminados para poder finalizar.
+        </li>
+        <li>
+            <strong class="text-indigo-600">Cancelada:</strong> Este estado cancela una consulta médica y la quita del listado.
+        </li>
+    </ul>
+</div>
+',
         ],
         [
             'element' => 'tourConsulta-3',
@@ -226,6 +248,11 @@ return [
             'element' => 'tourConsulta-4',
             'title' => 'Editar',
             'text' => 'Este botón te permite editar la información de la consulta, solo se puede editar el motivo de la consulta y las observaciones.',
+        ],
+        [
+            'element' => 'tourConsulta-5',
+            'title' => 'triage',
+            'text' => 'Revisión inicial permite tener un registro de como ingresa el animal, asegurando que los casos más críticos reciban tratamiento inmediato, mientras que los menos urgentes son gestionados en función de su nivel de prioridad.',
         ],
     ],
     'tratamientos' =>
@@ -283,6 +310,16 @@ return [
             'element' => 'tourHistorial-3',
             'title' => 'Descargar',
             'text' => 'Este boton te permite descargar el historial de consultas y medicamentos aplicados a un animal.',
+        ],
+        [
+            'element' => 'tourHistorial-4',
+            'title' => 'Vacunación',
+            'text' => 'Este boton te permite ver el historial de vacunas aplicadas al animal.',
+        ],
+        [
+            'element' => 'tourHistorial-5',
+            'title' => 'Desparacitación',
+            'text' => 'Este boton te permite ver el historial de despracitaciones aplicadas al animal.',
         ],
     ],
     'auditoria' =>

@@ -34,6 +34,7 @@
                             <table class="w-full my-0 align-middle text-dark border-neutral-200">
                                 <thead class="align-bottom">
                                     <tr class="font-semibold text-secondary-dark border p-3">
+                                        <th class="p-3 text-left">Consulta</th>
                                         <th class="p-3 text-left">Animal</th>
                                         <th class="p-3 text-left">Responsable</th>
                                         <th class="p-3 text-left">Doctor</th>
@@ -50,7 +51,8 @@
                                 <tbody>
                                     @forelse ($this->Consultations as $consulta)
                                         <tr
-                                            class="border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
+                                            class="{{ $consulta->boolProximacita ? 'bg-red-100' : '' }} border-b border-dashed last:border-b-0 shadow-sm text-center transform transition-all duration-200 hover:shadow-md hover:scale-15 hover:border-dashed hover:border-b hover:border-blue-200">
+                                            <td class="p-3 text-left"> {{ $consulta->name }}</td>
                                             <td class="p-3 text-left"> {{ $consulta->animal->name }}</td>
                                             <td class="p-3 text-left"> {{ $consulta->animal->responsible->name }}</td>
                                             <td class="p-3 capitalize text-left">{{ $consulta->doctor->name }}</td>
@@ -72,6 +74,13 @@
                                             @endcan
                                             <td class="p-3">
                                                 @if ($consulta->queryStatus->orden != 1)
+                                                    @can('Editar consultations')
+                                                        <a wire:click="$dispatch('openModalTriage', {consultaUuid:'{{ $consulta->uuid }}', triageid:{{ $consulta->triage->id ?? 0 }}})"
+                                                            class="tourConsulta-4 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-yellow-300 hover:cale-110"
+                                                            title="Agregar triage">
+                                                            <i class="fa-solid fa-kit-medical"></i>
+                                                        </a>
+                                                    @endcan
                                                     @can('Ver treatments')
                                                         <a wire:click="$dispatch('indexTratamientoModal',{idConsulta: '{{ $consulta->id }}'})"
                                                             class="tourConsulta-3 bg-slate-400 cursor-pointer rounded p-1 mx-1 text-white hover:bg-green-500"
@@ -116,4 +125,8 @@
 
 @push('modals')
     <livewire:consultation.estado />
+@endpush
+
+@push('modals')
+    <livewire:treatment.valoracion />
 @endpush

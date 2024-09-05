@@ -66,7 +66,7 @@ class Management extends Component
             'animal.color' => 'nullable|string|max:100',
             'animal.animal_species_id' => 'required|exists:animal_species,id',
             'animal.animal_race' => 'nullable|string|max:100',
-            'animal.weight' => 'nullable|numeric|max:100',
+            'animal.weight' => 'nullable|numeric|max:10000',
             'animal.sex' => 'nullable|string|max:50',
             'animal.age' => 'nullable|numeric|max:1000',
             'animal.blood_type' => 'nullable|string|max:100',

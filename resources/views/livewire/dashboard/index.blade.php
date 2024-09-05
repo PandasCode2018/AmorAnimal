@@ -80,14 +80,14 @@
                                                 <div class="flex items-center space-x-4">
                                                     <div
                                                         class="flex items-center justify-center w-12 h-12 rounded-full bg-cyan-50 text-cyan-400">
-                                                        <i class="fas fa-stethoscope text-2xl"></i>
+                                                        <i class="fas fa-clock text-2xl"></i>
                                                     </div>
                                                     <div>
                                                         <div class="text-gray-400"> <a
                                                                 href="{{ route('consultation.index') }}">
-                                                                Consultas para Hoy</a> </div>
+                                                                Refuerzo en tratamiento </a> </div>
                                                         <div class="text-2xl font-bold text-gray-900">
-                                                            {{ $this->totalConsultasHoy }}</div>
+                                                            {{ $this->totalConsultasPsotergadas }}</div>
                                                     </div>
                                                 </div>
                                             </div>

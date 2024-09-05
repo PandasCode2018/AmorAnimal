@@ -36,7 +36,13 @@
                                         <th class="p-3 text-left">Nombre</th>
                                         <th class="p-3 text-center">Responsable</th>
                                         @can('Ver historial')
-                                            <th class="p-3 text-center">Ver</th>
+                                            <th class="p-3 text-center">Vacunación</th>
+                                        @endcan
+                                        @can('Ver historial')
+                                            <th class="p-3 text-center">Desparacitación</th>
+                                        @endcan
+                                        @can('Ver historial')
+                                            <th class="p-3 text-center">Hitorial</th>
                                         @endcan
                                         @can('Descargar historial')
                                             <th class="p-3 text-center">Descargar</th>
@@ -51,10 +57,26 @@
                                             <td class="p-3  text-left"> {{ $animal->name }}</td>
                                             <td class="p-3 text-center"> {{ $animal->responsible->name }}</td>
                                             @can('Ver historial')
+                                                <td> <a wire:click="$dispatch('VerDetalleTratamientoFreacion',{animalId:{{ $animal->id }}, tipoTratamiento:'Vacunacion'})"
+                                                        class="tourHistorial-4 bg-slate-200 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-200"
+                                                        title="Ver información de vacunación">
+                                                        <i class="fas fa-syringe text-blue-500 text-lg"></i>
+                                                    </a>
+                                                </td>
+                                            @endcan
+                                            @can('Ver historial')
+                                                <td> <a wire:click="$dispatch('VerDetalleTratamientoFreacion',{animalId:{{ $animal->id }}, tipoTratamiento:'Desparacitacion'})"
+                                                        class="tourHistorial-5 bg-slate-200 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-200"
+                                                        title="Ver información de desparacitación">
+                                                        <i class="fas fa-pills text-blue-500 text-lg"></i>
+                                                    </a>
+                                                </td>
+                                            @endcan
+                                            @can('Ver historial')
                                                 <td> <a wire:click="$dispatch('openModalHistorial',{animalId:{{ $animal->id }}, responsableId:{{ $animal->responsible_id }}})"
                                                         class="tourHistorial-2 bg-slate-200 cursor-pointer rounded p-1 mx-1 text-white hover:bg-blue-200"
                                                         title="Ver información completa">
-                                                        <i class="fas fa-eye text-blue-500 text-lg"></i>
+                                                        <i class="fas fa-file-medical text-blue-500 text-lg"></i>
                                                     </a>
                                                 </td>
                                             @endcan
@@ -85,6 +107,9 @@
     </div>
 </div>
 
+@push('modals')
+    <livewire:historial.tratamiento />
+@endpush
 @push('modals')
     <livewire:historial.management />
 @endpush

@@ -30,6 +30,7 @@ class Treatment extends Model implements Auditable
         'internal_or_external',
         'treatment_duration',
         'note',
+        'aplicado'
     ];
 
 

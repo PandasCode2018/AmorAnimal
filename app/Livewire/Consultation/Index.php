@@ -22,6 +22,7 @@ class Index extends Component
     public $perPage = 6;
     protected $queryString = ['search'];
     protected $listeners = ['consultation-index:refresh' => 'refresh'];
+    public $tipoConsultas = [0 => 'Vacunación', 1 => 'Desparacitación', 2 => 'Estético', 3  => 'Tratamiento', 4 => 'Otro'];
 
     public function getConsultationsQueryProperty()
     {

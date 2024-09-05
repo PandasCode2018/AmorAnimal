@@ -19,6 +19,9 @@ class Management extends Component
     public $tratamientoModal = false;
     public $companyId;
     public $idConsulta;
+    public $tratamientoBasico = '';
+    public $tratamientoVacunacion = '';
+    public $tratamientoDesparacitacion = '';
     public $internaOexterna = ['0' => 'Interna', '1' => 'Externa'];
     public $presentaciones = [
         'Tabletas',
@@ -29,13 +32,13 @@ class Management extends Component
         'Polvos',
         'Geles',
         'Pastas',
+        'Estético'
     ];
     public function mount()
     {
         $this->treatment = new Treatment();
         $this->companyId = Auth::user()->company_id;
     }
-
 
     protected $validationAttributes = [
         'drug_name' => 'Medicamento',
@@ -62,6 +65,7 @@ class Management extends Component
             'treatment.internal_or_external' => 'required',
             'treatment.treatment_duration' => 'nullable|string|max:30',
             'treatment.note' => 'nullable',
+            'treatment.aplicado' => 'nullable',
         ];
     }
 
@@ -101,9 +105,9 @@ class Management extends Component
         } else {
             $this->showSuccess('Tratamiento creado correctamente');
         }
-       
         $this->closeModal();
         $this->dispatch('treatment-index:refresh');
+        $this->dispatch('consultation-index:refresh');
         $this->dispatch('loadTreatmentData');
         $this->treatment = new Treatment();
     }
@@ -113,7 +117,6 @@ class Management extends Component
     {
         $this->idConsulta = $consultaId;
     }
-
 
     #[On('openTratamientoModal')]
     public function openModal($tratamientoUuid = '')
@@ -126,6 +129,28 @@ class Management extends Component
         $this->tratamientoModal = true;
     }
 
+    #[On('aplicarTratamiento')]
+    public function aplicar($tratamientoUuid, $aplicada)
+    {
+        if (empty($tratamientoUuid) || !uuid::isValid($tratamientoUuid)) {
+            $this->showWarning('Error obteniendo los datos del tratamiento');
+            return;
+        }
+        $tratamiento = Treatment::uuid($tratamientoUuid)->first();
+        if (!$tratamiento) {
+            $this->showWarning('Tratamiento no encontrado');
+            return;
+        }
+
+        if ((int)$aplicada === 1) {
+            $this->showWarning('El medicamento  ya fue aplicado');
+            return;
+        }
+        $tratamiento->aplicado = !$aplicada;
+        $tratamiento->save();
+        $this->showSuccess('Estado del tratamiento actualizado con éxito');
+        $this->dispatch('treatment-index:refresh');
+    }
     public function closeModal()
     {
         $this->tratamientoModal = false;

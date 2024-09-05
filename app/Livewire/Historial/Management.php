@@ -47,7 +47,7 @@ class Management extends Component
 
     public function getInformacionConsulta($animalId)
     {
-        return Consultation::with(['treatments', 'queryStatus'])
+        return Consultation::with(['treatments', 'queryStatus', 'triage'])
             ->where('animal_id', $animalId)
             ->orderByDesc('date_time_query')
             ->get();

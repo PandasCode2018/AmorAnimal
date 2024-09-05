@@ -129,6 +129,87 @@
                                 </td>
                             </tr>
                         @endforeach
+
+
+
+                        <tr>
+                            <td colspan="4" class="px-6 py-4 bg-gray-50">
+                                <h3 class="text-xl font-semibold mb-4">Triage</h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="font-semibold">Condición Corporal:</label>
+                                        <p class="text-gray-700">{{ $consulta->triage->condicion_corporal ?? null }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold">Temperatura Corporal:</label>
+                                        <p class="text-gray-700">{{ $consulta->triage->temperatura_corporal ?? null }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold">Frecuencia Respiratoria:</label>
+                                        <p class="text-gray-700">
+                                            {{ $consulta->triage->frecuencia_respiratoria ?? null }} °C</p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold">Relleno Capilar:</label>
+                                        <p class="text-gray-700">{{ $consulta->triage->relleno_capilar ?? null }}</p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold">Mucosa:</label>
+                                        <p class="text-gray-700">{{ $consulta->triage->mucosa ?? null }}</p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold">Frecuencia Cardiaca:</label>
+                                        <p class="text-gray-700">{{ $consulta->triage->frecuencia_cardiaca ?? null }} Lpm
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold">Pulso:</label>
+                                        <p class="text-gray-700">{{ $consulta->triage->pulso ?? null }}</p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold">Número de Partos:</label>
+                                        <p class="text-gray-700">{{ $consulta->triage->numero_pardos ?? null }}</p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold">Esterilizado:</label>
+                                        <p class="text-gray-700">
+                                            {{ $consulta->triage->esterilizado ?? null ? 'Sí' : 'No' }}</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="grid grid-cols-1 sm:grid-cols-1 gap-4">
+                                    <div>
+                                        <label class="font-semibold">Última Desparacitación:</label>
+                                        <p class="text-gray-700">
+                                            {{ $consulta->triage->ultima_desparacitacion ?? null }}</p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold">Cirugías Previas:</label>
+                                        <p class="text-gray-700">{{ $consulta->triage->cirugias_previas ?? null }}</p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold">Esquema Vacunal:</label>
+                                        <p class="text-gray-700">{{ $consulta->triage->esquema_vacunal ?? null }}</p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold">Tratamiento Reciente:</label>
+                                        <p class="text-gray-700">{{ $consulta->triage->tratamiento_reciente ?? null }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold">Enfermedades Previas:</label>
+                                        <p class="text-gray-700">{{ $consulta->triage->enfermedades_previas ?? null }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <label class="font-semibold">Dieta:</label>
+                                        <p class="text-gray-700">{{ $consulta->triage->dieta ?? null }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

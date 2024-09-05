@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique()->nullable(false);
             $table->foreignId('company_id')->nullable()->constrained('companies')->onDelete('set null');
+            $table->string('name', 500)->nullable();
             $table->foreignId('animal_id')->nullable()->constrained('animals')->onDelete('set null');
             $table->foreignId('doctor_id')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('query_status_id')->nullable()->constrained('query_status')->onDelete('set null');

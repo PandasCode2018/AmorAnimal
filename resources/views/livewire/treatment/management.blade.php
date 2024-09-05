@@ -4,7 +4,7 @@
             <div class="p-5">
                 <div class="flex justify-between items-center py-3 px-4 border-b">
                     <h3 class="text-nowrap text-2xl text-gray-800 dark:text-gray-800">
-                        Agregar tratamiento
+                        {{ $treatment->id ? 'Actualizar tratamiento' : 'Agregar tratamiento' }}
                     </h3>
                     <button type="button" wire:click='closeModal'
                         class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-300 hover:bg-gray-200 hover:scale-105 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400">
@@ -23,6 +23,7 @@
                             <x-custom.input wire:model="treatment.drug_name" id="treatment.drug_name"
                                 label="Medicamento" type="text" required />
                         </div>
+
                         <div>
                             <x-custom.input-select title="Interno o externa" label="Presentación" required
                                 wire:model="treatment.medicine_presentation" id="treatment.medicine_presentation">
@@ -32,6 +33,7 @@
                                 @endforeach
                                 </x-custom-input-select>
                         </div>
+
                     </div>
                     <div class="grid grid-cols-1 gap-3 pt-3 p-2 sm:grid-cols-2">
                         <div>
@@ -103,7 +105,7 @@
             <x-custom.modal.footer>
                 <div class="text-right">
                     <x-custom.button class="bg-green-300 hover:bg-green-500 " type="submit">
-                        Guardar
+                        {{ $treatment->id ? 'Actualizar' : 'Agregar' }}
                     </x-custom.button>
                 </div>
             </x-custom.modal.footer>

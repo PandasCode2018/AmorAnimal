@@ -10,7 +10,7 @@
                         @can('Crear especies')
                             <x-custom.button wire:click="$dispatch('openEspecieModal')" title="Agregar nuevo registro"
                                 class="tourAnimales-8 w-full sm:w-auto bg-[#7a7cbf] hover:bg-[#6c6ea7] text-white py-2 px-4 text-base sm:text-sm font-medium">
-                                Nuevo categoría
+                                Nuevo especie
                             </x-custom.button>
                         @endcan
                     </div>
