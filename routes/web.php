@@ -26,6 +26,7 @@ Route::middleware('guest')->name('public.')->group(function () {
 });
 
 
+#limpiar ruta, config, cache
 Route::middleware(['auth'])->group(function () {
     Route::get('/limpiar', function () {
         Artisan::call('route:clear');
@@ -34,6 +35,13 @@ Route::middleware(['auth'])->group(function () {
         return response()->json([
             'message' => 'Caché de rutas, configuración y caché general limpiada con éxito'
         ]);
+    });
+});
+
+# crear link simbolico 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/storage-link', function () {
+        Artisan::call('storage:link');
     });
 });
 
