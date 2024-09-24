@@ -13,7 +13,8 @@
 ## Requisitos
 
 - PHP 7.4 o superior
-- Laravel 8.x o superior
+- Laravel 10
+- liviwire version 3
 - Composer
 - MySQL o MariaDB
 - Servidor web (Apache o Nginx)
@@ -23,5 +24,5 @@
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tuusuario/amor-animal.git
+git clone https://github.com/PandasCode2018/AmorAnimal.git
 cd amor-animal
